@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Dashboard from "../Dashboard";
 import Profile from "../Profile";
-import Calendar from "../Calendar";
+import CalendarApp from "../CalendarApp";
 import Reminders from "../Reminders";
 import Notes from "../Notes";
 import Tools from "../Tools";
@@ -84,7 +84,7 @@ export default function Navbar() {
                     <Profile />
                   </Route>
                   <Route path="/calendar">
-                    <Calendar />
+                    <CalendarApp />
                   </Route>
                   <Route path="/reminders">
                     <Reminders />
