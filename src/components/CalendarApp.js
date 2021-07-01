@@ -4,9 +4,9 @@ import 'react-calendar/dist/Calendar.css';
 
 export default function CalendarApp() {
   return (
-    <div>
+    <div style={{backgroundColor: "red"}}>
       <h1>Calendar Page</h1>
-      <div style={{ marginLeft: "100px", marginRight: "100px"}}>
+      <div>
         <Calendar />
       </div>
     </div>
