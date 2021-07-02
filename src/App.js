@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState } from "react";
 
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
 
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import CalendarApp from "./components/CalendarApp";
 import Reminders from "./components/Reminders";
 import Notes from "./components/Notes";
-import Tools from "./components/Tools";
+import Extras from "./components/Extras";
 import Settings from "./components/Settings"
 
 function App() {
@@ -31,12 +31,14 @@ function App() {
       <div className="App">
         <Navbar toggleNavbarHandler={toggleNavbarHandler} isExpanded={isExpanded}/>
         <Switch>
+          {/* <div> */}
           <div className={`transition-all ${ isExpanded ? "ml-48" : "ml-14"}`}>
             <Route path="/" exact component={Dashboard} />
             <Route path="/calendar" component={CalendarApp} />
             <Route path="/reminders" component={Reminders} />
             <Route path="/notes" component={Notes} />
-            <Route path="/tools" component={Tools} />
+            {/* <Route path="/notes" render={(props) => <Notes {...props} isExpanded={isExpanded} />}/> */}
+            <Route path="/extras" component={Extras} />
             <Route path="/profile" component={Profile} />
             <Route path="/settings" component={Settings} />
           </div>

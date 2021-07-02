@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Tools() {
+export default function Extras() {
   return (
     <div>
-      <h1>Tools Page</h1>
+      <h1>Extras Page</h1>
     </div>
   )
 }
