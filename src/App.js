@@ -9,6 +9,7 @@ import CalendarApp from "./components/CalendarApp";
 import Reminders from "./components/Reminders";
 import Notes from "./components/Notes";
 import Tools from "./components/Tools";
+import Settings from "./components/Settings"
 
 function App() {
 
@@ -32,11 +33,12 @@ function App() {
         <Switch>
           <div className={`transition-all ${ isExpanded ? "ml-48" : "ml-14"}`}>
             <Route path="/" exact component={Dashboard} />
-            <Route path="/profile" component={Profile} />
             <Route path="/calendar" component={CalendarApp} />
             <Route path="/reminders" component={Reminders} />
             <Route path="/notes" component={Notes} />
             <Route path="/tools" component={Tools} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/settings" component={Settings} />
           </div>
         </Switch>
       </div>
