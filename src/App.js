@@ -1,7 +1,11 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect} from "react";
+
+import HashLoader from "react-spinners/HashLoader";
 
 import Navbar from "./components/navbar/Navbar";
+
+// import "react-calendar/dist/Calendar.css";
 
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
@@ -13,6 +17,16 @@ import Settings from "./components/Settings";
 import SidePanel from "./components/sidebar/SidePanel";
 
 function App() {
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  }, [])
+
   const sidebarCollapsed = localStorage.getItem("sidebar-collapsed");
   const [isExpanded, setIsExpanded] = useState(sidebarCollapsed ? false : true);
 
@@ -42,8 +56,15 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="App">
+    <div className="App">
+    {
+      loading ?
+
+      <div className="text-center justify-center items-center flex w-screen h-screen">
+      <HashLoader color={"#3B82F6"} loading={loading} size={75} />
+      </div>
+      : 
+      <Router>
         <Navbar
           toggleNavbarHandler={toggleNavbarHandler}
           isExpanded={isExpanded}
@@ -55,7 +76,7 @@ function App() {
         <Switch>
           <div className={`transition-all ${isExpanded ? "ml-48" : "ml-14"}`}>
             <Route path="/" exact component={Dashboard} />
-            <Route path="/calendar" component={CalendarApp} />
+            {/* <Route path="/calendar" component={CalendarApp} /> */}
             <Route path="/reminders" component={Reminders} />
             <Route path="/notes" render={(props) => <Notes {...props} isSideExpanded={isSideExpanded} />} />
             <Route path="/extras" component={Extras} />
@@ -63,8 +84,10 @@ function App() {
             <Route path="/settings" component={Settings} />
           </div>
         </Switch>
-      </div>
-    </Router>
+      </Router>
+    }
+      
+    </div>
   );
 }
 

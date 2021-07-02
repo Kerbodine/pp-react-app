@@ -7,7 +7,6 @@ export default function CalendarApp() {
     <div className={"bg-red-200"}>
       <div>
       <PageCalendar />
-        {/* <Calendar /> */}
       </div>
     </div>
   );

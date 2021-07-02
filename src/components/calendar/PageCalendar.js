@@ -1,6 +1,5 @@
 import React from 'react'
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 
 import { BiSearch } from "react-icons/bi";
 
@@ -20,7 +19,7 @@ export default function PageCalendar() {
         />        
       </div>
       <div className="h-8"></div>
-      <Calendar className="text-black"/>
+      <Calendar calendarType="ISO 8601"/>
     </div>
   )
 }

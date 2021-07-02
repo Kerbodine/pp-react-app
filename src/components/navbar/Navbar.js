@@ -45,13 +45,13 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
               expanded={isExpanded}
             ></NavbarItem>
           </Link>
-          <Link to="/calendar">
+          {/* <Link to="/calendar">
             <NavbarItem
               icon={<BiCalendar />}
               title="Calendar"
               expanded={isExpanded}
             />
-          </Link>
+          </Link> */}
           <Link to="/reminders">
             <NavbarItem
               icon={<BiCheckSquare />}
