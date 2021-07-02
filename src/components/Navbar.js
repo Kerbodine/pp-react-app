@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { MdDashboard, MdAccountBox } from "react-icons/md";
 import { BiCalendar, BiCheckSquare, BiNote, BiWrench, BiMenu } from "react-icons/bi";
 import { IconContext } from "react-icons";
@@ -8,20 +7,7 @@ import { Link } from "react-router-dom";
 import NavbarTitle from "./NavbarTitle";
 import NavbarItem from "./NavbarItem";
 
-export default function Navbar() {
-
-  const sidebarCollapsed = localStorage.getItem("sidebar-collapsed");
-  const [isExpanded, setIsExpanded] = useState(sidebarCollapsed ? false : true)
-
-  const toggleNavbarHandler = () => {
-    if (isExpanded) {
-      setIsExpanded(false);
-      localStorage.setItem("sidebar-collapsed", true);
-      return;
-    }
-    setIsExpanded(true);
-    localStorage.removeItem("sidebar-collapsed");
-  };
+export default function Navbar( {isExpanded, toggleNavbarHandler} ) {
  
   return (
     <div className={`fixed top-0 left-0 bottom-0 flex flex-col h-full bg-gray-800 text-white transition-width ${isExpanded ? " w-48 " : "w-14"}`}>

@@ -1,5 +1,5 @@
-import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useState } from "react";
 
 import Navbar from "./components/Navbar";
 
@@ -12,12 +12,25 @@ import Tools from "./components/Tools";
 
 function App() {
 
+  const sidebarCollapsed = localStorage.getItem("sidebar-collapsed");
+  const [isExpanded, setIsExpanded] = useState(sidebarCollapsed ? false : true)
+
+  const toggleNavbarHandler = () => {
+    if (isExpanded) {
+      setIsExpanded(false);
+      localStorage.setItem("sidebar-collapsed", true);
+      return;
+    }
+    setIsExpanded(true);
+    localStorage.removeItem("sidebar-collapsed");
+  };
+
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar toggleNavbarHandler={toggleNavbarHandler} isExpanded={isExpanded}/>
         <Switch>
-          <div>
+          <div className={`transition-all ${ isExpanded ? "ml-48" : "ml-14"}`}>
             <Route path="/" exact component={Dashboard} />
             <Route path="/profile" component={Profile} />
             <Route path="/calendar" component={CalendarApp} />
