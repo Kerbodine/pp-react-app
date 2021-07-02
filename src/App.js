@@ -9,12 +9,11 @@ import CalendarApp from "./components/CalendarApp";
 import Reminders from "./components/Reminders";
 import Notes from "./components/Notes";
 import Extras from "./components/Extras";
-import Settings from "./components/Settings"
+import Settings from "./components/Settings";
 
 function App() {
-
   const sidebarCollapsed = localStorage.getItem("sidebar-collapsed");
-  const [isExpanded, setIsExpanded] = useState(sidebarCollapsed ? false : true)
+  const [isExpanded, setIsExpanded] = useState(sidebarCollapsed ? false : true);
 
   const toggleNavbarHandler = () => {
     if (isExpanded) {
@@ -29,15 +28,16 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navbar toggleNavbarHandler={toggleNavbarHandler} isExpanded={isExpanded}/>
+        <Navbar
+          toggleNavbarHandler={toggleNavbarHandler}
+          isExpanded={isExpanded}
+        />
         <Switch>
-          {/* <div> */}
-          <div className={`transition-all ${ isExpanded ? "ml-48" : "ml-14"}`}>
+          <div className={`transition-all ${isExpanded ? "ml-48" : "ml-14"}`}>
             <Route path="/" exact component={Dashboard} />
             <Route path="/calendar" component={CalendarApp} />
             <Route path="/reminders" component={Reminders} />
             <Route path="/notes" component={Notes} />
-            {/* <Route path="/notes" render={(props) => <Notes {...props} isExpanded={isExpanded} />}/> */}
             <Route path="/extras" component={Extras} />
             <Route path="/profile" component={Profile} />
             <Route path="/settings" component={Settings} />

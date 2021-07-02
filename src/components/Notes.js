@@ -1,14 +1,15 @@
-import React from 'react'
-import { useState } from 'react'
+import React from "react";
+import { useState } from "react";
 
-import PageSidebar from './notes/PageSidebar'
-import SidePanel from './notes/SidePanel'
-import Notepad from './notes/Notepad'
+import PageSidebar from "./notes/PageSidebar";
+import SidePanel from "./notes/SidePanel";
+import Notepad from "./notes/Notepad";
 
 export default function Notes() {
-
   const sidePanelCollapsed = localStorage.getItem("side-panel-collapsed");
-  const [isSideExpanded, setIsSideExpanded] = useState(sidePanelCollapsed ? false : true)
+  const [isSideExpanded, setIsSideExpanded] = useState(
+    sidePanelCollapsed ? false : true
+  );
 
   const toggleSidePanelHandler = () => {
     if (isSideExpanded) {
@@ -18,16 +19,19 @@ export default function Notes() {
     }
     setIsSideExpanded(true);
     localStorage.removeItem("side-panel-collapsed");
-  }
+  };
 
   return (
     <div>
       <h1>Notes Page</h1>
-      <PageSidebar/>
+      <PageSidebar />
       <div className={"ml-48"}>
-        <Notepad isSideExpanded={isSideExpanded}/>
+        <Notepad isSideExpanded={isSideExpanded} />
       </div>
-      <SidePanel isSideExpanded={isSideExpanded} toggleSidePanelHandler={toggleSidePanelHandler} />
+      <SidePanel
+        isSideExpanded={isSideExpanded}
+        toggleSidePanelHandler={toggleSidePanelHandler}
+      />
     </div>
-  )
+  );
 }
