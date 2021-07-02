@@ -23,7 +23,6 @@ export default function Notes() {
 
   return (
     <div>
-      <h1>Notes Page</h1>
       <PageSidebar />
       <div className={"ml-48"}>
         <Notepad isSideExpanded={isSideExpanded} />

@@ -4,10 +4,10 @@ import { BsCircleFill } from "react-icons/bs";
 
 export default function PageItem({ icon, title, color }) {
   return (
-    <div className="w-full bg-gray-600 h-14 flex items-center">
-      <i className="w-6 h-6 text-2xl m-2">{icon}</i>
-      <p className="text-gray-300">{title}</p>
-      <i className={`relative m-4 w10 ${color} bg-green-400 flex-auto mt-0`}>
+    <div className="w-full bg-gray-600 h-10 flex items-center">
+      <i className="w-6 h-6 text-xl m-2">{icon}</i>
+      <p className="text-gray-300 text-sm">{title}</p>
+      <i className={`relative m-4 w10 ${color} flex-auto mt-0`}>
         <BsCircleFill className="absolute right-0"/>
       </i>
     </div>

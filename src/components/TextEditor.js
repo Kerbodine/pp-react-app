@@ -20,16 +20,20 @@ export default class TextEditor extends Component {
     const { editorState } = this.state;
     console.log(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     return (
-      <div>
-        <Editor
-          editorState={editorState}
-          toolbarClassName="toolbarClassName"
-          wrapperClassName="wrapperClassName"
-          editorClassName="editorClassName"
-          onEditorStateChange={this.onEditorStateChange}
-        />
-        <textarea
+      <div className="flex flex-col">
+        <div className="flex-auto">
+          <Editor
+            editorState={editorState}
+            toolbarClassName="toolbarClassName"
+            wrapperClassName="wrapperClassName"
+            editorClassName="editorClassName"
+            onEditorStateChange={this.onEditorStateChange}
+            placeholder="Enter text here..."
+          />
+        </div>
+        <textarea className="w-full"
           disabled
+          className="absolute bottom-0 h-24 mb-12 bg-gray-300"
           value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         ></textarea>
       </div>
