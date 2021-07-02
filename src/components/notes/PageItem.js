@@ -7,8 +7,8 @@ export default function PageItem({ icon, title, color }) {
     <div className="w-full bg-gray-600 h-14 flex items-center">
       <i className="w-6 h-6 text-2xl m-2">{icon}</i>
       <p className="text-gray-300">{title}</p>
-      <i className={`absolute right-0 m-4 ${color}`}>
-        <BsCircleFill />
+      <i className={`relative m-4 w10 ${color} bg-green-400 flex-auto mt-0`}>
+        <BsCircleFill className="absolute right-0"/>
       </i>
     </div>
   );

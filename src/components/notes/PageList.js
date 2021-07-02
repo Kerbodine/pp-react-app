@@ -4,15 +4,17 @@ import PageItem from "./PageItem";
 
 export default function PageList({ allPages }) {
   return (
-    <div className="flex flex-col mt-16 pt-2">
+    <ul className="overflow-y-auto overflow-hidden list-none h-screen">
       {allPages.map((page) => (
+      <li>
         <PageItem
           key={page.key}
           icon={page.icon}
           title={page.title}
           color={page.color}
         />
-      ))}
-    </div>
+      </li>
+    ))}
+    </ul>
   );
 }
