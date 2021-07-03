@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  --primary-color-50: #F9FAFB;
   --primary-color-100: #F3F4F6;
   --primary-color-200: #E5E7EB;
   --primary-color-300: #D1D5DB;
@@ -16,6 +17,57 @@
   --primary-color-900: #111827;
 }
 
+/* Blue colors: */
+/* :root {
+  --primary-color-100: #DBEAFE;
+  --primary-color-200: #BFDBFE;
+  --primary-color-300: #93C5FD;
+  --primary-color-400: #60A5FA;
+  --primary-color-500: #3B82F6;
+  --primary-color-600: #2563EB;
+  --primary-color-700: #1D4ED8;
+  --primary-color-800: #1E40AF;
+  --primary-color-900: #1E3A8A;
+} */
+
+/* Yellow colors */
+/* :root {
+  --primary-color-100: #FEF3C7;
+  --primary-color-200: #FDE68A;
+  --primary-color-300: #FCD34D;
+  --primary-color-400: #FBBF24;
+  --primary-color-500: #F59E0B;
+  --primary-color-600: #D97706;
+  --primary-color-700: #B45309;
+  --primary-color-800: #92400E;
+  --primary-color-900: #78350F;
+} */
+
+/* Indigo colors */
+/* :root {
+  --primary-color-100: #E0E7FF;
+  --primary-color-200: #C7D2FE;
+  --primary-color-300: #A5B4FC;
+  --primary-color-400: #818CF8;
+  --primary-color-500: #6366F1;
+  --primary-color-600: #4F46E5;
+  --primary-color-700: #4338CA;
+  --primary-color-800: #3730A3;
+  --primary-color-900: #312E81;
+} */
+
+/* :root {
+  --primary-color-100: #D1FAE5;
+  --primary-color-200: #A7F3D0;
+  --primary-color-300: #6EE7B7;
+  --primary-color-400: #34D399;
+  --primary-color-500: #10B981;
+  --primary-color-600: #059669;
+  --primary-color-700: #047857;
+  --primary-color-800: #065F46;
+  --primary-color-900: #064E3B;
+} */
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -25,7 +77,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #6B7280;
+  background-color: var(--primary-color-500);
 }
 
 html {
@@ -37,7 +89,7 @@ html {
 .react-calendar {
   width: 350px;
   max-width: 100%;
-  background: #4B5563;
+  background: var(--primary-color-600);
   line-height: 1em;
 }
 .react-calendar--doubleView {

@@ -35,7 +35,7 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
           className={`h-0.5 bg-white transition-width mx-4 ${
             isExpanded ? "w-40" : "w-6"
           }`} />
-        <div className="flex flex-col px-2">
+        <div className="flex flex-col">
           <Link to="/">
             <NavbarItem
               icon={<BiGridAlt />}
@@ -76,7 +76,7 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
               />
             </Link>
             <hr
-              className={`h-0.5 bg-white transition-width mx-2 ${
+              className={`h-0.5 bg-white transition-width mx-4 ${
                 isExpanded ? "w-40" : "w-6"
               }`} />
             <Link to="/">

@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi";
+// import { BiRadioCircle, BiRadioCircleMarked } from "react-icons/bi";
+import { BiRadioCircle } from "react-icons/bi";
 
 export default function SideItem({ taskName, color, type, dueDate }) {
   return (

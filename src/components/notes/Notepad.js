@@ -8,8 +8,9 @@ export default function Notepad({ isSideExpanded }) {
     <div
       className={`transition-all bg-white h-screen ${ isSideExpanded ? "mr-72" : "mr-14"}`}>
       <div className={"p-8 rounded text-black h-screen"}>
-        <div className="p-4 bg-primary-200 h-full rounded">
+        <div className="p-4 bg-primary-50 h-auto rounded">
           <div className="editor">
+            <input id="document-title" className="w-full h-12 bg-transparent text-primary-800 font-semibold outline-none text-4xl px-2 mb-4" placeholder="Untitled" type="text"></input>
             <TextEditor />
           </div>
         </div>

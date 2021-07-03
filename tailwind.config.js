@@ -7,6 +7,7 @@ module.exports = {
         'width': 'width'
       },
       colors: {
+        "primary-50": "var(--primary-color-50)",
         "primary-100": "var(--primary-color-100)",
         "primary-200": "var(--primary-color-200)",
         "primary-300": "var(--primary-color-300)",
