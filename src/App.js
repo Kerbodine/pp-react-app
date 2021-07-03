@@ -9,7 +9,6 @@ import Navbar from "./components/navbar/Navbar";
 
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
-import CalendarApp from "./components/CalendarApp";
 import Reminders from "./components/Reminders";
 import Notes from "./components/Notes";
 import Extras from "./components/Extras";
@@ -24,7 +23,7 @@ function App() {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 3000)
+    }, 1000)
   }, [])
 
   const sidebarCollapsed = localStorage.getItem("sidebar-collapsed");

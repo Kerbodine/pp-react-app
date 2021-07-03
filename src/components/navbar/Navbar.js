@@ -32,10 +32,9 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
           expanded={isExpanded}
         />
         <hr
-          className={`border transition-width mx-4 ${
+          className={`h-0.5 bg-white transition-width mx-4 ${
             isExpanded ? "w-40" : "w-6"
-          }`}
-        ></hr>
+          }`} />
         <div className="flex flex-col px-2">
           <Link to="/">
             <NavbarItem
@@ -77,10 +76,9 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
               />
             </Link>
             <hr
-              className={`border transition-width mx-2 ${
+              className={`h-0.5 bg-white transition-width mx-2 ${
                 isExpanded ? "w-40" : "w-6"
-              }`}
-            ></hr>
+              }`} />
             <Link to="/">
               <NavbarItem
                 icon={<BiExit />}
