@@ -15,8 +15,23 @@ export default class TextEditor extends Component {
     const textarea = document.getElementById("html-download");
 
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(`<--${documentTitle.value}--> \n` + textarea.value));
-    element.setAttribute('download', "data.txt");
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${documentTitle.value}</title>
+</head>
+<body style="font-family: 'Arial'; margin: 40px;">
+  <h1>${documentTitle.value}</h1>
+  <hr>
+  <p>${textarea.value}</p>
+</body>
+</html>`
+    ));
+    element.setAttribute('download', "data.html");
 
     element.style.display = 'none';
     document.body.appendChild(element);
