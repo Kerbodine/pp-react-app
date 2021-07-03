@@ -3,9 +3,8 @@ import React from "react";
 import {
   BiGridAlt,
   BiUserCircle,
-  BiCalendar,
   BiCheckSquare,
-  BiNote,
+  BiNotepad,
   BiExtension,
   BiMenu,
   BiCog,
@@ -22,7 +21,7 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
   return (
     <div
       className={`fixed top-0 left-0 bottom-0 flex flex-col h-full bg-gray-800 text-white transition-width ${
-        isExpanded ? " w-48 " : "w-14"
+        isExpanded ? "w-48 " : "w-14"
       }`}
     >
       <IconContext.Provider value={{ color: "white" }}>
@@ -45,13 +44,6 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
               expanded={isExpanded}
             ></NavbarItem>
           </Link>
-          {/* <Link to="/calendar">
-            <NavbarItem
-              icon={<BiCalendar />}
-              title="Calendar"
-              expanded={isExpanded}
-            />
-          </Link> */}
           <Link to="/reminders">
             <NavbarItem
               icon={<BiCheckSquare />}
@@ -60,7 +52,7 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
             />
           </Link>
           <Link to="/notes">
-            <NavbarItem icon={<BiNote />} title="Notes" expanded={isExpanded} />
+            <NavbarItem icon={<BiNotepad />} title="Notes" expanded={isExpanded} />
           </Link>
           <Link to="/extras">
             <NavbarItem

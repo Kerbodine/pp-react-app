@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -26,7 +26,7 @@ html {
   width: 350px;
   max-width: 100%;
   background: #4B5563;
-  line-height: 0.75em;
+  line-height: 1em;
 }
 .react-calendar--doubleView {
   width: 700px;
