@@ -22,10 +22,10 @@ export default class TextEditor extends Component {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${documentTitle.value}</title>
+  <title>${documentTitle.value ? documentTitle.value : "Untitled"}</title>
 </head>
 <body style="font-family: 'Arial'; margin: 40px;">
-  <h1>${documentTitle.value}</h1>
+  <h1>${documentTitle.value ? documentTitle.value : "Untitled"}</h1>
   <hr>
   <p>${textarea.value}</p>
 </body>
