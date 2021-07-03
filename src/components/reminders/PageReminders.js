@@ -5,10 +5,10 @@ import ReminderItem from './ReminderItem';
 
 export default function PageReminders() {
   return (
-    <div className={`bg-gray-700 fixed top-0 bottom-0 h-full text-white p-4 xl:w-96 lg:w-72 md:w-56 w-48 flex flex-col`}>
+    <div className={`bg-primary-700 fixed top-0 bottom-0 h-full text-white p-4 xl:w-96 lg:w-72 md:w-56 w-48 flex flex-col`}>
       <div
         className={
-          "bg-gray-500 w-88 h-10 rounded items-center flex"}>
+          "bg-primary-500 w-88 h-10 rounded items-center flex"}>
         <i>
           <BiSearch className={"w-6 h-6 text-2xl m-2"} />
         </i>

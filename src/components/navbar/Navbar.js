@@ -20,7 +20,7 @@ import NavbarItem from "./NavbarItem";
 export default function Navbar({ isExpanded, toggleNavbarHandler }) {
   return (
     <div
-      className={`fixed top-0 left-0 bottom-0 flex flex-col h-full bg-gray-800 text-white transition-width ${
+      className={`fixed top-0 left-0 bottom-0 flex flex-col h-full bg-primary-800 text-white transition-width ${
         isExpanded ? "w-48 " : "w-14"
       }`}
     >

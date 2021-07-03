@@ -33,7 +33,7 @@ export default class TextEditor extends Component {
         </div>
         <textarea 
           disabled
-          className="w-full absolute bottom-0 h-24 mb-12 bg-gray-300"
+          className="w-32 absolute bottom-0 h-24 mb-12 bg-primary-300 hidden"
           value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         ></textarea>
       </div>

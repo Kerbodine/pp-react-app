@@ -11,10 +11,10 @@ export default function SidePanel({ isSideExpanded, toggleSidePanelHandler }) {
 
   return (
     <ul
-      className={`overflow-y-auto overflow-hidden list-none fixed top-0 right-0 bottom-0 flex flex-col h-full bg-gray-700 text-white transition-width z-10 ${
+      className={`overflow-y-auto overflow-hidden list-none fixed top-0 right-0 bottom-0 flex flex-col h-full bg-primary-700 text-white transition-width z-10 ${
         isSideExpanded ? " w-72 " : "w-14"}`}>
       <IconContext.Provider value={{ color: "white" }}>
-        <div className="fixed w-full bg-gray-700 h-20 z-10">
+        <div className="fixed w-full bg-primary-700 h-20 z-10">
           <div className="">
           <NavbarTitle
             icon={<BiDotsVerticalRounded />}

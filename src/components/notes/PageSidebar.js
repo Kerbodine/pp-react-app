@@ -189,10 +189,10 @@ export default function PageSidebar() {
   ];
 
   return (
-    <div className={`fixed top-0 bottom-0 h-full text-white bg-gray-700 w-48 flex flex-col`}>
+    <div className={`fixed top-0 bottom-0 h-full text-white bg-primary-700 w-48 flex flex-col`}>
       <div
         className={
-          "bg-gray-500 m-4 w-40 h-10 rounded flex items-center z-10"}>
+          "bg-primary-500 m-4 w-40 h-10 rounded flex items-center z-10"}>
         <i>
           <BiSearch className={"w-6 h-6 text-2xl m-2"} />
         </i>
@@ -203,7 +203,7 @@ export default function PageSidebar() {
         />
       </div>
       <PageList allPages={allPages} />
-      <button className="bottom-0 w-48 h-16 bg-gray-700 flex items-center">
+      <button className="bottom-0 w-48 h-16 bg-primary-700 flex items-center">
         <i>
           <AiOutlineFileAdd className={"w-6 h-6 text-2xl m-2"} />
         </i>

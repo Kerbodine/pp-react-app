@@ -4,7 +4,7 @@ import { BiListUl } from "react-icons/bi";
 
 export default function ReminderItem({ title, amount }) {
   return (
-    <div className="w-auto bg-gray-600 rounded h-auto mb-2 flex py-2">
+    <div className="w-auto bg-primary-600 rounded h-auto mb-2 flex py-2">
       <i className="my-auto text-2xl mx-2"><BiListUl /></i>
       <p className="my-auto lg:text-xl md:text-lg text-base">{title}</p>
       <div className="relative flex-auto">

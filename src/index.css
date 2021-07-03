@@ -4,6 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-color-100: #F3F4F6;
+  --primary-color-200: #E5E7EB;
+  --primary-color-300: #D1D5DB;
+  --primary-color-400: #9CA3AF;
+  --primary-color-500: #6B7280;
+  --primary-color-600: #4B5563;
+  --primary-color-700: #374151;
+  --primary-color-800: #1F2937;
+  --primary-color-900: #111827;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
