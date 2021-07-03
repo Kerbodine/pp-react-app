@@ -10,7 +10,6 @@ import {
   BiCog,
   BiExit,
 } from "react-icons/bi";
-import { IconContext } from "react-icons";
 
 import { Link } from "react-router-dom";
 
@@ -22,9 +21,7 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
     <div
       className={`fixed top-0 left-0 bottom-0 flex flex-col h-full bg-primary-800 text-white transition-width ${
         isExpanded ? "w-48 " : "w-14"
-      }`}
-    >
-      <IconContext.Provider value={{ color: "white" }}>
+      }`}>
         <NavbarTitle
           icon={<BiMenu />}
           click={toggleNavbarHandler}
@@ -88,7 +85,6 @@ export default function Navbar({ isExpanded, toggleNavbarHandler }) {
             </Link>
           </div>
         </div>
-      </IconContext.Provider>
     </div>
   );
 }

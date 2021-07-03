@@ -1,11 +1,10 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect} from "react";
 
-import HashLoader from "react-spinners/HashLoader";
-
 import Navbar from "./components/navbar/Navbar";
 
 // import "react-calendar/dist/Calendar.css";
+import HashLoader from "react-spinners/HashLoader";
 
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
@@ -60,7 +59,7 @@ function App() {
       loading ?
 
       <div className="text-center justify-center items-center flex w-screen h-screen">
-      <HashLoader color={"#3B82F6"} loading={loading} size={75} />
+        <HashLoader color={"#EC4D56"} loading={loading} size={75} />
       </div>
       : 
       <Router>

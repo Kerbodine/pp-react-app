@@ -4,17 +4,14 @@ export default function NavbarTitle({ icon, title, click, expanded }) {
   return (
     <div>
       <div className="flex items-center p-4">
-        <i
-          className={"w-6 h-8 mr-4 mt-2 cursor-pointer select-none	text-2xl"}
-          onClick={click}
-        >
+        <i className={"w-6 h-8 mr-4 mt-2 cursor-pointer select-none	text-2xl text-accent-400"}
+          onClick={click}>
           {icon}
         </i>
         <h1
-          className={`transition-opacity font-bold ${
+          className={`transition-opacity font-bold text-2xl text-accent-400 ${
             expanded ? "" : "opacity-0"
-          }`}
-        >
+          }`}>
           {title}
         </h1>
       </div>
