@@ -1,9 +1,11 @@
 import React from "react";
 
+import PageReminders from "./reminders/PageReminders";
+
 export default function Reminders() {
   return (
     <div>
-      <h1>Reminders Page</h1>
+      <PageReminders />
     </div>
   );
 }

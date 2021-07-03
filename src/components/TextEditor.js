@@ -31,9 +31,9 @@ export default class TextEditor extends Component {
             placeholder="Enter text here..."
           />
         </div>
-        <textarea className="w-full"
+        <textarea 
           disabled
-          className="absolute bottom-0 h-24 mb-12 bg-gray-300"
+          className="w-full absolute bottom-0 h-24 mb-12 bg-gray-300"
           value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         ></textarea>
       </div>
