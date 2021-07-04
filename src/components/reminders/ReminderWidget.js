@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ReminderWidget({ icon, title, amount }) {
   return (
-    <div className="bg-primary-600 w-full h-auto py-1 rounded text-center my-2">
+    <div className="hover:bg-primary-500 bg-primary-600 w-full h-auto py-1 rounded text-center xl:flex-1">
       <div className="m-1 my-2 h-auto flex">
         <i className="m-2 my-auto lg:text-4xl text-2xl z-10">{icon}</i>
         <p className="my-auto lg:text-xl md:text-lg text-base">{title}</p>

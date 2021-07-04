@@ -59,7 +59,7 @@ function App() {
       loading ?
 
       <div className="text-center justify-center items-center flex w-screen h-screen">
-        <HashLoader color={"#EC4D56"} loading={loading} size={75} />
+        <HashLoader color={"#3B82F6"} loading={loading} size={75} />
       </div>
       : 
       <Router>

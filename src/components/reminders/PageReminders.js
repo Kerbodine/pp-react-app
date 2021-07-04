@@ -35,7 +35,7 @@ export default function PageReminders() {
         <p className="xl:text-5xl lg:text-4xl md:text-2xl text-2xl mt-4 font-light">{greet}</p>
         <p className="xl:text-5xl lg:text-4xl md:text-2xl text-2xl font-semibold mb-2">{userFirstName.toUpperCase()}</p>
       </div>
-      <div className="text-primary-100">
+      <div className="text-primary-100 flex flex flex-wrap flex-row xl:gap-4 gap-2 my-2">
         <ReminderWidget icon={<BiCalendarAlt/>} title="Today" />
         <ReminderWidget icon={<BiCalendarExclamation/>} title="Priority" />
         <ReminderWidget icon={<BiCalendarStar/>} title="Starred" />
