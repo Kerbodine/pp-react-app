@@ -71,17 +71,16 @@ function App() {
           isSideExpanded={isSideExpanded}
           toggleSidePanelHandler={toggleSidePanelHandler}
         />
-        <Switch>
-          <div className={`transition-all ${isExpanded ? "ml-48" : "ml-14"}`}>
+        <div className={`transition-all ${isExpanded ? "ml-48" : "ml-14"}`}>
+          <Switch>
             <Route path="/" exact component={Dashboard} />
-            {/* <Route path="/calendar" component={CalendarApp} /> */}
             <Route path="/reminders" component={Reminders} />
             <Route path="/notes" render={(props) => <Notes {...props} isSideExpanded={isSideExpanded} />} />
             <Route path="/extras" component={Extras} />
             <Route path="/profile" component={Profile} />
             <Route path="/settings" component={Settings} />
-          </div>
-        </Switch>
+          </Switch>
+        </div>
       </Router>
     }
       
