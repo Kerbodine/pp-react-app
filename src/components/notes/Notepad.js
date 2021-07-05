@@ -6,7 +6,7 @@ export default function Notepad({ isSideExpanded }) {
 
   return (
     <div
-      className={`transition-all bg-white h-screen w-auto ${ isSideExpanded ? "mr-72" : "mr-14"}`}>
+      className={`transition-all bg-white h-screen w-auto ${ isSideExpanded ? "lg:mr-72 mr-0" : "lg:mr-14 mr-0"}`}>
       <div className={"p-8 rounded text-black h-screen"}>
         <div className="p-4 bg-primary-50 h-auto rounded">
           <div className="editor">
