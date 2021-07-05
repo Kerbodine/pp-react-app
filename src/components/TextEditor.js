@@ -105,23 +105,20 @@ ${textarea.value}
           />
         </div>
         <textarea 
-          disabled
           id="html-download"
-          className="w-32 absolute bottom-0 h-24 mb-12 bg-primary-300 hidden"
+          className="hidden"
           value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
         ></textarea>
         <textarea 
-          disabled
           id="md-download"
-          className="w-32 absolute bottom-0 h-24 mb-12 bg-primary-300 hidden"
+          className="hidden"
           value={draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}
         ></textarea>
-        <div className="flex ml-auto h-12">
-          <div className="mr-2">
-            <Dropdown title="Download" allItems={this.allItems}/>
-          </div>
-          <button className="bg-primary-300 p-2 h-10 rounded w-min mr-2 text-2xl hover:bg-primary-200 transition-colors"><BiUpArrowCircle /></button>
-          <button className="bg-primary-300 p-2 h-10 rounded w-min mr-2 text-2xl hover:bg-primary-200 transition-colors"><BiTrash /></button>
+        <hr className="w-full mb-2 h-0.5 bg-primary-200"></hr>
+        <div className="flex ml-auto h-auto flex-wrap gap-2">
+          <Dropdown title="Download" allItems={this.allItems}/>
+          <button className="bg-primary-300 p-2 h-10 rounded text-2xl hover:bg-accent-400 hover:text-white transition-colors"><BiUpArrowCircle /></button>
+          <button className="bg-primary-300 p-2 h-10 rounded text-2xl hover:bg-red-400 hover:text-white transition-colors"><BiTrash /></button>
         </div>
       </div>
     );

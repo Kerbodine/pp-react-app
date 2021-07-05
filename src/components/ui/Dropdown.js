@@ -37,7 +37,7 @@ export default function Dropdown({ title, allItems }) {
                   {option.title}
                   </button>
               )}
-          </Menu.Item>
+            </Menu.Item>
           ))}
           </Menu.Items>
         </Transition>

@@ -41,19 +41,19 @@
 } */
 
 /* Blue accent */
-:root {
+/* :root {
   --accent-color-400: #60A5FA;
   --accent-color-500: #3B82F6;
   --accent-color-600: #2563EB;
-}
+} */
 
 /* Purple accent */
-/* :root {
+:root {
   --accent-color-400: #A78BFA;
   --accent-color-500: #8B5CF6;
   --accent-color-600: #7C3AED;
   --weekend-color: #DDD6FE;
-} */
+}
 
 /* Green accent */
 /* :root {
