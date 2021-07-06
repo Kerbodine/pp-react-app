@@ -8,17 +8,17 @@ export default function TagList() {
     {
       key: Math.random(),
       title: "School",
-      color: "yellow-500"
+      color: "yellow"
     },
     {
       key: Math.random(),
       title: "Report",
-      color: "green-400"
+      color: "green"
     },
     {
       key: Math.random(),
       title: "Important",
-      color: "purple-400"
+      color: "purple"
     },
   ]
 

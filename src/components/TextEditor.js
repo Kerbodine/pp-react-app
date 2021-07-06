@@ -4,6 +4,7 @@ import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToMarkdown from 'draftjs-to-markdown';
 import draftToHtml from "draftjs-to-html";
+import CustomEditor from "./toolbar/CustomEditor";
 
 import { BiUpArrowCircle, BiTrash, BiCodeCurly } from "react-icons/bi";
 import { AiFillHtml5, AiFillFileMarkdown } from "react-icons/ai";
@@ -95,13 +96,12 @@ ${textarea.value}
     return (
       <div className="flex flex-col">
         <div className="flex-auto">
-          <Editor
+          <CustomEditor
             editorState={editorState}
             toolbarClassName="toolbarClassName"
             wrapperClassName="wrapperClassName"
             editorClassName="editorClassName"
             onEditorStateChange={this.onEditorStateChange}
-            placeholder="Enter text here..."
           />
         </div>
         <textarea 
@@ -115,10 +115,10 @@ ${textarea.value}
           value={draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}
         ></textarea>
         <hr className="w-full mb-2 h-0.5 bg-primary-200"></hr>
-        <div className="flex ml-auto h-auto flex-wrap gap-2">
+        <div className="flex ml-auto md:h-10 h-auto flex-wrap gap-2">
           <Dropdown title="Download" allItems={this.allItems}/>
-          <button className="bg-primary-300 p-2 h-10 rounded text-2xl hover:bg-accent-400 hover:text-white transition-colors"><BiUpArrowCircle /></button>
-          <button className="bg-primary-300 p-2 h-10 rounded text-2xl hover:bg-red-400 hover:text-white transition-colors"><BiTrash /></button>
+          <button className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-accent-400 hover:text-white transition-colors"><BiUpArrowCircle /></button>
+          <button className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-red-400 hover:text-white transition-colors"><BiTrash /></button>
         </div>
       </div>
     );

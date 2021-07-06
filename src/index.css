@@ -41,19 +41,19 @@
 } */
 
 /* Blue accent */
-/* :root {
+:root {
   --accent-color-400: #60A5FA;
   --accent-color-500: #3B82F6;
   --accent-color-600: #2563EB;
-} */
+}
 
 /* Purple accent */
-:root {
+/* :root {
   --accent-color-400: #A78BFA;
   --accent-color-500: #8B5CF6;
   --accent-color-600: #7C3AED;
   --weekend-color: #DDD6FE;
-}
+} */
 
 /* Green accent */
 /* :root {
@@ -203,4 +203,58 @@ html {
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: var(--accent-color-400);
+}
+
+/* Draft JS Styles */
+
+.editor-button {
+  width: 30px !important;
+  height: 30px !important;
+  background-color: var(--primary-color-300) !important;
+  border: none !important;
+}
+
+.editor-button:hover {
+  background-color: var(--primary-color-100) !important;
+}
+
+.editor-button-medium {
+  width: 70px !important;
+  height: 30px !important;
+  background-color: var(--primary-color-300) !important;
+  border: none !important;
+}
+
+.editor-button-wide {
+  width: 108px !important;
+  height: 30px !important;
+  background-color: var(--primary-color-300) !important;
+  border: none !important;
+}
+
+.font-hidden {
+  display: none !important;
+}
+
+.editor-dropdown-emoji {
+  width: 190px !important;
+  height: 150px !important;
+  background-color: var(--primary-color-300) !important;
+  border: none !important;
+  box-shadow: none !important;
+  @apply shadow-md rounded-md !important;
+}
+
+.editor-dropdown {
+  background-color: var(--primary-color-300) !important;
+  border: none !important;
+  box-shadow: none !important;
+  @apply shadow-md rounded-md !important;
+}
+
+.editor-dropdown-margin {
+  background-color: var(--primary-color-300) !important;
+  border: none !important;
+  box-shadow: none !important;
+  @apply shadow-md rounded-md mt-1.5 !important;
 }
