@@ -26,7 +26,7 @@ import eraser from "./icons/eraser.svg"
 import undo from "./icons/undo.svg"
 import redo from "./icons/redo.svg"
 
-export default function CustomEditor() {
+export default function CustomEditor({ editorState, onEditorStateChange }) {
 
   return (
   <Editor
@@ -34,6 +34,8 @@ export default function CustomEditor() {
     wrapperClassName="demo-wrapper"
     editorClassName="demo-editor-custom"
     placeholder="Enter text here..."
+    editorState={editorState}
+    onEditorStateChange={onEditorStateChange}
     toolbar={{
       inline: {
         bold: { icon: bold, className: "editor-button" },

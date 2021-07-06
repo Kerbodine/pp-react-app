@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState, convertToRaw } from "draft-js";
-import draftToMarkdown from 'draftjs-to-markdown';
 import draftToHtml from "draftjs-to-html";
+import draftToMarkdown from 'draftjs-to-markdown';
 import CustomEditor from "./toolbar/CustomEditor";
 
 import { BiUpArrowCircle, BiTrash, BiCodeCurly } from "react-icons/bi";
@@ -36,7 +36,7 @@ export default class TextEditor extends Component {
   <title>${documentTitle.value ? documentTitle.value : "Untitled"}</title>
 </head>
 <body style="margin: 2rem; font-family: 'Arial';">
-  <div style="background-color: #F3F4F6; padding: 2rem;">
+  <div style="background-color: #F3F4F6; padding: 2rem; border-radius: 10px;">
     <h1>${documentTitle.value ? documentTitle.value : "Untitled"}</h1>
     <hr>
     ${textarea.value}
@@ -66,7 +66,17 @@ ${textarea.value}
   }
 
   jsonDownloadHandler() {
-    
+    const documentTitle = document.getElementById("document-title");
+    const textarea = document.getElementById("json-download");
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(`${documentTitle.value}\n
+${textarea.value}
+    `));
+    element.setAttribute('download', `${documentTitle.value}.json`);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   }
 
   allItems = [
@@ -112,6 +122,11 @@ ${textarea.value}
           id="md-download"
           className="hidden"
           value={draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}
+        ></textarea>
+        <textarea 
+          id="json-download"
+          className="hidden"
+          value={convertToRaw(editorState.getCurrentContent())}
         ></textarea>
         <hr className="w-full mb-2 h-0.5 bg-primary-200"></hr>
         <div className="flex ml-auto md:h-10 h-auto flex-wrap gap-2">

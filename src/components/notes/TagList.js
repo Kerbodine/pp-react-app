@@ -5,23 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function TagList() {
 
-  const [allTags, setAllTags] = useState([
-    {
-      key: uuidv4(),
-      title: "School",
-      color: "yellow"
-    },
-    {
-      key: uuidv4(),
-      title: "Report",
-      color: "green"
-    },
-    {
-      key: uuidv4(),
-      title: "Important",
-      color: "purple"
-    },
-  ]);
+  const [allTags, setAllTags] = useState([]);
 
   const tagRef = useRef();
 
@@ -46,7 +30,7 @@ export default function TagList() {
   }
 
   return (
-    <div className="w-full h-auto flex flex-wrap mb-2 gap-2">
+    <div className="w-full h-auto flex flex-wrap mb-2 gap-2 whitespace-nowrap">
       {allTags.map((tag) => (
         <TagItem key={tag.key} title={tag.title} color={`bg-${tag.color}-500 hover:bg-${tag.color}-400`}/>
       ))}
