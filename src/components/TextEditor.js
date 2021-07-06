@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToMarkdown from 'draftjs-to-markdown';
 import draftToHtml from "draftjs-to-html";

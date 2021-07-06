@@ -1,6 +1,5 @@
 import React from 'react';
 import { Editor } from 'react-draft-wysiwyg';
-import { BiBold } from 'react-icons/bi';
 
 import bold from "./icons/bold.svg"
 import italic from "./icons/italic.svg"
