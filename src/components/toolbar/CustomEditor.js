@@ -46,7 +46,7 @@ export default function CustomEditor({ editorState, onEditorStateChange }) {
         superscript: { icon: superscript, className: "editor-button" },
         subscript: { icon: subscript, className: "editor-button" },
       },
-      blockType: { options: ['Normal', 'Blockquote', 'Code'], 
+      blockType: { options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote', 'Code'], 
       // options: ['Normal', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote', 'Code'],
       className: 'editor-button-wide', dropdownClassName: 'editor-dropdown-margin' },
       fontSize: { className: 'editor-button-medium', dropdownClassName: 'editor-dropdown-margin'},

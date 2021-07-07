@@ -5,7 +5,7 @@ import draftToHtml from "draftjs-to-html";
 import draftToMarkdown from 'draftjs-to-markdown';
 import CustomEditor from "./toolbar/CustomEditor";
 
-import { BiUpArrowCircle, BiTrash, BiCodeCurly } from "react-icons/bi";
+import { BiUpArrowCircle, BiTrash, BiFile } from "react-icons/bi";
 import { AiFillHtml5, AiFillFileMarkdown } from "react-icons/ai";
 
 import Dropdown from "./ui/Dropdown";
@@ -26,8 +26,8 @@ export default class TextEditor extends Component {
     const documentTitle = document.getElementById("document-title");
     const textarea = document.getElementById("html-download");
     var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(`
-<!DOCTYPE html>
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(
+`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -51,7 +51,7 @@ export default class TextEditor extends Component {
     document.body.removeChild(element);
   }
 
-  mdDownloadHandler(editorState) {
+  mdDownloadHandler() {
     const documentTitle = document.getElementById("document-title");
     const textarea = document.getElementById("md-download");
     var element = document.createElement('a');
@@ -65,14 +65,14 @@ ${textarea.value}
     document.body.removeChild(element);
   }
 
-  jsonDownloadHandler() {
+  rawDownloadHandler() {
     const documentTitle = document.getElementById("document-title");
-    const textarea = document.getElementById("json-download");
+    const textarea = document.getElementById("raw-download");
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(`${documentTitle.value}\n
 ${textarea.value}
     `));
-    element.setAttribute('download', `${documentTitle.value}.json`);
+    element.setAttribute('download', `${documentTitle.value}.txt`);
     element.style.display = 'none';
     document.body.appendChild(element);
     element.click();
@@ -94,9 +94,9 @@ ${textarea.value}
     },
     {
       key: "item3",
-      icon: <BiCodeCurly />,
-      title: "JSON",
-      func: this.jsonDownloadHandler,
+      icon: <BiFile />,
+      title: "Plain text",
+      func: this.rawDownloadHandler,
     },
   ]
 
@@ -124,9 +124,9 @@ ${textarea.value}
           value={draftToMarkdown(convertToRaw(editorState.getCurrentContent()))}
         ></textarea>
         <textarea 
-          id="json-download"
+          id="raw-download"
           className="hidden"
-          value={convertToRaw(editorState.getCurrentContent())}
+          value={editorState.getCurrentContent().getPlainText('\u0001')}
         ></textarea>
         <hr className="w-full mb-2 h-0.5 bg-primary-200"></hr>
         <div className="flex ml-auto md:h-10 h-auto flex-wrap gap-2">
