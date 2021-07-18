@@ -26,13 +26,13 @@ import eraser from "./icons/eraser.svg"
 import undo from "./icons/undo.svg"
 import redo from "./icons/redo.svg"
 
-export default function CustomEditor({ editorState, onEditorStateChange }) {
+export default function CustomEditor({ editorState, onEditorStateChange, isSideExpanded }) {
 
   return (
   <Editor
-    toolbarClassName="demo-toolbar-custom"
+    toolbarClassName={`demo-toolbar-custom sticky -top-4 z-10`}
     wrapperClassName="demo-wrapper"
-    editorClassName="demo-editor-custom"
+    editorClassName="demo-editor-custom overflow-hidden"
     placeholder="Enter text here..."
     editorState={editorState}
     onEditorStateChange={onEditorStateChange}

@@ -7,8 +7,8 @@ export default function Notes({ isSideExpanded }) {
 
   return (
     <div>
-      <PageSidebar />
-      <div className={`ml-48 w-auto overflow-y-auto no-scrollbar`}>
+      {/* <PageSidebar /> */}
+      <div className={`w-auto bg-primary-800`}>
         <Notepad isSideExpanded={isSideExpanded} />
       </div>
     </div>

@@ -108,7 +108,7 @@ ${textarea.value}
           <CustomEditor
             editorState={editorState}
             toolbarClassName="toolbarClassName"
-            wrapperClassName="wrapperClassName"
+            wrapperClassName="relative"
             editorClassName="editorClassName"
             onEditorStateChange={this.onEditorStateChange}
           />
@@ -128,8 +128,7 @@ ${textarea.value}
           className="hidden"
           value={editorState.getCurrentContent().getPlainText('\u0001')}
         ></textarea>
-        <hr className="w-full mb-2 h-0.5 bg-primary-200"></hr>
-        <div className="flex ml-auto md:h-10 h-auto flex-wrap gap-2">
+        <div className="flex md:h-18 -ml-4 p-4 h-auto flex-wrap gap-2 fixed bottom-4 z-10 bg-white rounded-2xl">
           <Dropdown title="Download" allItems={this.allItems}/>
           <button className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-accent-400 hover:text-white transition-colors"><BiUpArrowCircle /></button>
           <button className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-red-400 hover:text-white transition-colors"><BiTrash /></button>
