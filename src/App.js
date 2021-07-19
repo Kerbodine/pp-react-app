@@ -25,34 +25,6 @@ function App() {
     }, 1000)
   }, [])
 
-  const sidebarCollapsed = localStorage.getItem("sidebar-collapsed");
-  const [isExpanded, setIsExpanded] = useState(sidebarCollapsed ? false : true);
-
-  const toggleNavbarHandler = () => {
-    if (isExpanded) {
-      setIsExpanded(false);
-      localStorage.setItem("sidebar-collapsed", true);
-      return;
-    }
-    setIsExpanded(true);
-    localStorage.removeItem("sidebar-collapsed");
-  };
-
-  const sidePanelCollapsed = localStorage.getItem("side-panel-collapsed");
-  const [isSideExpanded, setIsSideExpanded] = useState(
-    sidePanelCollapsed ? false : true
-  );
-
-  const toggleSidePanelHandler = () => {
-    if (isSideExpanded) {
-      setIsSideExpanded(false);
-      localStorage.setItem("side-panel-collapsed", true);
-      return;
-    }
-    setIsSideExpanded(true);
-    localStorage.removeItem("side-panel-collapsed");
-  };
-
   return (
     <div className="App overflow-hidden">
     {
@@ -63,23 +35,21 @@ function App() {
       </div>
       : 
       <Router>
-        <Navbar
-          toggleNavbarHandler={toggleNavbarHandler}
-          isExpanded={isExpanded}
-        />
-        <SidePanel
-          isSideExpanded={isSideExpanded}
-          toggleSidePanelHandler={toggleSidePanelHandler}
-        />
-        <div className={`transition-all ${isExpanded ? "ml-48" : "ml-14"}`}>
-          <Switch>
-            <Route path="/" exact component={Dashboard} />
-            <Route path="/reminders" component={Reminders} />
-            <Route path="/notes" render={(props) => <Notes {...props} isSideExpanded={isSideExpanded} />} />
-            <Route path="/extras" component={Extras} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/settings" component={Settings} />
-          </Switch>
+        <div className="flex">
+          <Navbar />
+          <div className="flex-auto">
+            <Switch>
+              <Route path="/" exact component={Dashboard} />
+              <Route path="/reminders" component={Reminders} />
+              <Route path="/notes" component={Notes}/>
+              <Route path="/extras" component={Extras} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/settings" component={Settings} />
+            </Switch>
+          </div>
+          <div className="w-0 lg:w-72">
+            <SidePanel />
+          </div>
         </div>
       </Router>
     }

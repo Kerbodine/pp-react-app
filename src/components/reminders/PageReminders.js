@@ -19,14 +19,14 @@ export default function PageReminders() {
           className={"bg-transparent w-full text-white text-sm outline-none"}
         />
       </div>
-      <p className="text-primary-100 font-semibold text-lg my-2">Overview:</p>
+      <p className="text-primary-100 font-bold text-lg my-2">Overview:</p>
       <div className="text-primary-100 flex flex flex-wrap flex-row xl:gap-4 gap-2">
         <ReminderWidget icon={<BiCalendarAlt/>} title="Today" />
         <ReminderWidget icon={<BiCalendarExclamation/>} title="Priority" />
         <ReminderWidget icon={<BiCalendarStar/>} title="Starred" />
         <ReminderWidget icon={<BiCalendarPlus/>} title="All" />
       </div>
-      <p className="text-primary-100 font-semibold text-lg my-2">My Lists:</p>
+      <p className="text-primary-100 font-bold text-lg my-2">My Lists:</p>
       <ul className="mt-2 h-full overflow-y-auto overflow-hidden list-none text-primary-100">
         <li><ReminderItem title="List 1" amount="3"/></li>
         <li><ReminderItem title="List 2" amount="5"/></li>

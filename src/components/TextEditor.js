@@ -128,7 +128,7 @@ ${textarea.value}
           className="hidden"
           value={editorState.getCurrentContent().getPlainText('\u0001')}
         ></textarea>
-        <div className="flex md:h-18 -ml-4 p-4 h-auto flex-wrap gap-2 fixed bottom-4 z-10 bg-white rounded-2xl">
+        <div className="flex md:h-18 -ml-4 p-4 h-auto flex-wrap gap-2 fixed bottom-8 z-10 bg-primary-100 rounded-2xl">
           <Dropdown title="Download" allItems={this.allItems}/>
           <button className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-accent-400 hover:text-white transition-colors"><BiUpArrowCircle /></button>
           <button className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-red-400 hover:text-white transition-colors"><BiTrash /></button>

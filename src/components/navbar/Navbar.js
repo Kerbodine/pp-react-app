@@ -1,89 +1,37 @@
 import React from "react";
-
-import {
-  BiGridAlt,
-  BiUserCircle,
-  BiCheckSquare,
-  BiNotepad,
-  BiExtension,
-  BiMenu,
-  BiCog,
-  BiExit,
-} from "react-icons/bi";
-
 import { Link } from "react-router-dom";
-
-import NavbarTitle from "./NavbarTitle";
 import NavbarItem from "./NavbarItem";
+import {BiAtom, BiGridAlt, BiCheckSquare, BiNotepad, BiExtension, BiUserCircle, BiCog, BiExit} from "react-icons/bi";
 
-export default function Navbar({ isExpanded, toggleNavbarHandler }) {
+export default function Navbar() {
   return (
     <div
-      className={`fixed top-0 left-0 bottom-0 flex flex-col h-full bg-primary-800 text-white transition-width ${
-        isExpanded ? "w-48 " : "w-14"
-      }`}>
-        <NavbarTitle
-          icon={<BiMenu />}
-          click={toggleNavbarHandler}
-          title="LOGO"
-          expanded={isExpanded}
-        />
-        <hr
-          className={`h-0.5 bg-white transition-width mx-4 ${
-            isExpanded ? "w-40" : "w-6"
-          }`} />
-        <div className="flex flex-col">
+      className="h-screen flex flex-col bg-primary-800 text-white">
+        <div className="w-20 flex flex-col gap-4 mt-4">
+          <NavbarItem icon={<BiAtom />} />
           <Link to="/">
-            <NavbarItem
-              icon={<BiGridAlt />}
-              title="Dashboard"
-              expanded={isExpanded}
-            ></NavbarItem>
+            <NavbarItem icon={<BiGridAlt />} />
           </Link>
           <Link to="/reminders">
-            <NavbarItem
-              icon={<BiCheckSquare />}
-              title="Reminders"
-              expanded={isExpanded}
-            />
+            <NavbarItem icon={<BiCheckSquare />} />
           </Link>
           <Link to="/notes">
-            <NavbarItem icon={<BiNotepad />} title="Notes" expanded={isExpanded} />
+            <NavbarItem icon={<BiNotepad />} />
           </Link>
           <Link to="/extras">
-            <NavbarItem
-              icon={<BiExtension />}
-              title="Extras"
-              expanded={isExpanded}
-            />
+            <NavbarItem icon={<BiExtension />} />
           </Link>
-          <div className="absolute bottom-0 whitespace-nowrap">
-            <Link to="/profile">
-              <NavbarItem
-                icon={<BiUserCircle />}
-                title="Profile"
-                expanded={isExpanded}
-              />
-            </Link>
-            <Link to="/settings">
-              <NavbarItem
-                icon={<BiCog />}
-                title="Settings"
-                expanded={isExpanded}
-              />
-            </Link>
-            <hr
-              className={`h-0.5 bg-white transition-width mx-4 ${
-                isExpanded ? "w-40" : "w-6"
-              }`} />
-            <Link to="/">
-              <NavbarItem
-                icon={<BiExit />}
-                title="Sign-out"
-                expanded={isExpanded}
-              />
-            </Link>
-          </div>
+        </div>
+        <div className="mt-auto pt-4 mb-4 flex flex-col gap-4">
+          <Link to="/profile">
+            <NavbarItem icon={<BiUserCircle />} />
+          </Link>
+          <Link to="/settings">
+            <NavbarItem icon={<BiCog />} />
+          </Link>
+          <Link to="/">
+            <NavbarItem icon={<BiExit />} />
+          </Link>
         </div>
     </div>
   );

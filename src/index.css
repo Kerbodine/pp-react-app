@@ -253,6 +253,7 @@ html {
   border: none !important;
   box-shadow: none !important;
   @apply shadow-md rounded-md mt-1.5 !important;
+  overflow-y: inherit;
 }
 
 .demo-toolbar-custom {

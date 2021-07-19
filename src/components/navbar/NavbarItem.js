@@ -1,19 +1,12 @@
 import React from "react";
 
-export default function NavbarItem({ icon, title, expanded, click }) {
+export default function NavbarItem({ icon }) {
   return (
-    <div onClick={click}>
-      <div className="flex items-center py-4 px-4 transition cursor-pointer hover:bg-primary-700">
-        <i className="w-6 h-6 mr-4 cursor-pointer select-none text-2xl">
+    <div className="flex items-center px-4 h-12 cursor-pointer select-none text-2xl">
+      <div className="flex items-center w-full h-full bg-primary-600 hover:bg-accent-400 transition-colors rounded-2xl">
+        <div className="mx-auto">
           {icon}
-        </i>
-        <span
-          className={`transition-opacity ${
-            expanded ? "flex items-center" : "opacity-0"
-          }`}
-        >
-          {title}
-        </span>
+        </div>
       </div>
     </div>
   );

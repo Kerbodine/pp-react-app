@@ -1,5 +1,4 @@
 import React from "react";
-
 import PageItem from "./PageItem";
 
 export default function PageList({ allPages }) {

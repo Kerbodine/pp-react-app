@@ -8,7 +8,7 @@ export default function ReminderWidget({ icon, title, amount }) {
         <p className="my-auto text-lg">{title}</p>
         <div className="relative flex-auto">
           <div className="absolute right-0 w-auto flex h-full">
-            <p className="my-auto mr-2 text-lg text-accent-400 font-semibold">{amount}50</p>
+            <p className="my-auto mr-2 text-lg text-accent-400 font-bold">{amount}50</p>
           </div>
         </div>
       </div>
