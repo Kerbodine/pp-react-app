@@ -9,28 +9,28 @@ export default function Navbar() {
       className="h-screen flex flex-col bg-primary-800 text-white">
         <div className="w-20 flex flex-col gap-4 mt-4">
           <NavbarItem icon={<BiAtom />} />
-          <Link to="/">
-            <NavbarItem icon={<BiGridAlt />} />
+          <Link to="/" aria-label="home">
+            <NavbarItem icon={<BiGridAlt />} path="/" />
           </Link>
-          <Link to="/reminders">
-            <NavbarItem icon={<BiCheckSquare />} />
+          <Link to="/reminders" aria-label="reminders">
+            <NavbarItem icon={<BiCheckSquare />} path="/reminders" />
           </Link>
-          <Link to="/notes">
-            <NavbarItem icon={<BiNotepad />} />
+          <Link to="/notes" aria-label="notes">
+            <NavbarItem icon={<BiNotepad />} path="/notes" />
           </Link>
-          <Link to="/extras">
-            <NavbarItem icon={<BiExtension />} />
+          <Link to="/extensions" aria-label="extensions">
+            <NavbarItem icon={<BiExtension />} path="/extensions" />
           </Link>
         </div>
         <div className="mt-auto pt-4 mb-4 flex flex-col gap-4">
-          <Link to="/profile">
-            <NavbarItem icon={<BiUserCircle />} />
+          <Link to="/profile" aria-label="profile">
+            <NavbarItem icon={<BiUserCircle />} path="/profile" />
           </Link>
-          <Link to="/settings">
-            <NavbarItem icon={<BiCog />} />
+          <Link to="/settings" aria-label="settings">
+            <NavbarItem icon={<BiCog />} path="/settings" />
           </Link>
-          <Link to="/">
-            <NavbarItem icon={<BiExit />} />
+          <Link to="/logout" aria-label="logout">
+            <NavbarItem icon={<BiExit />} path="/logout" />
           </Link>
         </div>
     </div>

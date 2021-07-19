@@ -6,8 +6,8 @@ import PageSidebar from "./PageSidebar";
 export default function Notepad() {
 
   return (
-    <div className="h-screen w-full flex flex-col bg-primary-800">
-      <div className="h-full mr-4 mb-4 mt-20 lg:mr-0">
+    <div className="h-screen w-full bg-primary-800 flex">
+      <div className="w-full h-auto mr-4 mt-20 mb-4 lg:mr-0">
         <div className="h-full rounded-2xl shadow-md transition-width flex flex-row ">
           <div className="flex flex-col">
             <div className="h-8 w-auto rounded-tl-2xl bg-accent-400"></div>
@@ -18,13 +18,13 @@ export default function Notepad() {
           <div className="w-full flex flex-col">
             <div className="">
               <div className="h-8 w-auto rounded-t-2xl md:rounded-none md:rounded-tr-2xl bg-accent-400"></div>
-              <div className="px-4 pt-4 bg-gray-100">
-                <input id="document-title" className="h-12 bg-transparent text-primary-800 font-bold outline-none text-4xl px-2 mb-4" placeholder="Untitled" type="text"></input>
+              <div className="px-8 pt-8 bg-gray-100">
+                <input id="document-title" autocomplete="off" className="h-12 bg-transparent text-primary-800 font-bold outline-none text-4xl mb-4" placeholder="Untitled" type="text" aria-label="add tag"></input>
                 <TagList />
                 <div className="w-full h-4 bg-primary-100"></div>
               </div>
             </div>
-            <div className="px-4 -mt-2 relative overflow-y-scroll overflow-x-hidden h-full bg-gray-100 rounded-b-2xl md:rounded-none md:rounded-br-2xl">
+            <div className="px-8 -mt-2 relative overflow-y-scroll overflow-x-hidden h-full bg-gray-100 rounded-b-2xl md:rounded-none md:rounded-br-2xl">
               <TextEditor />
             </div>
           </div>

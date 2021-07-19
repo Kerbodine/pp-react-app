@@ -16,6 +16,8 @@ import SidePanel from "./components/sidebar/SidePanel";
 
 function App() {
 
+  const darkMode = false;
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -42,7 +44,7 @@ function App() {
               <Route path="/" exact component={Dashboard} />
               <Route path="/reminders" component={Reminders} />
               <Route path="/notes" component={Notes}/>
-              <Route path="/extras" component={Extras} />
+              <Route path="/extensions" component={Extras} />
               <Route path="/profile" component={Profile} />
               <Route path="/settings" component={Settings} />
             </Switch>

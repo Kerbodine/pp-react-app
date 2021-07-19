@@ -90,6 +90,7 @@ html {
   max-width: 100%;
   background: var(--primary-color-700);
   line-height: 1em;
+  border-radius: 1em;
 }
 .react-calendar--doubleView {
   width: 700px;
