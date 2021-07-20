@@ -3,7 +3,7 @@ import TextEditor from "../TextEditor";
 import TagList from "./TagList";
 import PageSidebar from "./PageSidebar";
 
-export default function Notepad() {
+export default function Notes({ darkMode }) {
 
   return (
     <div className="h-screen w-full bg-primary-800 flex">

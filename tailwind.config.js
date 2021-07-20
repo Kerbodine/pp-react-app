@@ -1,11 +1,9 @@
 module.exports = {
-  purge: ["./src/**", "./public/index.html"],
+  mode: "jit",
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
-      transitionProperty: {
-        'width': 'width'
-      },
       colors: {
         "primary-50": "var(--primary-color-50)",
         "primary-100": "var(--primary-color-100)",

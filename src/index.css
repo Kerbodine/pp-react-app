@@ -90,7 +90,6 @@ html {
   max-width: 100%;
   background: var(--primary-color-700);
   line-height: 1em;
-  border-radius: 1em;
 }
 .react-calendar--doubleView {
   width: 700px;
@@ -254,10 +253,9 @@ html {
   border: none !important;
   box-shadow: none !important;
   @apply shadow-md rounded-md mt-1.5 !important;
-  overflow-y: inherit;
 }
 
 .demo-toolbar-custom {
   background-color: var(--primary-color-100) !important;
-  @apply p-0 m-0 border-none -mt-2 !important;
+  @apply p-0 m-0 bg-transparent border-none !important;
 }
