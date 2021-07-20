@@ -4,6 +4,8 @@ import SideWidget from "./SideWidget";
 import SideStickie from "./SideStickie";
 import SideGreeting from './SideGreeting';
 
+import "./calendar.css"
+
 import { BiSearch, BiAdjust } from "react-icons/bi";
 
 export default function SidePanel() {

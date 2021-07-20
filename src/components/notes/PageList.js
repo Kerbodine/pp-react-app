@@ -3,16 +3,16 @@ import PageItem from "./PageItem";
 
 export default function PageList({ allPages }) {
   return (
-    <ul className="overflow-y-auto overflow-hidden list-none h-screen">
+    <div className="overflow-hidden overflow-y-scroll h-full">
       {allPages.map((page) => (
-      <li key={page.key}>
+      <div key={page.key}>
         <PageItem
           icon={page.icon}
           title={page.title}
           color={page.color}
         />
-      </li>
+      </div>
     ))}
-    </ul>
+    </div>
   );
 }

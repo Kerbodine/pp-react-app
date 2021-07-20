@@ -1,0 +1,27 @@
+.editor-button {
+  @apply w-[30px] h-[30px] bg-primary-300 border-none hover:shadow-none hover:bg-primary-200 transition-colors;
+}
+
+.editor-button-medium {
+  @apply w-[70px] h-[30px] bg-primary-300 border-none hover:shadow-none hover:bg-primary-200 transition-colors;
+}
+
+.editor-button-wide {
+  @apply w-[108px] h-[30px] bg-primary-300 border-none hover:shadow-none hover:bg-primary-200 transition-colors;
+}
+
+.editor-dropdown-margin {
+  @apply shadow-md rounded h-32 mt-1.5 bg-primary-300 border-none text-black p-2 overscroll-auto shadow-none hover:bg-primary-300 hover:shadow-none;
+}
+
+.rdw-dropdownoption-active {
+  @apply rounded; 
+}
+
+.rdw-dropdownoption-default {
+  @apply mt-1 transition-colors rounded;
+}
+
+.demo-toolbar-custom {
+  @apply -mx-2 bg-transparent border-none;
+}

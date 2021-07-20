@@ -8,15 +8,13 @@ import HashLoader from "react-spinners/HashLoader";
 
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
-import Reminders from "./components/Reminders";
+import Reminders from "./components/reminders/Reminders"
 import Notes from "./components/notes/Notes"
 import Extras from "./components/Extras";
 import Settings from "./components/Settings";
 import SidePanel from "./components/sidebar/SidePanel";
 
 function App() {
-
-  const darkMode = false;
 
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +41,7 @@ function App() {
             <Switch>
               <Route path="/" exact component={Dashboard} />
               <Route path="/reminders" component={Reminders} />
-              <Route path="/notes" component={() => <Notes darkMode={darkMode} />}/>
+              <Route path="/notes" component={Notes}/>
               <Route path="/extensions" component={Extras} />
               <Route path="/profile" component={Profile} />
               <Route path="/settings" component={Settings} />

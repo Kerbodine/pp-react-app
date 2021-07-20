@@ -1,7 +1,17 @@
 module.exports = {
   mode: "jit",
-  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-  darkMode: "class", // or 'media' or 'class'
+  purge: {
+    content: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+    safelist: [
+      "bg-red-400",
+      "bg-yellow-400",
+      "bg-green-400",
+      "bg-blue-400",
+      "bg-purple-400",
+      "bg-pink-400",
+    ]
+  },
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {

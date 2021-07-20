@@ -5,6 +5,8 @@ import draftToHtml from "draftjs-to-html";
 import draftToMarkdown from 'draftjs-to-markdown';
 import CustomEditor from "./toolbar/CustomEditor";
 
+import "./editor.css"
+
 import { BiUpArrowCircle, BiTrash, BiFile } from "react-icons/bi";
 import { AiFillHtml5, AiFillFileMarkdown } from "react-icons/ai";
 

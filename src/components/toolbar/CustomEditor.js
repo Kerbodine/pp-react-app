@@ -38,6 +38,7 @@ export default function CustomEditor({ editorState, onEditorStateChange }) {
         editorState={editorState}
         onEditorStateChange={onEditorStateChange}
         toolbar={{
+          options: ['inline', 'blockType', 'list', 'textAlign', 'colorPicker', 'remove', 'history'],
           inline: {
             bold: { icon: bold, className: "editor-button" },
             italic: { icon: italic, className: "editor-button" },
