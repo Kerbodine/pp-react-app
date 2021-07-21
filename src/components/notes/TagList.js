@@ -34,8 +34,8 @@ export default function TagList() {
       {allTags.map((tag) => (
         <TagItem key={tag.key} title={tag.title} color={`${tag.color}`}/>
       ))}
-      <div className={`h-auto w-auto flex rounded-full text-xl bg-primary-300 hover:bg-accent-400 transition-colors text-black hover:text-white`}>
-        <input ref={tagRef} className="bg-primary-300 px-2 my-auto text-sm text-black rounded-l-full h-6 w-20 outline-none"></input>
+      <div className={`h-auto w-auto flex rounded-full overflow-hidden text-xl bg-primary-300 hover:bg-accent-400 transition-colors text-black hover:text-white`}>
+        <input ref={tagRef} className="bg-primary-300 px-2 my-auto text-sm text-black h-6 w-20 outline-none" aria-label="add tag"></input>
         <BiPlusCircle className="my-auto m-1" onClick={addTagHandler}/>
       </div>
     </div>

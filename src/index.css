@@ -24,6 +24,9 @@
   --primary-color-300: #D4D4D8;
   --primary-color-400: #A1A1AA;
   --primary-color-500: #71717A;
+  /* --primary-color-600: #E4E4E7;
+  --primary-color-700: #F4F4F5;
+  --primary-color-800: #fff; */
   --primary-color-600: #52525B;
   --primary-color-700: #3F3F46;
   --primary-color-800: #27272A;
@@ -54,7 +57,8 @@
 
 /* Blue accent */
 :root {
-  --accent-color-400: #60A5FA;
+  /* --accent-color-400: #60A5FA; */
+  --accent-color-400: #2563EB;
   --accent-color-500: #3B82F6;
   --accent-color-600: #2563EB;
 }
@@ -94,4 +98,23 @@
 
 html {
   font-family: 'Source Sans Pro', sans-serif;
+}
+
+.checkbox {
+  -webkit-appearance: none;
+  @apply flex items-center justify-center transition-colors;
+}
+
+.checkbox:active, .checkbox:checked:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.checkbox:checked {
+  @apply bg-accent-400;
+}
+
+.checkbox:checked:after {
+	content: '\2714';
+	font-size: 20px;
+	color: #fff;
 }

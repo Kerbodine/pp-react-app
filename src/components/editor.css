@@ -23,5 +23,5 @@
 }
 
 .demo-toolbar-custom {
-  @apply -mx-2 bg-transparent border-none;
+  @apply -mx-2 bg-primary-100 border-none;
 }

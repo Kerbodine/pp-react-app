@@ -187,14 +187,17 @@ export default function PageSidebar() {
   ];
 
   return (
-    <div className={`rounded-bl-2xl z-10 flex flex-col`}>
-      <div className="h-[calc(100vh-208px)]">
+    <div className="flex flex-col h-full">
+      <div className="h-10 flex-shrink-0 bg-primary-300 flex items-center px-4 font-bold text-lg">
+        <h2>All Documents</h2>
+      </div>
+      <div className="flex-auto min-h-0">
         <PageList allPages={allPages} />
       </div>
-      <div className="w-48 h-20 bg-primary-300 rounded-bl-2xl p-4">
-        <button className="bg-accent-400 hover:bg-accent-300 rounded-full h-12 flex items-center w-full">
+      <div className="w-48 h-20 bg-primary-300 p-4">
+        <button className="bg-accent-400 hover:bg-accent-300 rounded-full h-12 flex items-center w-full text-white">
           <i><AiOutlineFileAdd className={"w-6 h-6 text-2xl m-2"} /></i>
-          <p>New page</p>
+          <h2>New page</h2>
         </button>
       </div>
     </div>

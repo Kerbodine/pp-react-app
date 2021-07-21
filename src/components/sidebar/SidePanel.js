@@ -27,7 +27,9 @@ export default function SidePanel() {
         <div>
           <SideGreeting />
         </div>
+        <div>
           <Calendar calendarType="US" />
+        </div>
         <div className="flex gap-4">
           <SideWidget eventName="Test event" countdown="6" timeUnit="days"/>
           <SideWidget eventName="Test event 2" countdown="11" timeUnit="days"/>
