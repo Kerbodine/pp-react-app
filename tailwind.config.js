@@ -11,10 +11,11 @@ module.exports = {
       "bg-pink-400",
     ]
   },
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
+        "primary": "var(--primary-color)",
         "primary-50": "var(--primary-color-50)",
         "primary-100": "var(--primary-color-100)",
         "primary-200": "var(--primary-color-200)",

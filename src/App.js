@@ -16,6 +16,8 @@ import SidePanel from "./components/sidebar/SidePanel";
 
 function App() {
 
+  const [darkMode, setDarkMode] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -24,6 +26,10 @@ function App() {
       setLoading(false)
     }, 1000)
   }, [])
+
+  const toggleThemeHandler =  () => {
+    setDarkMode(!darkMode)
+  };
 
   return (
     <div className="App overflow-hidden">
@@ -36,11 +42,11 @@ function App() {
       : 
       <Router>
         <div className="flex">
-          <Navbar />
+          <Navbar darkMode={darkMode} />
           <div className="flex-auto">
             <Switch>
               <Route path="/" exact component={Dashboard} />
-              <Route path="/reminders" component={Reminders} />
+              <Route path="/reminders" render={(props) => (<Reminders {...props} darkMode={darkMode} />)} />
               <Route path="/notes" component={Notes}/>
               <Route path="/extensions" component={Extras} />
               <Route path="/profile" component={Profile} />
@@ -48,7 +54,7 @@ function App() {
             </Switch>
           </div>
           <div className="w-0 lg:w-72">
-            <SidePanel />
+            <SidePanel darkMode={darkMode} onClick={toggleThemeHandler} />
           </div>
         </div>
       </Router>

@@ -1,45 +1,16 @@
 .react-calendar {
-  width: 350px;
-  max-width: 100%;
-  background: var(--primary-color-700);
-  line-height: 1em;
-  border-radius: 1em;
-  overflow: hidden;
-}
-.react-calendar--doubleView {
-  width: 700px;
-}
-.react-calendar--doubleView .react-calendar__viewContainer {
-  display: flex;
-  margin: -0.5em;
-}
-.react-calendar--doubleView .react-calendar__viewContainer > * {
-  width: 50%;
-  margin: 0.5em;
-}
-.react-calendar,
-.react-calendar *,
-.react-calendar *:before,
-.react-calendar *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  @apply max-w-full bg-primary-200 dark:bg-primary-700 leading-4 rounded-2xl overflow-hidden transition-colors;
 }
 .react-calendar button {
   margin: 0;
   border: 0;
   outline: none;
 }
-.react-calendar button:enabled:hover {
-  cursor: pointer;
-}
 .react-calendar__navigation {
-  height: 44px;
-  margin-bottom: 1em;
+  height: 40px;
 }
 .react-calendar__navigation button {
-  min-width: 44px;
-  background: none;
+  min-width: 40px;
 }
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
