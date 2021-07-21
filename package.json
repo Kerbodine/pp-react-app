@@ -11,6 +11,7 @@
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "draftjs-to-markdown": "^0.6.0",
+    "firebase": "^8.7.1",
     "html-to-draftjs": "^1.5.0",
     "react": "^17.0.2",
     "react-calendar": "^3.4.0",

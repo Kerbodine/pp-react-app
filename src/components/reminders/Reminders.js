@@ -2,7 +2,7 @@ import React from 'react'
 import ReminderSidebar from './ReminderSidebar'
 import TaskList from './TaskList'
 
-export default function Reminders({ darkMode }) {
+export default function Reminders({ darkMode, reminders }) {
 
   return (
     <div className={`${ darkMode ? "dark" : "" }`}>
@@ -17,7 +17,7 @@ export default function Reminders({ darkMode }) {
             <div className="w-full h-full">
               <div className="p-8 bg-primary-100 dark:bg-primary-600 transition-colors h-full">
                 <input className="h-12 bg-transparent text-black dark:text-white font-bold outline-none text-4xl mb-4" autoComplete="off"  value="Untitled" type="text" aria-label="list title"></input>
-                <TaskList />
+                <TaskList reminders={reminders} />
               </div>
             </div>
           </div>

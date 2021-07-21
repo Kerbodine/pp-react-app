@@ -3,7 +3,7 @@ import ReminderList from './ReminderList'
 import { v4 as uuidv4 } from "uuid";
 import { BiListPlus } from "react-icons/bi";
 
-export default function ReminderSidebar({ darkMode }) {
+export default function ReminderSidebar({ darkMode, reminders }) {
 
   const allLists = [
     {

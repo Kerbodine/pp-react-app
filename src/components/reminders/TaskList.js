@@ -2,7 +2,7 @@ import React from 'react'
 import { v4 as uuidv4 } from "uuid";
 import TaskItem from './TaskItem';
 
-export default function TaskList() {
+export default function TaskList({ reminders }) {
 
   const allTasks = [
     {
@@ -65,7 +65,7 @@ export default function TaskList() {
 
   return (
     <div className="overflow-y-auto no-scrollbar h-full flex flex-col gap-2 pb-16">
-      {allTasks.map((page) => (
+      {reminders.map((page) => (
       <div key={page.key}>
         <TaskItem
           title={page.title}
