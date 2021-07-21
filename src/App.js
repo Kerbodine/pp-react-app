@@ -16,7 +16,14 @@ import SidePanel from "./components/sidebar/SidePanel";
 
 function App() {
 
-  const [darkMode, setDarkMode] = useState(false);
+  let darkModeValue = false
+
+  if (localStorage.getItem("darkMode") !== null) {
+    darkModeValue = JSON.parse(localStorage.getItem("darkMode"));
+    console.log(darkModeValue);
+  }
+
+  const [darkMode, setDarkMode] = useState(darkModeValue);
 
   const [loading, setLoading] = useState(false);
 
@@ -28,6 +35,7 @@ function App() {
   }, [])
 
   const toggleThemeHandler =  () => {
+    localStorage.setItem("darkMode", !darkMode)
     setDarkMode(!darkMode)
   };
 
