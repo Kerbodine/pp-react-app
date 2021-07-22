@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import NavbarItem from "./NavbarItem";
 import {BiAtom, BiGridAlt, BiCheckSquare, BiNotepad, BiExtension, BiUserCircle, BiCog, BiExit} from "react-icons/bi";
 
-export default function Navbar({ darkMode }) {
+export default function Navbar({ darkMode, logoutHandler }) {
   return (
     <div className={`${ darkMode ? "dark" : "" }`}>
       <div className="h-screen flex flex-col bg-primary dark:bg-primary-800 text-black dark:text-white transition-colors">
@@ -29,9 +29,7 @@ export default function Navbar({ darkMode }) {
             <Link to="/settings" aria-label="settings">
               <NavbarItem darkMode={darkMode} icon={<BiCog />} path="/settings" />
             </Link>
-            <Link to="/logout" aria-label="logout">
-              <NavbarItem darkMode={darkMode} icon={<BiExit />} path="/logout" />
-            </Link>
+            <NavbarItem darkMode={darkMode} icon={<BiExit />} onClick={logoutHandler} />
           </div>
       </div>
     </div>
