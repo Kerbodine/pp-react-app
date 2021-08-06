@@ -9,13 +9,13 @@ module.exports = {
       "bg-blue-400",
       "bg-purple-400",
       "bg-pink-400",
-    ]
+    ],
   },
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        "primary": "var(--primary-color)",
+        primary: "var(--primary-color)",
         "primary-50": "var(--primary-color-50)",
         "primary-100": "var(--primary-color-100)",
         "primary-200": "var(--primary-color-200)",
@@ -26,10 +26,11 @@ module.exports = {
         "primary-700": "var(--primary-color-700)",
         "primary-800": "var(--primary-color-800)",
         "primary-900": "var(--primary-color-900)",
+        "accent-300": "var(--accent-color-300)",
         "accent-400": "var(--accent-color-400)",
         "accent-500": "var(--accent-color-500)",
         "accent-600": "var(--accent-color-600)",
-        "accent-weekend": "var(--weekend-color)"
+        "accent-weekend": "var(--weekend-color)",
       },
     },
   },

@@ -1,64 +1,63 @@
-import React from 'react'
+import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import TaskItem from './TaskItem';
+import TaskItem from "./TaskItem";
 
 export default function TaskList() {
-
   const allTasks = [
     {
       key: uuidv4(),
-      title: "Note 1",
+      title: "Task 1",
       completed: false,
-      color: "bg-red-400",
+      color: "red-400",
       dueDate: "dd/mm/yyyy",
     },
     {
       key: uuidv4(),
-      title: "Note 2",
+      title: "Task 2",
       completed: false,
-      color: "bg-yellow-400",
+      color: "yellow-400",
       dueDate: "dd/mm/yyyy",
     },
     {
       key: uuidv4(),
-      title: "Note 3",
+      title: "Task 3",
       completed: false,
-      color: "bg-green-400",
+      color: "green-400",
       dueDate: "dd/mm/yyyy",
     },
     {
       key: uuidv4(),
-      title: "Note 3",
+      title: "Task 3",
       completed: false,
-      color: "bg-pink-400",
+      color: "pink-400",
       dueDate: "dd/mm/yyyy",
     },
     {
       key: uuidv4(),
-      title: "Note 3",
+      title: "Task 3",
       completed: false,
-      color: "bg-yellow-400",
+      color: "yellow-400",
       dueDate: "dd/mm/yyyy",
     },
     {
       key: uuidv4(),
-      title: "Note 3",
+      title: "Task 3",
       completed: false,
-      color: "bg-purple-400",
+      color: "purple-400",
       dueDate: "dd/mm/yyyy",
     },
     {
       key: uuidv4(),
-      title: "Note 3",
+      title: "Task 3",
       completed: false,
-      color: "bg-red-400",
+      color: "red-400",
       dueDate: "dd/mm/yyyy",
     },
     {
       key: uuidv4(),
-      title: "Note 3",
+      title: "Task 3",
       completed: false,
-      color: "bg-green-400",
+      color: "green-400",
       dueDate: "dd/mm/yyyy",
     },
   ];
@@ -66,15 +65,15 @@ export default function TaskList() {
   return (
     <div className="overflow-y-auto no-scrollbar h-full flex flex-col gap-2 pb-16">
       {allTasks.map((page) => (
-      <div key={page.key}>
-        <TaskItem
-          title={page.title}
-          completed={page.completed}
-          color={page.color}
-          dueDate={page.dueDate}
-        />
-      </div>
-    ))}
+        <div key={page.key}>
+          <TaskItem
+            title={page.title}
+            completed={page.completed}
+            color={page.color}
+            dueDate={page.dueDate}
+          />
+        </div>
+      ))}
     </div>
-  )
+  );
 }

@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --primary-color-50: #F9FAFB;
-  --primary-color-100: #F3F4F6;
-  --primary-color-200: #E5E7EB;
-  --primary-color-300: #D1D5DB;
-  --primary-color-400: #9CA3AF;
-  --primary-color-500: #6B7280;
-  --primary-color-600: #4B5563;
+  --primary-color-50: #f9fafb;
+  --primary-color-100: #f1f2f4;
+  --primary-color-200: #e5e7eb;
+  --primary-color-300: #d1d5db;
+  --primary-color-400: #9ca3af;
+  --primary-color-500: #6b7280;
+  --primary-color-600: #4b5563;
   --primary-color-700: #374151;
-  --primary-color-800: #1F2937;
+  --primary-color-800: #1f2937;
   --primary-color-900: #111827;
 }
 /* 
@@ -57,9 +57,10 @@
 :root {
   /* --accent-color-400: #60A5FA; */
   /* --accent-color-400: #2563EB; */
-  --accent-color-400: #3B82F6;
-  --accent-color-500: #3B82F6;
-  --accent-color-600: #2563EB;
+  --accent-color-300: #629bf8;
+  --accent-color-400: #3b82f6;
+  --accent-color-500: #3b82f6;
+  --accent-color-600: #2563eb;
 }
 
 /* Purple accent */
@@ -96,7 +97,7 @@
 }
 
 html {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .checkbox {
@@ -104,16 +105,14 @@ html {
   @apply flex items-center justify-center transition-colors;
 }
 
-.checkbox:active, .checkbox:checked:active {
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
-}
-
-.checkbox:checked {
-  @apply !bg-accent-400;
+.checkbox:active,
+.checkbox:checked:active {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .checkbox:checked:after {
-	content: '\2714';
-	font-size: 20px;
-	color: #fff;
+  content: "\2714";
+  font-size: 16px;
+  color: #fff;
 }
