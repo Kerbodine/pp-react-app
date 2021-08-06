@@ -1,7 +1,8 @@
 import React from "react";
 import { BiTrash } from "react-icons/bi";
 
-export default function TaskItem({ title, completed, dueDate }) {
+export default function TaskItem({ title, completed, dueDate, color }) {
+  console.log(color);
   function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp);
     var months = [

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReminderSidebar from "./ReminderSidebar";
 import TaskItem from "./TaskItem";
 import { v4 as uuidv4 } from "uuid";
@@ -10,12 +10,12 @@ import { BiArchive } from "react-icons/bi";
 import { BiChevronDown } from "react-icons/bi";
 
 export default function Reminders({ darkMode }) {
-  const allLists = [
+  const [allLists, setAllLists] = useState([
     {
       id: uuidv4(),
       title: "Reminder List 1",
       amount: "10",
-      color: "bg-red-400",
+      color: "red",
       icon: <BiListUl />,
       tasks: [
         {
@@ -39,7 +39,7 @@ export default function Reminders({ darkMode }) {
       id: uuidv4(),
       title: "Reminder List 2",
       amount: "10",
-      color: "bg-yellow-400",
+      color: "yellow",
       icon: <BiListUl />,
       tasks: [
         {
@@ -60,7 +60,7 @@ export default function Reminders({ darkMode }) {
       id: uuidv4(),
       title: "Reminder List 3",
       amount: "10",
-      color: "bg-purple-400",
+      color: "purple",
       icon: <BiListUl />,
       tasks: [
         {
@@ -79,7 +79,7 @@ export default function Reminders({ darkMode }) {
         },
       ],
     },
-  ];
+  ]);
 
   const [currentList, setCurrentList] = useState(allLists[0]);
 
@@ -88,7 +88,7 @@ export default function Reminders({ darkMode }) {
       id: uuidv4(),
       title: "Today",
       amount: "10",
-      color: "bg-blue-400",
+      color: "blue",
       icon: <BiSun />,
       tasks: [],
     },
@@ -96,7 +96,7 @@ export default function Reminders({ darkMode }) {
       id: uuidv4(),
       title: "Priority",
       amount: "10",
-      color: "bg-red-400",
+      color: "red",
       icon: <BiCalendarExclamation />,
       tasks: [],
     },
@@ -104,7 +104,7 @@ export default function Reminders({ darkMode }) {
       id: uuidv4(),
       title: "Starred",
       amount: "10",
-      color: "bg-yellow-400",
+      color: "yellow",
       icon: <BiStar />,
       tasks: [],
     },
@@ -112,7 +112,7 @@ export default function Reminders({ darkMode }) {
       id: uuidv4(),
       title: "All",
       amount: "10",
-      color: "bg-green-400",
+      color: "green",
       icon: <BiArchive />,
       tasks: [],
     },
@@ -138,11 +138,28 @@ export default function Reminders({ darkMode }) {
         id={task.id}
         title={task.title}
         completed={task.completed}
-        color={task.color}
+        color={currentList.color}
         dueDate={task.dueDate}
       />
     </div>
   ));
+
+  const listColorHandler = (newColor) => {
+    console.log(newColor);
+    setCurrentList((prevList) => {
+      return { ...prevList, color: newColor };
+    });
+    console.log(currentList);
+    // setCurrentList({ ...currentList, color: newColor });
+    setColorDropdown(false);
+  };
+
+  useEffect(() => {
+    const objIndex = allLists.findIndex((obj) => obj.key === currentList.key);
+    const temp = allLists;
+    temp[objIndex] = { ...currentList };
+    setAllLists([...temp]);
+  }, [currentList]);
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
@@ -161,7 +178,9 @@ export default function Reminders({ darkMode }) {
             </div>
             <div className="w-full h-full">
               <div className="bg-primary-100 dark:bg-primary-600 transition-colors h-full">
-                <div className={`w-full h-12 ${currentList.color}`}></div>
+                <div
+                  className={`w-full h-12 bg-${currentList.color}-400`}
+                ></div>
                 <div className="h-12 m-8 flex flex-row items-center">
                   <input
                     className="flex-auto bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
@@ -171,7 +190,7 @@ export default function Reminders({ darkMode }) {
                     aria-label="list title"
                   ></input>
                   <div
-                    className={`relative w-8 h-8 rounded-full ${currentList.color} text-white text-2xl flex items-center justify-center hover:bg-red-400/80`}
+                    className={`relative w-8 h-8 rounded-full bg-${currentList.color}-400 text-white text-2xl flex items-center justify-center hover:bg-${currentList.color}-400/80`}
                   >
                     <BiChevronDown onClick={handleColorDropdown} />
                     <div
@@ -179,11 +198,26 @@ export default function Reminders({ darkMode }) {
                         colorDropdown ? "opacity-100" : "opacity-0"
                       } absolute top-10 -left-2 w-12 bg-white rounded-md shadow-md transition-opacity`}
                     >
-                      <div className="w-8 h-8 m-2 rounded-full bg-red-400 hover:bg-red-400/80"></div>
-                      <div className="w-8 h-8 m-2 rounded-full bg-yellow-400 hover:bg-yellow-400/80"></div>
-                      <div className="w-8 h-8 m-2 rounded-full bg-green-400 hover:bg-green-400/80"></div>
-                      <div className="w-8 h-8 m-2 rounded-full bg-blue-400 hover:bg-blue-400/80"></div>
-                      <div className="w-8 h-8 m-2 rounded-full bg-purple-400 hover:bg-purple-400/80"></div>
+                      <div
+                        className="w-8 h-8 m-2 rounded-full bg-red-400 hover:bg-red-400/80"
+                        onClick={() => listColorHandler("red")}
+                      ></div>
+                      <div
+                        className="w-8 h-8 m-2 rounded-full bg-yellow-400 hover:bg-yellow-400/80"
+                        onClick={() => listColorHandler("yellow")}
+                      ></div>
+                      <div
+                        className="w-8 h-8 m-2 rounded-full bg-green-400 hover:bg-green-400/80"
+                        onClick={() => listColorHandler("green")}
+                      ></div>
+                      <div
+                        className="w-8 h-8 m-2 rounded-full bg-blue-400 hover:bg-blue-400/80"
+                        onClick={() => listColorHandler("blue")}
+                      ></div>
+                      <div
+                        className="w-8 h-8 m-2 rounded-full bg-purple-400 hover:bg-purple-400/80"
+                        onClick={() => listColorHandler("purple")}
+                      ></div>
                     </div>
                   </div>
                 </div>

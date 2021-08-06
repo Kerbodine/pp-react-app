@@ -14,6 +14,7 @@ module.exports = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
+      backgroundColor: ["checked"],
       colors: {
         primary: "var(--primary-color)",
         "primary-50": "var(--primary-color-50)",
