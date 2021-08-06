@@ -1,116 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import ReminderList from "./ReminderList";
-import { v4 as uuidv4 } from "uuid";
-import { BiListPlus } from "react-icons/bi";
-import { BiListUl } from "react-icons/bi";
-import { BiSun } from "react-icons/bi";
-import { BiCalendarExclamation } from "react-icons/bi";
-import { BiStar } from "react-icons/bi";
-import { BiArchive } from "react-icons/bi";
+import ReminderItem from "./ReminderItem";
+import { BiListPlus, BiCaretDownCircle, BiCaretUpCircle } from "react-icons/bi";
 
-export default function ReminderSidebar({ darkMode }) {
-  const allLists = [
-    {
-      key: uuidv4(),
-      title: "Reminder List 1",
-      amount: "10",
-      color: "bg-red-400",
-      icon: <BiListUl />,
-    },
-    {
-      key: uuidv4(),
-      title: "Reminder List 2",
-      amount: "10",
-      color: "bg-yellow-400",
-      icon: <BiListUl />,
-    },
-    {
-      key: uuidv4(),
-      title: "Reminder List 3",
-      amount: "10",
-      color: "bg-red-400",
-      icon: <BiListUl />,
-    },
-    {
-      key: uuidv4(),
-      title: "Reminder List 3",
-      amount: "10",
-      color: "bg-red-400",
-      icon: <BiListUl />,
-    },
-    {
-      key: uuidv4(),
-      title: "Reminder List 3",
-      amount: "10",
-      color: "bg-red-400",
-      icon: <BiListUl />,
-    },
-    {
-      key: uuidv4(),
-      title: "Reminder List 3",
-      amount: "10",
-      color: "bg-red-400",
-      icon: <BiListUl />,
-    },
-    {
-      key: uuidv4(),
-      title: "Reminder List 3",
-      amount: "10",
-      color: "bg-red-400",
-      icon: <BiListUl />,
-    },
-    {
-      key: uuidv4(),
-      title: "Reminder List asd sad s3",
-      amount: "10",
-      color: "bg-red-400",
-      icon: <BiListUl />,
-    },
-  ];
+export default function ReminderSidebar({
+  darkMode,
+  allLists,
+  categories,
+  selectList,
+}) {
+  const [showCategories, setShowCategories] = useState(true);
+  const [showLists, setShowLists] = useState(true);
 
-  const categories = [
-    {
-      key: uuidv4(),
-      title: "Today",
-      amount: "10",
-      color: "bg-blue-400",
-      icon: <BiSun />,
-    },
-    {
-      key: uuidv4(),
-      title: "Priority",
-      amount: "10",
-      color: "bg-red-400",
-      icon: <BiCalendarExclamation />,
-    },
-    {
-      key: uuidv4(),
-      title: "Starred",
-      amount: "10",
-      color: "bg-yellow-400",
-      icon: <BiStar />,
-    },
-    {
-      key: uuidv4(),
-      title: "All",
-      amount: "10",
-      color: "bg-green-400",
-      icon: <BiArchive />,
-    },
-  ];
+  const showCategoriesHandler = () => {
+    setShowCategories(!showCategories);
+  };
+
+  const showListHandler = () => {
+    setShowLists(!showLists);
+  };
 
   return (
-    <div className={`${darkMode ? "dark" : ""} flex flex-col h-full`}>
-      <div className="w-full font-bold mt-4 ml-4">CATEGORIES:</div>
-      <hr className="border-none h-0.5 bg-gray-300 mx-4 my-2" />
-      <div className="">
-        <ReminderList allLists={categories} darkMode={darkMode} />
+    <div
+      className={`${
+        darkMode ? "dark" : ""
+      } flex flex-col h-full cursor-pointer`}
+    >
+      <div className="flex mt-4 mx-4">
+        <div className="w-full font-bold">CATEGORIES:</div>
+        <button onClick={showCategoriesHandler}>
+          <i className={`${showLists ? "visible" : "hidden"} text-2xl`}>
+            <BiCaretDownCircle />
+          </i>
+          <i className={`${showLists ? "hidden" : "visible"} text-2xl`}>
+            <BiCaretUpCircle />
+          </i>
+        </button>
       </div>
-      <div className="w-full font-bold mt-4 ml-4">MY LISTS:</div>
       <hr className="border-none h-0.5 bg-gray-300 mx-4 my-2" />
-      <div className="flex-auto min-h-0">
-        <ReminderList allLists={allLists} darkMode={darkMode} />
+      <div className={`${showCategories ? "visible" : "hidden"}`}>
+        <ReminderList
+          allLists={categories}
+          darkMode={darkMode}
+          selectList={selectList}
+        />
       </div>
+      <div className="flex mt-4 mx-4">
+        <div className="w-full font-bold">MY LISTS:</div>
+        <button onClick={showListHandler}>
+          <i className={`${showLists ? "visible" : "hidden"} text-2xl`}>
+            <BiCaretDownCircle />
+          </i>
+          <i className={`${showLists ? "hidden" : "visible"} text-2xl`}>
+            <BiCaretUpCircle />
+          </i>
+        </button>
+      </div>
+      <hr className="border-none h-0.5 bg-gray-300 mx-4 my-2" />
+      <div className={`flex-auto min-h-0 ${showLists ? "visible" : "hidden"}`}>
+        <div className="overflow-hidden overflow-y-auto h-full">
+          {allLists.map((list) => (
+            <div key={list.id}>
+              <ReminderItem
+                id={list.id}
+                title={list.title}
+                amount={Object.keys(list.tasks).length}
+                color={list.color}
+                icon={list.icon}
+                darkMode={darkMode}
+                selectList={selectList}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div
+        className={`flex-auto min-h-0 ${showLists ? "hidden" : "visible"}`}
+      ></div>
       <hr className="border-none h-0.5 bg-gray-300" />
       <button className="h-12 flex-shrink-0 hover:bg-primary-300 transition-colors dark:bg-primary-700 text-black dark:text-white flex items-center text-lg">
         <i className="text-2xl ml-4 mr-2">

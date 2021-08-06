@@ -13,7 +13,7 @@ export default function SidePanel({ darkMode, onClick }) {
   return (
     <div className={`${darkMode ? "dark" : ""} w-72 h-screen`}>
       <div className="flex gap-4 h-20 bg-primary dark:bg-primary-800 px-4 transition-colors">
-        <div className="w-48 flex items-center h-12 bg-primary-100 dark:bg-primary-700 rounded-2xl my-auto px-3 transition-colors focus-within:ring-2 focus-within:ring-blue-600">
+        <div className="w-48 flex items-center h-12 bg-primary-100 dark:bg-primary-700 rounded-2xl my-auto px-3 transition-colors focus-within:ring-2 focus-within:ring-accent-400">
           <div className="text-2xl text-black dark:text-white mr-2">
             <BiSearch />
           </div>
