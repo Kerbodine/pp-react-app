@@ -170,10 +170,6 @@ export default function Reminders({ darkMode }) {
     setAllLists([...temp]);
   }, [currentList]);
 
-  useEffect(() => {
-    localStorage.setItem("reminders", JSON.stringify(allLists));
-  }, [allLists]);
-
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div className="h-screen flex bg-primary dark:bg-primary-800 transition-colors">
