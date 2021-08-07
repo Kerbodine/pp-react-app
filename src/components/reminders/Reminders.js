@@ -117,14 +117,14 @@ export default function Reminders({ darkMode }) {
   // Current list state
   const [currentList, setCurrentList] = useState(allLists[0]);
 
-  // Function to toggle task completion
-  const toggleCompleteHandler = (id) => {
+  const updateTaskHandler = (id, completed, title, dueDate, description) => {
     const objIndex = currentList.tasks.findIndex((task) => task.id === id);
     let temp = currentList;
-    temp.tasks[objIndex].completed = !currentList.tasks[objIndex].completed;
-    console.log(temp);
+    temp.tasks[objIndex].completed = completed;
+    temp.tasks[objIndex].title = title;
+    temp.tasks[objIndex].dueDate = dueDate;
+    temp.tasks[objIndex].description = description;
     setCurrentList(temp);
-    console.log(allLists);
   };
 
   // Function to change current list to selected list
@@ -150,6 +150,18 @@ export default function Reminders({ darkMode }) {
     setColorDropdown(false);
   };
 
+  const newTaskHandler = () => {
+    let temp = currentList;
+    temp.tasks.push({
+      id: uuidv4(),
+      title: "New task",
+      completed: false,
+      dueDate: null,
+      description: "",
+    });
+    setCurrentList({ ...temp });
+  };
+
   // Updating all lists array after update to current list
   useEffect(() => {
     const objIndex = allLists.findIndex((list) => list.id === currentList.id);
@@ -157,6 +169,10 @@ export default function Reminders({ darkMode }) {
     temp[objIndex] = currentList;
     setAllLists([...temp]);
   }, [currentList]);
+
+  useEffect(() => {
+    localStorage.setItem("reminders", JSON.stringify(allLists));
+  }, [allLists]);
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
@@ -189,7 +205,7 @@ export default function Reminders({ darkMode }) {
                     className={`relative w-8 h-8 rounded-full bg-${
                       currentList.color
                         ? `${currentList.color}-400`
-                        : "gray-200"
+                        : "primary-200"
                     } text-white text-2xl flex items-center justify-center hover:bg-${
                       currentList.color
                     }-400/80`}
@@ -232,25 +248,24 @@ export default function Reminders({ darkMode }) {
                   </div>
                 </div>
                 <div className="mx-8">
-                  <div className="overflow-y-auto no-scrollbar h-full flex flex-col gap-2 pb-16">
-                    {currentList.tasks.length ? (
-                      currentList.tasks.map((task) => (
-                        <div key={task.id}>
-                          <TaskItem
-                            id={task.id}
-                            title={task.title}
-                            completed={task.completed}
-                            color={currentList.color}
-                            dueDate={task.dueDate}
-                            description={task.description}
-                            toggleComplete={toggleCompleteHandler}
-                          />
-                        </div>
-                      ))
-                    ) : (
-                      <p>No tasks</p>
-                    )}
-                    <div className="w-full border border-gray-400 rounded-md border-[2px] h-10 flex items-center justify-center cursor-pointer border-dashed">
+                  <div className="overflow-y-scroll no-scrollbar h-full flex flex-col gap-2 pb-16">
+                    {currentList.tasks.map((task) => (
+                      <div key={task.id}>
+                        <TaskItem
+                          id={task.id}
+                          title={task.title}
+                          completed={task.completed}
+                          color={currentList.color}
+                          dueDate={task.dueDate}
+                          description={task.description}
+                          updateComponent={updateTaskHandler}
+                        />
+                      </div>
+                    ))}
+                    <div
+                      className="w-full border border-gray-400 rounded-md border-[2px] h-10 flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all"
+                      onClick={newTaskHandler}
+                    >
                       <i className="text-2xl text-gray-600">
                         <BiPlus />
                       </i>
