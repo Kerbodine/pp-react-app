@@ -60,6 +60,10 @@ export default function Reminders({ darkMode }) {
           dueDate: Date.now(),
           description:
             "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos maxime iste illum et deleniti doloribus quas dolorem dicta, accusamus ullam.",
+          today: false,
+          important: false,
+          starred: false,
+          expanded: false,
         },
         {
           id: uuidv4(),
@@ -67,6 +71,10 @@ export default function Reminders({ darkMode }) {
           completed: false,
           dueDate: Date.now(),
           description: "",
+          today: false,
+          important: false,
+          starred: false,
+          expanded: false,
         },
       ],
     },
@@ -81,12 +89,22 @@ export default function Reminders({ darkMode }) {
           title: "Task 3",
           completed: false,
           dueDate: Date.now(),
+          description: "desc 3",
+          today: false,
+          important: false,
+          starred: false,
+          expanded: false,
         },
         {
           id: uuidv4(),
           title: "Task 4",
           completed: false,
           dueDate: Date.now(),
+          description: "desc 4",
+          today: false,
+          important: false,
+          starred: false,
+          expanded: false,
         },
       ],
     },
@@ -101,14 +119,22 @@ export default function Reminders({ darkMode }) {
           title: "Task 5",
           completed: false,
           dueDate: Date.now(),
-          description: "",
+          description: "desc 5",
+          today: false,
+          important: false,
+          starred: false,
+          expanded: false,
         },
         {
           id: uuidv4(),
           title: "Task 6",
           completed: false,
           dueDate: Date.now(),
-          description: "",
+          description: "desc 6",
+          today: false,
+          important: false,
+          starred: false,
+          expanded: false,
         },
       ],
     },
@@ -117,14 +143,46 @@ export default function Reminders({ darkMode }) {
   // Current list state
   const [currentList, setCurrentList] = useState(allLists[0]);
 
-  const updateTaskHandler = (id, completed, title, dueDate, description) => {
+  const updateTaskHandler = (
+    id,
+    completed,
+    title,
+    dueDate,
+    description,
+    today,
+    important,
+    starred,
+    expanded
+  ) => {
     const objIndex = currentList.tasks.findIndex((task) => task.id === id);
-    let temp = currentList;
-    temp.tasks[objIndex].completed = completed;
-    temp.tasks[objIndex].title = title;
-    temp.tasks[objIndex].dueDate = dueDate;
-    temp.tasks[objIndex].description = description;
-    setCurrentList(temp);
+    let temp = currentList.tasks;
+    // temp[objIndex] = {
+    //   title: title,
+    //   completed: completed,
+    //   dueDate: dueDate,
+    //   description: description,
+    //   today: today,
+    //   important: important,
+    //   starred: starred,
+    //   expanded: expanded,
+    // };
+    temp[objIndex].title = title;
+    temp[objIndex].completed = completed;
+    temp[objIndex].dueDate = dueDate;
+    temp[objIndex].description = description;
+    temp[objIndex].today = today;
+    temp[objIndex].important = important;
+    temp[objIndex].starred = starred;
+    temp[objIndex].expanded = expanded;
+    setCurrentList({ ...currentList, tasks: temp });
+  };
+
+  const deleteTaskHandler = (id) => {
+    let temp = currentList.tasks.filter(function (obj) {
+      return obj.id !== id;
+    });
+    console.log(temp);
+    setCurrentList({ ...currentList, tasks: temp });
   };
 
   // Function to change current list to selected list
@@ -150,6 +208,11 @@ export default function Reminders({ darkMode }) {
     setColorDropdown(false);
   };
 
+  // Function to change list title
+  const titleChangeHandler = (e) => {
+    setCurrentList({ ...currentList, title: e.target.value });
+  };
+
   const newTaskHandler = () => {
     let temp = currentList;
     temp.tasks.push({
@@ -160,6 +223,18 @@ export default function Reminders({ darkMode }) {
       description: "",
     });
     setCurrentList({ ...temp });
+  };
+
+  const newListHandler = () => {
+    const newList = {
+      id: uuidv4(),
+      title: "Untitled list",
+      color: "gray",
+      icon: <BiListUl />,
+      tasks: [],
+    };
+    setAllLists([...allLists, newList]);
+    setCurrentList({ ...newList });
   };
 
   // Updating all lists array after update to current list
@@ -181,6 +256,7 @@ export default function Reminders({ darkMode }) {
                   darkMode={darkMode}
                   allLists={allLists}
                   selectList={selectListHandler}
+                  newListHandler={newListHandler}
                 />
               </div>
             </div>
@@ -194,15 +270,16 @@ export default function Reminders({ darkMode }) {
                     className="flex-auto bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
                     autoComplete="off"
                     value={currentList.title}
+                    onChange={titleChangeHandler}
                     type="text"
                     aria-label="list title"
                   ></input>
                   <div
                     className={`relative w-8 h-8 rounded-full bg-${
                       currentList.color
-                        ? `${currentList.color}-400`
-                        : "primary-200"
-                    } text-white text-2xl flex items-center justify-center hover:bg-${
+                        ? `${currentList.color}-400 text-white`
+                        : "primary-200 text-black"
+                    } text-2xl flex items-center justify-center hover:bg-${
                       currentList.color
                     }-400/80`}
                   >
@@ -254,7 +331,12 @@ export default function Reminders({ darkMode }) {
                           color={currentList.color}
                           dueDate={task.dueDate}
                           description={task.description}
+                          today={task.today}
+                          important={task.important}
+                          starred={task.starred}
+                          expanded={task.expanded}
                           updateComponent={updateTaskHandler}
+                          deleteTask={deleteTaskHandler}
                         />
                       </div>
                     ))}

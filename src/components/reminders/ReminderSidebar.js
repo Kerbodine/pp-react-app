@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import ReminderItem from "./ReminderItem";
-import { BiListPlus, BiCaretDownCircle, BiCaretUpCircle } from "react-icons/bi";
+import { BiListPlus, BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 export default function ReminderSidebar({
   darkMode,
   allLists,
-  allCategories,
+  newListHandler,
   selectList,
 }) {
   const [showCategories, setShowCategories] = useState(true);
@@ -28,11 +28,11 @@ export default function ReminderSidebar({
       <div className="flex mt-4 mx-4">
         <div className="w-full font-bold">CATEGORIES:</div>
         <button onClick={showCategoriesHandler}>
-          <i className={`${showLists ? "visible" : "hidden"} text-2xl`}>
-            <BiCaretDownCircle />
+          <i className={`${showCategories ? "visible" : "hidden"} text-2xl`}>
+            <BiChevronDown />
           </i>
-          <i className={`${showLists ? "hidden" : "visible"} text-2xl`}>
-            <BiCaretUpCircle />
+          <i className={`${showCategories ? "hidden" : "visible"} text-2xl`}>
+            <BiChevronUp />
           </i>
         </button>
       </div>
@@ -56,10 +56,10 @@ export default function ReminderSidebar({
         <div className="w-full font-bold">MY LISTS:</div>
         <button onClick={showListHandler}>
           <i className={`${showLists ? "visible" : "hidden"} text-2xl`}>
-            <BiCaretDownCircle />
+            <BiChevronDown />
           </i>
           <i className={`${showLists ? "hidden" : "visible"} text-2xl`}>
-            <BiCaretUpCircle />
+            <BiChevronUp />
           </i>
         </button>
       </div>
@@ -85,7 +85,10 @@ export default function ReminderSidebar({
         className={`flex-auto min-h-0 ${showLists ? "hidden" : "visible"}`}
       ></div>
       <hr className="border-none h-0.5 bg-gray-300" />
-      <button className="h-12 flex-shrink-0 hover:bg-primary-300 transition-colors dark:bg-primary-700 text-black dark:text-white flex items-center text-lg">
+      <button
+        className="h-12 flex-shrink-0 hover:bg-primary-300 transition-colors dark:bg-primary-700 text-black dark:text-white flex items-center text-lg"
+        onClick={newListHandler}
+      >
         <i className="text-2xl ml-4 mr-2">
           <BiListPlus />
         </i>
