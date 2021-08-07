@@ -9,6 +9,7 @@ module.exports = {
       "bg-blue-400",
       "bg-purple-400",
       "bg-pink-400",
+      "bg-gray-400",
     ],
   },
   darkMode: "class", // or 'media' or 'class'

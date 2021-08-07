@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import ReminderList from "./ReminderList";
 import ReminderItem from "./ReminderItem";
 import { BiListPlus, BiCaretDownCircle, BiCaretUpCircle } from "react-icons/bi";
 
 export default function ReminderSidebar({
   darkMode,
   allLists,
-  categories,
+  allCategories,
   selectList,
 }) {
   const [showCategories, setShowCategories] = useState(true);
@@ -39,11 +38,19 @@ export default function ReminderSidebar({
       </div>
       <hr className="border-none h-0.5 bg-gray-300 mx-4 my-2" />
       <div className={`${showCategories ? "visible" : "hidden"}`}>
-        <ReminderList
-          allLists={categories}
-          darkMode={darkMode}
-          selectList={selectList}
-        />
+        {allLists.slice(0, 4).map((list) => (
+          <div key={list.id}>
+            <ReminderItem
+              id={list.id}
+              title={list.title}
+              amount={Object.keys(list.tasks).length}
+              color={list.color}
+              icon={list.icon}
+              darkMode={darkMode}
+              selectList={selectList}
+            />
+          </div>
+        ))}
       </div>
       <div className="flex mt-4 mx-4">
         <div className="w-full font-bold">MY LISTS:</div>
@@ -59,7 +66,7 @@ export default function ReminderSidebar({
       <hr className="border-none h-0.5 bg-gray-300 mx-4 my-2" />
       <div className={`flex-auto min-h-0 ${showLists ? "visible" : "hidden"}`}>
         <div className="overflow-hidden overflow-y-auto h-full">
-          {allLists.map((list) => (
+          {allLists.slice(4).map((list) => (
             <div key={list.id}>
               <ReminderItem
                 id={list.id}

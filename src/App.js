@@ -56,7 +56,10 @@ function App() {
                     <Reminders {...props} darkMode={darkMode} />
                   )}
                 />
-                <Route path="/notes" component={Notes} />
+                <Route
+                  path="/notes"
+                  render={(props) => <Notes {...props} darkMode={darkMode} />}
+                />
                 <Route path="/extensions" component={Extras} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/settings" component={Settings} />

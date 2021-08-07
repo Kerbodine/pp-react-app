@@ -40,11 +40,11 @@ export default function TagList() {
         <TagItem key={tag.key} title={tag.title} color={`${tag.color}`} />
       ))}
       <div
-        className={`h-auto w-auto flex rounded-full overflow-hidden text-xl bg-primary-300 hover:bg-accent-400 transition-colors text-black hover:text-white`}
+        className={`h-auto w-auto flex rounded-full overflow-hidden text-2xl bg-primary-200 hover:bg-accent-400 transition-colors text-black hover:text-white`}
       >
         <input
           ref={tagRef}
-          className="bg-primary-300 px-2 my-auto text-sm text-black h-6 w-20 outline-none"
+          className="bg-primary-200 px-2 my-auto text-base text-black h-8 w-20 outline-none"
           aria-label="add tag"
         ></input>
         <BiPlusCircle className="my-auto m-1" onClick={addTagHandler} />
