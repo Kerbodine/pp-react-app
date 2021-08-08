@@ -274,6 +274,7 @@ export default function Reminders({ darkMode }) {
     const temp = allLists;
     temp.splice(currentListIndex, 1);
     setAllLists([...temp]);
+    setCurrentListIndex(allLists.length - 1);
   };
 
   useEffect(() => {

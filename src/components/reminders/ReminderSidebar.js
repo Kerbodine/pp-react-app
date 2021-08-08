@@ -43,7 +43,6 @@ export default function ReminderSidebar({
             <ReminderItem
               index={listIndex}
               title={list.title}
-              amount={Object.keys(list.tasks).length}
               color={list.color}
               icon={list.icon}
               darkMode={darkMode}
