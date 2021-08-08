@@ -12,7 +12,6 @@ import "./datepicker.css";
 
 export default function TaskItem({
   id,
-  index,
   title,
   completed,
   dueDate,
@@ -147,7 +146,7 @@ export default function TaskItem({
             placeholder="Add a description..."
             value={taskDescription}
             onChange={descriptionChangeHandler}
-            className="text-sm bg-transparent w-full h-auto outline-none resize-none text-gray-600"
+            className="text-sm bg-transparent w-full h-auto outline-none resize-y text-gray-600 max-h-[12rem]"
           ></textarea>
         </div>
       </div>
@@ -156,7 +155,7 @@ export default function TaskItem({
           className="w-8 h-8 mx-2 flex items-center justify-center rounded-full bg-primary-300 hover:bg-red-400 text-black hover:text-white transition-colors text-2xl"
           aria-label="delete task"
           onClick={() => {
-            deleteTask(index);
+            deleteTask(id);
           }}
         >
           <BiTrash />

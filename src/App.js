@@ -22,7 +22,6 @@ function App() {
   }
 
   const [darkMode, setDarkMode] = useState(darkModeValue);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

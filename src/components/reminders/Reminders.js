@@ -3,6 +3,7 @@ import ReminderSidebar from "./ReminderSidebar";
 import TaskItem from "./TaskItem";
 import { v4 as uuidv4 } from "uuid";
 import {
+  BiTrash,
   BiListUl,
   BiSun,
   BiCalendarExclamation,
@@ -11,6 +12,7 @@ import {
   BiChevronDown,
   BiPlus,
 } from "react-icons/bi";
+import ConfirmModal from "./ConfirmModal";
 
 export default function Reminders({ darkMode }) {
   // Array for all lists
@@ -146,6 +148,8 @@ export default function Reminders({ darkMode }) {
   const [colorDropdown, setColorDropdown] = useState(false);
   const [showColorSelector, setShowColorSelector] = useState(true);
 
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+
   const updateTaskHandler = (
     id,
     completed,
@@ -207,10 +211,16 @@ export default function Reminders({ darkMode }) {
   };
 
   // Deleting tasks based on their index in currentList.tasks
-  const deleteTaskHandler = (index) => {
-    let temp = allLists;
-    temp[currentListIndex].tasks.splice(index, 1);
-    setAllLists([...temp]);
+  const deleteTaskHandler = (id) => {
+    allLists.forEach((list, i) =>
+      list.tasks.forEach((task, j) => {
+        if (task.id === id) {
+          let temp = allLists;
+          temp[i].tasks.splice(j, 1);
+          setAllLists([...temp]);
+        }
+      })
+    );
   };
 
   // Adding a new task to the end of currentList.tasks
@@ -257,6 +267,13 @@ export default function Reminders({ darkMode }) {
     };
     setAllLists([...allLists, newList]);
     setCurrentListIndex(allLists.length);
+  };
+
+  const deleteListHandler = () => {
+    setDeleteConfirmation(false);
+    const temp = allLists;
+    temp.splice(currentListIndex, 1);
+    setAllLists([...temp]);
   };
 
   useEffect(() => {
@@ -319,6 +336,10 @@ export default function Reminders({ darkMode }) {
       )
     );
   }, [currentListIndex, allLists]);
+
+  const toggleDeleteConfirmation = () => {
+    setDeleteConfirmation(!deleteConfirmation);
+  };
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
@@ -396,12 +417,25 @@ export default function Reminders({ darkMode }) {
                       ></div>
                     </div>
                   </div>
+                  <div
+                    className={`${
+                      showColorSelector ? "visible" : "hidden"
+                    } relative w-8 h-8 rounded-full bg-primary-200 hover:bg-red-400 text-black hover:text-white text-2xl ml-2 flex items-center justify-center transition-colors`}
+                    onClick={toggleDeleteConfirmation}
+                  >
+                    <BiTrash />
+                  </div>
+                  <ConfirmModal
+                    deleteConfirmation={deleteConfirmation}
+                    toggleDeleteConfirmation={toggleDeleteConfirmation}
+                    deleteListHandler={deleteListHandler}
+                  />
                 </div>
                 <div className="mx-8">
-                  <div className="overflow-y-scroll no-scrollbar h-full flex flex-col gap-2 pb-16">
+                  <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-16rem)] flex flex-col gap-2 pb-16">
                     {taskList}
                     <div
-                      className="w-full border border-gray-400 rounded-md border-[2px] h-10 flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all"
+                      className="w-full border border-gray-400 rounded-md border-[2px] min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all"
                       onClick={newTaskHandler}
                     >
                       <i className="text-2xl text-gray-600">
