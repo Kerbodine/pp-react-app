@@ -139,9 +139,13 @@ export default function Reminders({ darkMode }) {
       ],
     },
   ];
-  const [allLists, setAllLists] = useState(data);
 
-  const [currentList, setCurrentList] = useState(allLists[0]);
+  const [allLists, setAllLists] = useState(data);
+  const [currentListIndex, setCurrentListIndex] = useState(0);
+  const [currentList, setCurrentList] = useState(allLists[currentListIndex]);
+  const [todayList, setTodayList] = useState([]);
+  const [importantList, setImportantList] = useState([]);
+  const [starredList, setStarredList] = useState([]);
 
   const updateTaskHandler = (
     id,
@@ -167,18 +171,37 @@ export default function Reminders({ darkMode }) {
       starred: starred,
       expanded: expanded,
     };
-    setCurrentList({ ...currentList, tasks: temp });
-  };
-
-  const deleteTaskHandler = (index) => {
-    let temp = currentList.tasks;
-    temp.splice(index, 1);
+    setTodayList(
+      allLists
+        .slice(4)
+        .map((element) => {
+          return element.tasks.filter((task) => task.today === true);
+        })
+        .flat()
+    );
+    setImportantList(
+      allLists
+        .slice(4)
+        .map((element) => {
+          return element.tasks.filter((task) => task.important === true);
+        })
+        .flat()
+    );
+    setStarredList(
+      allLists
+        .slice(4)
+        .map((element) => {
+          return element.tasks.filter((task) => task.starred === true);
+        })
+        .flat()
+    );
     setCurrentList({ ...currentList, tasks: temp });
   };
 
   // Function to change current list to selected list
   const selectListHandler = (index) => {
     setCurrentList(allLists[index]);
+    setCurrentListIndex(index);
   };
 
   // Color dropdown state
@@ -197,21 +220,36 @@ export default function Reminders({ darkMode }) {
 
   // Function to change list title
   const titleChangeHandler = (e) => {
-    setCurrentList({ ...currentList, title: e.target.value });
+    if (currentListIndex >= 4) {
+      setCurrentList({ ...currentList, title: e.target.value });
+    }
   };
 
+  // Deleting tasks based on their index in currentList.tasks
+  const deleteTaskHandler = (index) => {
+    let temp = currentList.tasks;
+    temp.splice(index, 1);
+    setCurrentList({ ...currentList, tasks: temp });
+  };
+
+  // Adding a new task to the end of currentList.tasks
   const newTaskHandler = () => {
     let temp = currentList;
     temp.tasks.push({
       id: uuidv4(),
-      title: "New task",
+      title: "",
       completed: false,
       dueDate: null,
       description: "",
+      today: false,
+      important: false,
+      starred: false,
+      expanded: true,
     });
     setCurrentList({ ...temp });
   };
 
+  // Adding a new list to the end of allLists
   const newListHandler = () => {
     const newList = {
       id: uuidv4(),
@@ -221,15 +259,19 @@ export default function Reminders({ darkMode }) {
       tasks: [],
     };
     setAllLists([...allLists, newList]);
+    setCurrentListIndex(allLists.length);
     setCurrentList({ ...newList });
   };
 
   // Updating all lists array after update to current list
   useEffect(() => {
-    const objIndex = allLists.findIndex((list) => list.id === currentList.id);
     const temp = allLists;
-    temp[objIndex] = currentList;
+    temp[currentListIndex] = currentList;
+    temp[0].tasks = [...todayList];
+    temp[1].tasks = [...importantList];
+    temp[2].tasks = [...starredList];
     setAllLists([...temp]);
+    console.log(todayList);
   }, [currentList]);
 
   return (
@@ -255,7 +297,6 @@ export default function Reminders({ darkMode }) {
                 <div className="h-12 m-8 flex flex-row items-center">
                   <input
                     className="flex-auto bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
-                    autoComplete="off"
                     value={currentList.title}
                     onChange={titleChangeHandler}
                     type="text"

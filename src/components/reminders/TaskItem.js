@@ -95,6 +95,7 @@ export default function TaskItem({
       <div className="text-black dark:text-white mx-2 flex-auto flex flex-col">
         <div className="flex items-center h-8">
           <input
+            placeholder="Untitled task"
             type="text"
             value={taskTitle}
             onChange={titleChangeHandler}
@@ -144,7 +145,7 @@ export default function TaskItem({
           } w-full h-auto mt-2`}
         >
           <textarea
-            placeholder="add a description..."
+            placeholder="Add a description..."
             value={taskDescription}
             onChange={descriptionChangeHandler}
             className="text-sm bg-transparent w-full h-auto outline-none resize-none text-gray-600"
