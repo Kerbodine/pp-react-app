@@ -142,10 +142,7 @@ export default function Reminders({ darkMode }) {
 
   const [allLists, setAllLists] = useState(data);
   const [currentListIndex, setCurrentListIndex] = useState(0);
-  const [currentList, setCurrentList] = useState(allLists[currentListIndex]);
-  const [todayList, setTodayList] = useState([]);
-  const [importantList, setImportantList] = useState([]);
-  const [starredList, setStarredList] = useState([]);
+  const [taskList, setTaskList] = useState();
 
   const updateTaskHandler = (
     id,
@@ -159,8 +156,7 @@ export default function Reminders({ darkMode }) {
     starred,
     expanded
   ) => {
-    let temp = currentList.tasks;
-    temp[index] = {
+    let tempTask = {
       id: id,
       title: title,
       completed: completed,
@@ -171,36 +167,19 @@ export default function Reminders({ darkMode }) {
       starred: starred,
       expanded: expanded,
     };
-    setTodayList(
-      allLists
-        .slice(4)
-        .map((element) => {
-          return element.tasks.filter((task) => task.today === true);
-        })
-        .flat()
+    allLists.forEach((list, i) =>
+      list.tasks.forEach((task, j) => {
+        if (task.id === tempTask.id) {
+          let temp = allLists;
+          temp[i].tasks[j] = tempTask;
+          setAllLists([...temp]);
+        }
+      })
     );
-    setImportantList(
-      allLists
-        .slice(4)
-        .map((element) => {
-          return element.tasks.filter((task) => task.important === true);
-        })
-        .flat()
-    );
-    setStarredList(
-      allLists
-        .slice(4)
-        .map((element) => {
-          return element.tasks.filter((task) => task.starred === true);
-        })
-        .flat()
-    );
-    setCurrentList({ ...currentList, tasks: temp });
   };
 
   // Function to change current list to selected list
   const selectListHandler = (index) => {
-    setCurrentList(allLists[index]);
     setCurrentListIndex(index);
   };
 
@@ -214,39 +193,59 @@ export default function Reminders({ darkMode }) {
 
   // Function to update color for current list
   const listColorHandler = (newColor) => {
-    setCurrentList({ ...currentList, color: newColor });
+    let temp = allLists;
+    temp[currentListIndex].color = newColor;
+    setAllLists([...temp]);
     setColorDropdown(false);
   };
 
   // Function to change list title
   const titleChangeHandler = (e) => {
     if (currentListIndex >= 4) {
-      setCurrentList({ ...currentList, title: e.target.value });
+      let temp = allLists;
+      temp[currentListIndex].title = e.target.value;
+      setAllLists([...temp]);
     }
   };
 
   // Deleting tasks based on their index in currentList.tasks
   const deleteTaskHandler = (index) => {
-    let temp = currentList.tasks;
-    temp.splice(index, 1);
-    setCurrentList({ ...currentList, tasks: temp });
+    let temp = allLists;
+    temp[currentListIndex].tasks.splice(index, 1);
+    setAllLists([...temp]);
   };
 
   // Adding a new task to the end of currentList.tasks
   const newTaskHandler = () => {
-    let temp = currentList;
-    temp.tasks.push({
+    let today = false;
+    let important = false;
+    let starred = false;
+    switch (currentListIndex) {
+      case 0:
+        today = true;
+        break;
+      case 1:
+        important = true;
+        break;
+      case 2:
+        starred = true;
+        break;
+      default:
+        break;
+    }
+    let temp = allLists;
+    temp[currentListIndex].tasks.push({
       id: uuidv4(),
       title: "",
       completed: false,
       dueDate: null,
       description: "",
-      today: false,
-      important: false,
-      starred: false,
+      today: today,
+      important: important,
+      starred: starred,
       expanded: true,
     });
-    setCurrentList({ ...temp });
+    setAllLists([...temp]);
   };
 
   // Adding a new list to the end of allLists
@@ -260,19 +259,133 @@ export default function Reminders({ darkMode }) {
     };
     setAllLists([...allLists, newList]);
     setCurrentListIndex(allLists.length);
-    setCurrentList({ ...newList });
   };
 
-  // Updating all lists array after update to current list
   useEffect(() => {
-    const temp = allLists;
-    temp[currentListIndex] = currentList;
-    temp[0].tasks = [...todayList];
-    temp[1].tasks = [...importantList];
-    temp[2].tasks = [...starredList];
-    setAllLists([...temp]);
-    console.log(todayList);
-  }, [currentList]);
+    if (currentListIndex === 0) {
+      setTaskList(
+        allLists.map((task) =>
+          task.tasks
+            .filter((task) => task.today === true)
+            .map((task, taskIndex) => (
+              <div key={task.id}>
+                <TaskItem
+                  id={task.id}
+                  index={taskIndex}
+                  title={task.title}
+                  completed={task.completed}
+                  dueDate={task.dueDate}
+                  description={task.description}
+                  today={task.today}
+                  important={task.important}
+                  starred={task.starred}
+                  expanded={task.expanded}
+                  updateComponent={updateTaskHandler}
+                  deleteTask={deleteTaskHandler}
+                />
+              </div>
+            ))
+        )
+      );
+    } else if (currentListIndex === 1) {
+      setTaskList(
+        allLists.map((task) =>
+          task.tasks
+            .filter((task) => task.important === true)
+            .map((task, taskIndex) => (
+              <div key={task.id}>
+                <TaskItem
+                  id={task.id}
+                  index={taskIndex}
+                  title={task.title}
+                  completed={task.completed}
+                  dueDate={task.dueDate}
+                  description={task.description}
+                  today={task.today}
+                  important={task.important}
+                  starred={task.starred}
+                  expanded={task.expanded}
+                  updateComponent={updateTaskHandler}
+                  deleteTask={deleteTaskHandler}
+                />
+              </div>
+            ))
+        )
+      );
+    } else if (currentListIndex === 2) {
+      setTaskList(
+        allLists.map((task) =>
+          task.tasks
+            .filter((task) => task.starred === true)
+            .map((task, taskIndex) => (
+              <div key={task.id}>
+                <TaskItem
+                  id={task.id}
+                  index={taskIndex}
+                  title={task.title}
+                  completed={task.completed}
+                  dueDate={task.dueDate}
+                  description={task.description}
+                  today={task.today}
+                  important={task.important}
+                  starred={task.starred}
+                  expanded={task.expanded}
+                  updateComponent={updateTaskHandler}
+                  deleteTask={deleteTaskHandler}
+                />
+              </div>
+            ))
+        )
+      );
+    } else if (currentListIndex === 3) {
+      setTaskList(
+        allLists.map((task) =>
+          task.tasks.map((task, taskIndex) => (
+            <div key={task.id}>
+              <TaskItem
+                id={task.id}
+                index={taskIndex}
+                title={task.title}
+                completed={task.completed}
+                dueDate={task.dueDate}
+                description={task.description}
+                today={task.today}
+                important={task.important}
+                starred={task.starred}
+                expanded={task.expanded}
+                updateComponent={updateTaskHandler}
+                deleteTask={deleteTaskHandler}
+              />
+            </div>
+          ))
+        )
+      );
+    } else if (currentListIndex >= 4) {
+      setTaskList(
+        allLists.slice(currentListIndex, currentListIndex + 1).map((task) =>
+          task.tasks.map((task, taskIndex) => (
+            <div key={task.id}>
+              <TaskItem
+                id={task.id}
+                index={taskIndex}
+                title={task.title}
+                completed={task.completed}
+                dueDate={task.dueDate}
+                description={task.description}
+                today={task.today}
+                important={task.important}
+                starred={task.starred}
+                expanded={task.expanded}
+                updateComponent={updateTaskHandler}
+                deleteTask={deleteTaskHandler}
+              />
+            </div>
+          ))
+        )
+      );
+    }
+    console.log(allLists);
+  }, [currentListIndex, allLists]);
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
@@ -292,23 +405,23 @@ export default function Reminders({ darkMode }) {
             <div className="w-full h-full">
               <div className="bg-primary-100 dark:bg-primary-600 transition-colors h-full">
                 <div
-                  className={`w-full h-12 bg-${currentList.color}-400`}
+                  className={`w-full h-12 bg-${allLists[currentListIndex].color}-400`}
                 ></div>
                 <div className="h-12 m-8 flex flex-row items-center">
                   <input
                     className="flex-auto bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
-                    value={currentList.title}
+                    value={allLists[currentListIndex].title}
                     onChange={titleChangeHandler}
                     type="text"
                     aria-label="list title"
                   ></input>
                   <div
                     className={`relative w-8 h-8 rounded-full bg-${
-                      currentList.color
-                        ? `${currentList.color}-400 text-white`
+                      allLists[currentListIndex].color
+                        ? `${allLists[currentListIndex].color}-400 text-white`
                         : "primary-200 text-black"
                     } text-2xl flex items-center justify-center hover:bg-${
-                      currentList.color
+                      allLists[currentListIndex].color
                     }-400/80`}
                     onClick={handleColorDropdown}
                   >
@@ -351,25 +464,7 @@ export default function Reminders({ darkMode }) {
                 </div>
                 <div className="mx-8">
                   <div className="overflow-y-scroll no-scrollbar h-full flex flex-col gap-2 pb-16">
-                    {currentList.tasks.map((task, taskIndex) => (
-                      <div key={task.id}>
-                        <TaskItem
-                          id={task.id}
-                          index={taskIndex}
-                          title={task.title}
-                          completed={task.completed}
-                          color={currentList.color}
-                          dueDate={task.dueDate}
-                          description={task.description}
-                          today={task.today}
-                          important={task.important}
-                          starred={task.starred}
-                          expanded={task.expanded}
-                          updateComponent={updateTaskHandler}
-                          deleteTask={deleteTaskHandler}
-                        />
-                      </div>
-                    ))}
+                    {taskList}
                     <div
                       className="w-full border border-gray-400 rounded-md border-[2px] h-10 flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all"
                       onClick={newTaskHandler}
