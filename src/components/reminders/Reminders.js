@@ -143,10 +143,11 @@ export default function Reminders({ darkMode }) {
   const [allLists, setAllLists] = useState(data);
   const [currentListIndex, setCurrentListIndex] = useState(0);
   const [taskList, setTaskList] = useState();
+  const [colorDropdown, setColorDropdown] = useState(false);
+  const [showColorSelector, setShowColorSelector] = useState(true);
 
   const updateTaskHandler = (
     id,
-    index,
     completed,
     title,
     dueDate,
@@ -182,9 +183,6 @@ export default function Reminders({ darkMode }) {
   const selectListHandler = (index) => {
     setCurrentListIndex(index);
   };
-
-  // Color dropdown state
-  const [colorDropdown, setColorDropdown] = useState(false);
 
   // Manage color dropdown state
   const handleColorDropdown = () => {
@@ -262,129 +260,64 @@ export default function Reminders({ darkMode }) {
   };
 
   useEffect(() => {
-    if (currentListIndex === 0) {
-      setTaskList(
-        allLists.map((task) =>
-          task.tasks
-            .filter((task) => task.today === true)
-            .map((task, taskIndex) => (
-              <div key={task.id}>
-                <TaskItem
-                  id={task.id}
-                  index={taskIndex}
-                  title={task.title}
-                  completed={task.completed}
-                  dueDate={task.dueDate}
-                  description={task.description}
-                  today={task.today}
-                  important={task.important}
-                  starred={task.starred}
-                  expanded={task.expanded}
-                  updateComponent={updateTaskHandler}
-                  deleteTask={deleteTaskHandler}
-                />
-              </div>
-            ))
-        )
-      );
-    } else if (currentListIndex === 1) {
-      setTaskList(
-        allLists.map((task) =>
-          task.tasks
-            .filter((task) => task.important === true)
-            .map((task, taskIndex) => (
-              <div key={task.id}>
-                <TaskItem
-                  id={task.id}
-                  index={taskIndex}
-                  title={task.title}
-                  completed={task.completed}
-                  dueDate={task.dueDate}
-                  description={task.description}
-                  today={task.today}
-                  important={task.important}
-                  starred={task.starred}
-                  expanded={task.expanded}
-                  updateComponent={updateTaskHandler}
-                  deleteTask={deleteTaskHandler}
-                />
-              </div>
-            ))
-        )
-      );
-    } else if (currentListIndex === 2) {
-      setTaskList(
-        allLists.map((task) =>
-          task.tasks
-            .filter((task) => task.starred === true)
-            .map((task, taskIndex) => (
-              <div key={task.id}>
-                <TaskItem
-                  id={task.id}
-                  index={taskIndex}
-                  title={task.title}
-                  completed={task.completed}
-                  dueDate={task.dueDate}
-                  description={task.description}
-                  today={task.today}
-                  important={task.important}
-                  starred={task.starred}
-                  expanded={task.expanded}
-                  updateComponent={updateTaskHandler}
-                  deleteTask={deleteTaskHandler}
-                />
-              </div>
-            ))
-        )
-      );
-    } else if (currentListIndex === 3) {
-      setTaskList(
-        allLists.map((task) =>
-          task.tasks.map((task, taskIndex) => (
-            <div key={task.id}>
-              <TaskItem
-                id={task.id}
-                index={taskIndex}
-                title={task.title}
-                completed={task.completed}
-                dueDate={task.dueDate}
-                description={task.description}
-                today={task.today}
-                important={task.important}
-                starred={task.starred}
-                expanded={task.expanded}
-                updateComponent={updateTaskHandler}
-                deleteTask={deleteTaskHandler}
-              />
-            </div>
-          ))
-        )
-      );
-    } else if (currentListIndex >= 4) {
-      setTaskList(
-        allLists.slice(currentListIndex, currentListIndex + 1).map((task) =>
-          task.tasks.map((task, taskIndex) => (
-            <div key={task.id}>
-              <TaskItem
-                id={task.id}
-                index={taskIndex}
-                title={task.title}
-                completed={task.completed}
-                dueDate={task.dueDate}
-                description={task.description}
-                today={task.today}
-                important={task.important}
-                starred={task.starred}
-                expanded={task.expanded}
-                updateComponent={updateTaskHandler}
-                deleteTask={deleteTaskHandler}
-              />
-            </div>
-          ))
-        )
-      );
+    if (currentListIndex < 4) {
+      setShowColorSelector(false);
+    } else {
+      setShowColorSelector(true);
     }
-    console.log(allLists);
+  }, [currentListIndex]);
+
+  useEffect(() => {
+    const todayFilter = (task) => task.today === true;
+    const importantFilter = (task) => task.important === true;
+    const starredFilter = (task) => task.starred === true;
+    const allTaskFilter = (task) => task;
+
+    let taskFilter;
+    let sliceStart;
+    let sliceEnd;
+
+    switch (currentListIndex) {
+      case 0:
+        taskFilter = todayFilter;
+        break;
+      case 1:
+        taskFilter = importantFilter;
+        break;
+      case 2:
+        taskFilter = starredFilter;
+        break;
+      case 3:
+        taskFilter = allTaskFilter;
+        break;
+      default:
+        sliceStart = currentListIndex;
+        sliceEnd = currentListIndex + 1;
+        taskFilter = allTaskFilter;
+        break;
+    }
+    setTaskList(
+      allLists.slice(sliceStart, sliceEnd).map((task) =>
+        task.tasks.filter(taskFilter).map((task, taskIndex) => (
+          <div key={task.id}>
+            <TaskItem
+              id={task.id}
+              index={taskIndex}
+              title={task.title}
+              completed={task.completed}
+              dueDate={task.dueDate}
+              description={task.description}
+              today={task.today}
+              important={task.important}
+              starred={task.starred}
+              expanded={task.expanded}
+              updateComponent={updateTaskHandler}
+              deleteTask={deleteTaskHandler}
+            />
+          </div>
+        ))
+      )
+    );
   }, [currentListIndex, allLists]);
 
   return (
@@ -416,7 +349,9 @@ export default function Reminders({ darkMode }) {
                     aria-label="list title"
                   ></input>
                   <div
-                    className={`relative w-8 h-8 rounded-full bg-${
+                    className={`${
+                      showColorSelector ? "visible" : "hidden"
+                    } relative w-8 h-8 rounded-full bg-${
                       allLists[currentListIndex].color
                         ? `${allLists[currentListIndex].color}-400 text-white`
                         : "primary-200 text-black"

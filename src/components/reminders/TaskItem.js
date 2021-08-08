@@ -50,7 +50,6 @@ export default function TaskItem({
   useEffect(() => {
     updateComponent(
       id,
-      index,
       taskComplete,
       taskTitle,
       taskDate,
