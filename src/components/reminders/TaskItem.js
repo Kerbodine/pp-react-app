@@ -12,6 +12,7 @@ import "./datepicker.css";
 
 export default function TaskItem({
   id,
+  index,
   title,
   completed,
   dueDate,
@@ -49,6 +50,7 @@ export default function TaskItem({
   useEffect(() => {
     updateComponent(
       id,
+      index,
       taskComplete,
       taskTitle,
       taskDate,
@@ -74,7 +76,7 @@ export default function TaskItem({
   };
 
   return (
-    <div className="w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md">
+    <div className="w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer">
       <i
         className="text-2xl ml-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-gray-600"
         onClick={toggleDetailsDropdown}
@@ -154,7 +156,7 @@ export default function TaskItem({
           className="w-8 h-8 mx-2 flex items-center justify-center rounded-full bg-primary-300 hover:bg-red-400 text-black hover:text-white transition-colors text-2xl"
           aria-label="delete task"
           onClick={() => {
-            deleteTask(id);
+            deleteTask(index);
           }}
         >
           <BiTrash />

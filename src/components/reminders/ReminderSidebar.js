@@ -38,10 +38,10 @@ export default function ReminderSidebar({
       </div>
       <hr className="border-none h-0.5 bg-gray-300 mx-4 my-2" />
       <div className={`${showCategories ? "visible" : "hidden"}`}>
-        {allLists.slice(0, 4).map((list) => (
+        {allLists.slice(0, 4).map((list, listIndex) => (
           <div key={list.id}>
             <ReminderItem
-              id={list.id}
+              index={listIndex}
               title={list.title}
               amount={Object.keys(list.tasks).length}
               color={list.color}
@@ -66,10 +66,11 @@ export default function ReminderSidebar({
       <hr className="border-none h-0.5 bg-gray-300 mx-4 my-2" />
       <div className={`flex-auto min-h-0 ${showLists ? "visible" : "hidden"}`}>
         <div className="overflow-hidden overflow-y-auto h-full">
-          {allLists.slice(4).map((list) => (
+          {allLists.slice(4).map((list, listIndex) => (
             <div key={list.id}>
               <ReminderItem
-                id={list.id}
+                // Set index to be offset by 4 (list categories)
+                index={listIndex + 4}
                 title={list.title}
                 amount={Object.keys(list.tasks).length}
                 color={list.color}

@@ -14,7 +14,7 @@ import {
 
 export default function Reminders({ darkMode }) {
   // Array for all lists
-  const [allLists, setAllLists] = useState([
+  const data = [
     {
       id: uuidv4(),
       title: "Today",
@@ -138,13 +138,14 @@ export default function Reminders({ darkMode }) {
         },
       ],
     },
-  ]);
+  ];
+  const [allLists, setAllLists] = useState(data);
 
-  // Current list state
   const [currentList, setCurrentList] = useState(allLists[0]);
 
   const updateTaskHandler = (
     id,
+    index,
     completed,
     title,
     dueDate,
@@ -154,44 +155,30 @@ export default function Reminders({ darkMode }) {
     starred,
     expanded
   ) => {
-    const objIndex = currentList.tasks.findIndex((task) => task.id === id);
     let temp = currentList.tasks;
-    // temp[objIndex] = {
-    //   title: title,
-    //   completed: completed,
-    //   dueDate: dueDate,
-    //   description: description,
-    //   today: today,
-    //   important: important,
-    //   starred: starred,
-    //   expanded: expanded,
-    // };
-    temp[objIndex].title = title;
-    temp[objIndex].completed = completed;
-    temp[objIndex].dueDate = dueDate;
-    temp[objIndex].description = description;
-    temp[objIndex].today = today;
-    temp[objIndex].important = important;
-    temp[objIndex].starred = starred;
-    temp[objIndex].expanded = expanded;
+    temp[index] = {
+      id: id,
+      title: title,
+      completed: completed,
+      dueDate: dueDate,
+      description: description,
+      today: today,
+      important: important,
+      starred: starred,
+      expanded: expanded,
+    };
     setCurrentList({ ...currentList, tasks: temp });
   };
 
-  const deleteTaskHandler = (id) => {
-    let temp = currentList.tasks.filter(function (obj) {
-      return obj.id !== id;
-    });
-    console.log(temp);
+  const deleteTaskHandler = (index) => {
+    let temp = currentList.tasks;
+    temp.splice(index, 1);
     setCurrentList({ ...currentList, tasks: temp });
   };
 
   // Function to change current list to selected list
-  const selectListHandler = (id) => {
-    setCurrentList(
-      allLists.filter((obj) => {
-        return obj.id === id;
-      })[0]
-    );
+  const selectListHandler = (index) => {
+    setCurrentList(allLists[index]);
   };
 
   // Color dropdown state
@@ -282,8 +269,9 @@ export default function Reminders({ darkMode }) {
                     } text-2xl flex items-center justify-center hover:bg-${
                       currentList.color
                     }-400/80`}
+                    onClick={handleColorDropdown}
                   >
-                    <BiChevronDown onClick={handleColorDropdown} />
+                    <BiChevronDown />
                     <div
                       className={`${
                         colorDropdown ? "visible" : "hidden"
@@ -322,10 +310,11 @@ export default function Reminders({ darkMode }) {
                 </div>
                 <div className="mx-8">
                   <div className="overflow-y-scroll no-scrollbar h-full flex flex-col gap-2 pb-16">
-                    {currentList.tasks.map((task) => (
+                    {currentList.tasks.map((task, taskIndex) => (
                       <div key={task.id}>
                         <TaskItem
                           id={task.id}
+                          index={taskIndex}
                           title={task.title}
                           completed={task.completed}
                           color={currentList.color}
