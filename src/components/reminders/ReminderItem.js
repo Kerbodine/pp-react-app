@@ -12,7 +12,7 @@ export default function ReminderItem({
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div
-        className="h-10 transition-colors hover:bg-primary-300 dark:hover:bg-primary-600 text-black dark:text-white flex items-center cursor-pointer"
+        className="h-10 hover:bg-primary-300 dark:hover:bg-primary-800 text-black dark:text-white flex items-center cursor-pointer"
         onClick={() => selectList(index)}
       >
         <div className={`w-2 h-full bg-${color}-400`}></div>

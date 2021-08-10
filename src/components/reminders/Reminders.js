@@ -344,11 +344,11 @@ export default function Reminders({ darkMode }) {
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
-      <div className="h-screen flex bg-primary dark:bg-primary-800 transition-colors">
+      <div className="h-screen flex bg-primary dark:bg-primary-900">
         <div className="my-4 mr-4 lg:mr-0 w-full">
           <div className="h-full rounded-2xl flex overflow-hidden">
             <div className="h-full">
-              <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 transition-colors h-full">
+              <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">
                 <ReminderSidebar
                   darkMode={darkMode}
                   allLists={allLists}
@@ -358,7 +358,7 @@ export default function Reminders({ darkMode }) {
               </div>
             </div>
             <div className="w-full h-full">
-              <div className="bg-primary-100 dark:bg-primary-600 transition-colors h-full">
+              <div className="bg-primary-100 dark:bg-primary-800 h-full">
                 <div
                   className={`w-full h-12 bg-${allLists[currentListIndex].color}-400`}
                 ></div>
@@ -421,7 +421,7 @@ export default function Reminders({ darkMode }) {
                   <div
                     className={`${
                       showColorSelector ? "visible" : "hidden"
-                    } relative w-8 h-8 rounded-full bg-primary-200 hover:bg-red-400 text-black hover:text-white text-2xl ml-2 flex items-center justify-center transition-colors`}
+                    } relative w-8 h-8 rounded-full bg-primary-200 hover:bg-red-400 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl ml-2 flex items-center justify-center`}
                     onClick={toggleDeleteConfirmation}
                   >
                     <BiTrash />
@@ -436,13 +436,13 @@ export default function Reminders({ darkMode }) {
                   <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-10rem)] flex flex-col gap-2 pb-16">
                     {taskList}
                     <div
-                      className="w-full border border-gray-400 rounded-md border-[2px] min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all"
+                      className="w-full border border-primary-400 dark:border-primary-500 rounded-md border-[2px] min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all dark:hover:bg-primary-700"
                       onClick={newTaskHandler}
                     >
-                      <i className="text-2xl text-gray-600">
+                      <i className="text-2xl text-primary-600 dark:text-primary-400">
                         <BiPlus />
                       </i>
-                      <h3 className="text-gray-600">Add new task</h3>
+                      <h3 className="text-primary-600 dark:text-primary-400">Add new task</h3>
                     </div>
                   </div>
                 </div>

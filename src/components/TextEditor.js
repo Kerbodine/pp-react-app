@@ -117,8 +117,8 @@ ${textarea.value}
         </div>
         <div className="flex md:h-18 mt-4 flex-wrap gap-2 sticky bottom-4 z-10">
             <Dropdown title="Download" allItems={this.allItems}/>
-            <button aria-label="upload" className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-accent-400 hover:text-white transition-colors"><BiUpArrowCircle /></button>
-            <button aria-label="delete" className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-red-400 hover:text-white transition-colors"><BiTrash /></button>
+            <button aria-label="upload" className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-accent-400 hover:text-white"><BiUpArrowCircle /></button>
+            <button aria-label="delete" className="bg-primary-300 p-2 h-10 rounded-md text-2xl hover:bg-red-400 hover:text-white"><BiTrash /></button>
           </div>
         <textarea 
           id="html-download"

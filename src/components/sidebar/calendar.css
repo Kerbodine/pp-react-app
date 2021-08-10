@@ -1,5 +1,5 @@
 .react-calendar {
-  @apply max-w-full bg-primary-100 dark:bg-primary-700 leading-4 rounded-2xl overflow-hidden transition-colors;
+  @apply max-w-full bg-primary-100 dark:bg-primary-800 leading-4 rounded-2xl overflow-hidden;
 }
 .react-calendar button {
   margin: 0;

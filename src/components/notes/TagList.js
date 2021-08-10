@@ -40,7 +40,7 @@ export default function TagList() {
         <TagItem key={tag.key} title={tag.title} color={`${tag.color}`} />
       ))}
       <div
-        className={`h-auto w-auto flex rounded-full overflow-hidden text-2xl bg-primary-200 hover:bg-accent-400 transition-colors text-black hover:text-white`}
+        className={`h-auto w-auto flex rounded-full overflow-hidden text-2xl bg-primary-200 hover:bg-accent-400 text-black hover:text-white`}
       >
         <input
           ref={tagRef}

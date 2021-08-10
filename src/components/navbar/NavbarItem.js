@@ -21,8 +21,8 @@ export default function NavbarItem({ darkMode, icon, path }) {
         className={`flex items-center w-full h-full ${
           active
             ? "bg-accent-400 text-white"
-            : "bg-primary-100 dark:bg-primary-700"
-        } hover:bg-accent-400 dark:hover:bg-accent-400 hover:text-white transition-colors rounded-2xl`}
+            : "bg-primary-100 dark:bg-primary-800"
+        }  hover:bg-accent-400 dark:hover:bg-accent-400 hover:text-white rounded-2xl`}
       >
         <div className="mx-auto">{icon}</div>
       </div>

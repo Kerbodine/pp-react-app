@@ -76,7 +76,7 @@ export default function TaskItem({
   return (
     <div className="w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer">
       <i
-        className="text-2xl ml-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-gray-600"
+        className="text-2xl ml-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-primary-400 dark:text-primary-500"
         onClick={toggleDetailsDropdown}
       >
         {taskDropDown ? <BiCaretUpCircle /> : <BiCaretDownCircle />}
@@ -87,7 +87,7 @@ export default function TaskItem({
           defaultChecked={taskComplete}
           value={taskComplete}
           onChange={completeHandler}
-          className={`w-6 h-6 my-1 border border-primary-300 border-[2px] dark:bg-primary-600 checked:border-none rounded-md checkbox checked:bg-accent-400`}
+          className={`w-6 h-6 my-1 border border-primary-400 dark:border-primary-500 border-[2px] checked:border-none rounded-md checkbox checked:bg-accent-400 dark:checked:bg-accent-400`}
         ></input>
       </div>
       <div className="text-black dark:text-white mx-2 flex-auto flex flex-col">
@@ -105,14 +105,14 @@ export default function TaskItem({
             <DatePicker
               selected={taskDate}
               onChange={(date) => setTaskDate(date)}
-              className="bg-gray-100 w-24 h-8 text-center px-2 rounded outline-none"
+              className="bg-primary-100 dark:bg-primary-800 w-24 h-8 text-center px-2 rounded outline-none"
               dateFormat="dd/MM/yyyy"
               placeholderText="Add date"
             />
           </div>
           <div className="flex">
             <button
-              className={`w-8 h-8 flex items-center justify-center rounded-l-md bg-primary-300 text-black hover:bg-primary-400 transition-colors text-2xl ${
+              className={`w-8 h-8 flex items-center justify-center rounded-l-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
                 today ? "!bg-blue-400 text-white" : ""
               }`}
               onClick={toggleTodayHandler}
@@ -120,7 +120,7 @@ export default function TaskItem({
               <BiSun />
             </button>
             <button
-              className={`w-8 h-8 flex items-center justify-center bg-primary-300 text-black transition-colors text-2xl ${
+              className={`w-8 h-8 flex items-center justify-center bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
                 important ? "!bg-red-400 text-white" : ""
               }`}
               onClick={toggleImportantHandler}
@@ -128,7 +128,7 @@ export default function TaskItem({
               <HiOutlineExclamationCircle />
             </button>
             <button
-              className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-300 text-black transition-colors text-2xl ${
+              className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
                 starred ? "!bg-yellow-400 text-white" : ""
               }`}
               onClick={toggleStarredHandler}
@@ -146,13 +146,13 @@ export default function TaskItem({
             placeholder="Add a description..."
             value={taskDescription}
             onChange={descriptionChangeHandler}
-            className="text-sm bg-transparent w-full h-auto outline-none resize-y text-gray-600 max-h-[12rem]"
+            className="text-sm bg-transparent w-full h-auto outline-none resize-y text-primary-600 dark:text-primary-400 max-h-[12rem]"
           ></textarea>
         </div>
       </div>
       <div className="flex">
         <button
-          className="w-8 h-8 mx-2 flex items-center justify-center rounded-full bg-primary-300 hover:bg-red-400 text-black hover:text-white transition-colors text-2xl"
+          className="w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-red-400 dark:bg-primary-800 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl"
           aria-label="delete task"
           onClick={() => {
             deleteTask(id);

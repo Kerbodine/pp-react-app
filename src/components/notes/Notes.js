@@ -54,7 +54,7 @@ export default function Notes({ darkMode }) {
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
-      <div className="h-screen w-full bg-primary dark:bg-primary-800 flex transition-colors">
+      <div className="h-screen w-full bg-primary dark:bg-primary-800 flex">
         <div className="w-full h-auto mr-4 mt-20 mb-4 lg:mr-0">
           <div className="h-full rounded-2xl overflow-hidden shadow-md transition-width flex flex-row ">
             <div className="h-full">

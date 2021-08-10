@@ -7,7 +7,7 @@ export default function Dropdown({ title, allItems }) {
     <div className="text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex justify-center text-black w-full px-4 py-2 font-bold bg-primary-300 rounded-md transition-colors hover:bg-accent-400 hover:text-white">
+          <Menu.Button className="inline-flex justify-center text-black w-full px-4 py-2 font-bold bg-primary-300 rounded-md hover:bg-accent-400 hover:text-white">
             {title}
             <BiCaretDownCircle
               className="relative my-auto ml-2 -mr-1 text-2xl hover:text-violet-100"
