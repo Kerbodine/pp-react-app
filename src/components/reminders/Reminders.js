@@ -345,7 +345,7 @@ export default function Reminders({ darkMode }) {
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
       <div className="h-screen flex bg-primary dark:bg-primary-800 transition-colors">
-        <div className="mt-20 mb-4 mr-4 lg:mr-0 w-full">
+        <div className="my-4 mr-4 lg:mr-0 w-full">
           <div className="h-full rounded-2xl flex overflow-hidden">
             <div className="h-full">
               <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 transition-colors h-full">
@@ -433,7 +433,7 @@ export default function Reminders({ darkMode }) {
                   />
                 </div>
                 <div className="mx-8">
-                  <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-16rem)] flex flex-col gap-2 pb-16">
+                  <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-10rem)] flex flex-col gap-2 pb-16">
                     {taskList}
                     <div
                       className="w-full border border-gray-400 rounded-md border-[2px] min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all"
