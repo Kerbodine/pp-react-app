@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 import Navbar from "./components/navbar/Navbar";
 
-// import "react-calendar/dist/Calendar.css";
 import HashLoader from "react-spinners/HashLoader";
 
 import Dashboard from "./components/Dashboard";
@@ -14,7 +13,17 @@ import Extras from "./components/Extras";
 import Settings from "./components/Settings";
 import SidePanel from "./components/sidebar/SidePanel";
 
+import Login from "./Login";
+import SignUp from "./SignUp";
+import { AuthProvider } from "./Auth";
+import PrivateRoute from "./PrivateRoute";
+
+import firebase from "firebase";
+
 function App() {
+  const [reminders, setReminders] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   let darkModeValue = false;
 
   if (localStorage.getItem("darkMode") !== null) {
@@ -22,14 +31,6 @@ function App() {
   }
 
   const [darkMode, setDarkMode] = useState(darkModeValue);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-  }, []);
 
   const toggleThemeHandler = () => {
     localStorage.setItem("darkMode", !darkMode);
@@ -43,32 +44,34 @@ function App() {
           <HashLoader color={"#3B82F6"} loading={loading} size={75} />
         </div>
       ) : (
-        <Router>
-          <div className="flex">
-            <Navbar darkMode={darkMode} />
-            <div className="flex-auto">
-              <Switch>
-                <Route path="/" exact component={Dashboard} />
-                <Route
-                  path="/reminders"
-                  render={(props) => (
-                    <Reminders {...props} darkMode={darkMode} />
-                  )}
-                />
-                <Route
-                  path="/notes"
-                  render={(props) => <Notes {...props} darkMode={darkMode} />}
-                />
-                <Route path="/extensions" component={Extras} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/settings" component={Settings} />
-              </Switch>
+        <AuthProvider>
+          <Router>
+            <div className="flex">
+              <Navbar darkMode={darkMode} />
+              <div className="flex-auto">
+                <Switch>
+                  <PrivateRoute path="/" exact component={Dashboard} />
+                  <PrivateRoute
+                    path="/reminders"
+                    render={(props) => (
+                      <Reminders {...props} darkMode={darkMode} />
+                    )}
+                  />
+                  <PrivateRoute
+                    path="/notes"
+                    render={(props) => <Notes {...props} darkMode={darkMode} />}
+                  />
+                  <Route path="/extensions" component={Extras} />
+                  <Route path="/profile" component={Profile} />
+                  <Route path="/settings" component={Settings} />
+                </Switch>
+              </div>
+              <div className="w-0 lg:w-72">
+                <SidePanel darkMode={darkMode} onClick={toggleThemeHandler} />
+              </div>
             </div>
-            <div className="w-0 lg:w-72">
-              <SidePanel darkMode={darkMode} onClick={toggleThemeHandler} />
-            </div>
-          </div>
-        </Router>
+          </Router>
+        </AuthProvider>
       )}
     </div>
   );
