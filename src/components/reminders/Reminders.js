@@ -436,7 +436,7 @@ export default function Reminders({ darkMode }) {
                   <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-10rem)] flex flex-col gap-2 pb-16">
                     {taskList}
                     <div
-                      className="w-full border border-primary-400 dark:border-primary-500 rounded-md border-[2px] min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all dark:hover:bg-primary-700"
+                      className={`w-full border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all dark:hover:bg-primary-700`}
                       onClick={newTaskHandler}
                     >
                       <i className="text-2xl text-primary-600 dark:text-primary-400">

@@ -87,7 +87,7 @@ export default function TaskItem({
           defaultChecked={taskComplete}
           value={taskComplete}
           onChange={completeHandler}
-          className={`w-6 h-6 my-1 border border-primary-400 dark:border-primary-500 border-[2px] checked:border-none rounded-md checkbox checked:bg-accent-400 dark:checked:bg-accent-400`}
+          className={`w-6 h-6 my-1 border-primary-400 dark:border-primary-500 border-2 checked:border-none rounded-md checkbox checked:bg-accent-400 dark:checked:bg-accent-400`}
         ></input>
       </div>
       <div className="text-black dark:text-white mx-2 flex-auto flex flex-col">

@@ -12,6 +12,7 @@ import {
   BiCog,
   BiExit,
 } from "react-icons/bi";
+import firebase from "firebase";
 
 export default function Navbar({ darkMode }) {
   return (
@@ -61,13 +62,12 @@ export default function Navbar({ darkMode }) {
                 path="/settings"
               />
             </Link>
-            <Link to="/logout" aria-label="logout">
-              <NavbarItem
-                darkMode={darkMode}
-                icon={<BiExit />}
-                path="/logout"
-              />
-            </Link>
+            <NavbarItem
+              darkMode={darkMode}
+              icon={<BiExit />}
+              path="/logout"
+              onClick={() => firebase.auth().signOut()}
+            />
           </div>
         </div>
       </div>
