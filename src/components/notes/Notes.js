@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-// import TextEditor from "../TextEditor";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TagList from "./TagList";
 import PageSidebar from "./PageSidebar";
@@ -14,8 +13,40 @@ import { BiPencil, BiCaretDownCircle, BiCaretUpCircle } from "react-icons/bi";
 import Editor from "rich-markdown-editor";
 
 export default function Notes({ darkMode }) {
+  const data = [
+    {
+      id: uuidv4(),
+      icon: <AiOutlineFileExclamation />,
+      title: "Note 1",
+      color: "red",
+      content: "",
+      tags: [],
+      readOnly: false,
+    },
+    {
+      id: uuidv4(),
+      icon: <AiOutlineFileText />,
+      title: "Note 2",
+      color: "yellow",
+      content: "",
+      tags: [],
+      readOnly: false,
+    },
+    {
+      id: uuidv4(),
+      icon: <AiOutlineFileImage />,
+      title: "Note 3",
+      color: "blue",
+      content: "",
+      tags: [],
+      readOnly: false,
+    },
+  ];
+
   const [readOnly, setReadOnly] = useState(false);
   const [viewModeDropdown, setViewModeDropdown] = useState(false);
+  const [allPages, setAllPages] = useState(data);
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
   const readOnlyHandler = () => {
     setReadOnly(!readOnly);
@@ -25,32 +56,35 @@ export default function Notes({ darkMode }) {
     setViewModeDropdown(!viewModeDropdown);
   };
 
-  const allPages = [
-    {
-      key: uuidv4(),
-      icon: <AiOutlineFileExclamation />,
-      title: "Note 1",
-      color: "bg-red-400",
-    },
-    {
-      key: uuidv4(),
+  const selectPageHandler = (index) => {
+    setCurrentPageIndex(index);
+  };
+
+  const titleChangeHandler = (e) => {
+    let temp = allPages;
+    temp[currentPageIndex].title = e.target.value;
+    setAllPages([...temp]);
+  };
+
+  const newPageHandler = () => {
+    const newPage = {
+      id: uuidv4(),
       icon: <AiOutlineFileText />,
-      title: "Note 2",
-      color: "bg-yellow-400",
-    },
-    {
-      key: uuidv4(),
-      icon: <AiOutlineFileImage />,
-      title: "Note 3",
-      color: "bg-blue-400",
-    },
-    {
-      key: uuidv4(),
-      icon: <AiOutlineFileImage />,
-      title: "Note 3",
-      color: "bg-blue-400",
-    },
-  ];
+      title: "Untitled note",
+      color: "gray",
+      content: "",
+      tags: [],
+      readOnly: false,
+    };
+    setAllPages([...allPages, newPage]);
+    setCurrentPageIndex(allPages.length);
+  };
+
+  useEffect(() => {
+    setReadOnly(allPages[currentPageIndex].readOnly);
+  }, [currentPageIndex]);
+
+  console.log(allPages[currentPageIndex]);
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
@@ -59,17 +93,24 @@ export default function Notes({ darkMode }) {
           <div className="h-full rounded-2xl overflow-hidden shadow-md transition-width flex flex-row ">
             <div className="h-full">
               <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">
-                <PageSidebar allPages={allPages} />
+                <PageSidebar
+                  allPages={allPages}
+                  selectPage={selectPageHandler}
+                  newPageHandler={newPageHandler}
+                />
               </div>
             </div>
             <div className="w-full">
-              <div className={`w-full h-12 bg-red-400`}></div>
+              <div
+                className={`w-full h-12 bg-${allPages[currentPageIndex].color}-400`}
+              ></div>
               <div className="px-8 pt-8 bg-primary-100 dark:bg-primary-800 flex flex-col">
                 <input
                   id="document-title"
                   autoComplete="off"
-                  className="h-12 bg-transparent text-primary-800 font-bold outline-none text-4xl mb-4"
-                  placeholder="Untitled"
+                  value={allPages[currentPageIndex].title}
+                  onChange={titleChangeHandler}
+                  className="h-12 bg-transparent text-black dark:text-white font-bold outline-none text-4xl mb-4"
                   type="text"
                   aria-label="document title"
                 ></input>

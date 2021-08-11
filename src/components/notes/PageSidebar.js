@@ -3,7 +3,12 @@ import { AiOutlineFileAdd } from "react-icons/ai";
 import PageItem from "./PageItem";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
-export default function PageSidebar({ darkMode, allPages }) {
+export default function PageSidebar({
+  darkMode,
+  allPages,
+  selectPage,
+  newPageHandler,
+}) {
   const [showLists, setShowLists] = useState(true);
 
   const showListHandler = () => {
@@ -30,12 +35,14 @@ export default function PageSidebar({ darkMode, allPages }) {
       <hr className="border-none h-0.5 bg-primary-300 dark:bg-primary-600 mx-4 my-2" />
       <div className={`flex-auto min-h-0 ${showLists ? "visible" : "hidden"}`}>
         <div className="overflow-hidden overflow-y-auto h-full">
-          {allPages.map((page) => (
-            <div key={page.key}>
+          {allPages.map((page, pageIndex) => (
+            <div key={page.id}>
               <PageItem
+                index={pageIndex}
                 icon={page.icon}
                 title={page.title}
                 color={page.color}
+                selectPage={selectPage}
               />
             </div>
           ))}
@@ -45,11 +52,14 @@ export default function PageSidebar({ darkMode, allPages }) {
         className={`flex-auto min-h-0 ${showLists ? "hidden" : "visible"}`}
       ></div>
       <hr className="border-none h-0.5 bg-gray-300 dark:bg-primary-600" />
-      <button className="h-12 flex-shrink-0 hover:bg-primary-300 dark:bg-primary-700 dark:hover:bg-primary-600 text-black dark:text-white flex items-center text-lg">
+      <button
+        className="h-12 flex-shrink-0 hover:bg-primary-300 dark:bg-primary-700 dark:hover:bg-primary-600 text-black dark:text-white flex items-center text-lg"
+        onClick={newPageHandler}
+      >
         <i className="text-2xl ml-4 mr-2">
           <AiOutlineFileAdd />
         </i>
-        <h2>New List</h2>
+        <h2>New Note</h2>
       </button>
     </div>
   );

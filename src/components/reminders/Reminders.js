@@ -350,7 +350,6 @@ export default function Reminders({ darkMode }) {
             <div className="h-full">
               <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">
                 <ReminderSidebar
-                  darkMode={darkMode}
                   allLists={allLists}
                   selectList={selectListHandler}
                   newListHandler={newListHandler}
@@ -365,6 +364,7 @@ export default function Reminders({ darkMode }) {
                 <div className="h-12 m-8 flex flex-row items-center">
                   <input
                     className="flex-auto bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
+                    autoComplete="off"
                     value={allLists[currentListIndex].title}
                     onChange={titleChangeHandler}
                     type="text"
@@ -386,7 +386,7 @@ export default function Reminders({ darkMode }) {
                     <div
                       className={`${
                         colorDropdown ? "visible" : "hidden"
-                      } absolute top-10 -left-2 w-12 bg-white rounded-md shadow-md`}
+                      } absolute top-10 -left-2 w-12 bg-white dark:bg-primary-900 rounded-md shadow-md`}
                     >
                       <div
                         className="w-8 h-8 m-2 rounded-full bg-red-400 hover:bg-red-400/80"

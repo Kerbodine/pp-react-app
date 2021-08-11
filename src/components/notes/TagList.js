@@ -8,25 +8,14 @@ export default function TagList({ darkMode }) {
 
   const tagRef = useRef();
 
-  const allColors = [
-    "bg-red-400",
-    "bg-yellow-400",
-    "bg-green-400",
-    "bg-blue-400",
-    "bg-purple-400",
-    "bg-pink-400",
-  ];
-
   const addTagHandler = () => {
     const title = tagRef.current.value;
     if (title === "") {
       return;
     }
-    const tagColor = allColors[Math.floor(Math.random() * allColors.length)];
     const tag = {
       key: uuidv4(),
       title: title,
-      color: tagColor,
     };
     setAllTags((prevTags) => {
       return [...prevTags, tag];
@@ -45,10 +34,13 @@ export default function TagList({ darkMode }) {
         >
           <input
             ref={tagRef}
-            className="bg-primary-200 px-2 my-auto text-base text-black dark:text-white dark:bg-primary-700 hover:bg-primary-600 h-8 w-20 outline-none"
+            className="bg-primary-200 text-sm px-2 my-auto text-base text-black dark:text-white dark:bg-primary-700 h-8 w-20 outline-none"
             aria-label="add tag"
           ></input>
-          <BiPlusCircle className="my-auto m-1" onClick={addTagHandler} />
+          <BiPlusCircle
+            className="my-auto m-1 cursor-pointer"
+            onClick={addTagHandler}
+          />
         </div>
       </div>
     </div>

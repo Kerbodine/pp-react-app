@@ -42,10 +42,9 @@ export default function ReminderSidebar({
           <div key={list.id}>
             <ReminderItem
               index={listIndex}
+              icon={list.icon}
               title={list.title}
               color={list.color}
-              icon={list.icon}
-              darkMode={darkMode}
               selectList={selectList}
             />
           </div>
