@@ -54,17 +54,17 @@ export default function Notes({ darkMode }) {
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
-      <div className="h-screen w-full bg-primary dark:bg-primary-800 flex">
-        <div className="w-full h-auto mr-4 mt-20 mb-4 lg:mr-0">
+      <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
+        <div className="w-full h-auto mr-4 mt-4 mb-4 lg:mr-0">
           <div className="h-full rounded-2xl overflow-hidden shadow-md transition-width flex flex-row ">
             <div className="h-full">
-              <div className="w-0 md:w-48 bg-primary-200 h-full">
+              <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">
                 <PageSidebar allPages={allPages} />
               </div>
             </div>
             <div className="w-full">
               <div className={`w-full h-12 bg-red-400`}></div>
-              <div className="px-8 pt-8 bg-primary-100 flex flex-col">
+              <div className="px-8 pt-8 bg-primary-100 dark:bg-primary-800 flex flex-col">
                 <input
                   id="document-title"
                   autoComplete="off"
@@ -78,7 +78,7 @@ export default function Notes({ darkMode }) {
                     <TagList />
                   </div>
                   <button
-                    className="w-20 h-8 bg-primary-200 rounded-full relative flex items-center"
+                    className="w-20 h-8 bg-primary-200 dark:bg-primary-700 text-black dark:text-white rounded-full relative flex items-center"
                     onClick={viewModeDropdownHandler}
                   >
                     <i className="text-2xl px-2">
@@ -94,11 +94,13 @@ export default function Notes({ darkMode }) {
                     <div
                       className={`${
                         viewModeDropdown ? "visible" : "hidden"
-                      } absolute top-8 right-0 w-30 h-16 rounded-md bg-white shadow-md overflow-hidden z-10`}
+                      } absolute top-10 right-0 w-30 h-16 rounded-md bg-white dark:bg-primary-700 shadow-md overflow-hidden z-10`}
                     >
                       <div
                         className={`w-full h-8 flex items-center px-2 cursor-pointer ${
-                          readOnly ? "bg-primary-200" : "hover:bg-primary-100"
+                          readOnly
+                            ? "bg-primary-200 dark:bg-primary-900"
+                            : "hover:bg-primary-100 dark:hover:bg-primary-800"
                         }`}
                         onClick={readOnlyHandler}
                       >
@@ -109,7 +111,9 @@ export default function Notes({ darkMode }) {
                       </div>
                       <div
                         className={`w-full h-8 flex items-center px-2 cursor-pointer ${
-                          readOnly ? "hover:bg-primary-100" : "bg-primary-200"
+                          readOnly
+                            ? "hover:bg-primary-100 dark:hover:bg-primary-800"
+                            : "bg-primary-200 dark:bg-primary-900"
                         }`}
                         onClick={readOnlyHandler}
                       >
@@ -121,9 +125,9 @@ export default function Notes({ darkMode }) {
                     </div>
                   </button>
                 </div>
-                <div className="w-full h-4 bg-primary-100"></div>
+                <div className="w-full h-4 bg-primary-100 dark:bg-primary-800"></div>
               </div>
-              <div className="px-8 overflow-y-scroll overflow-x-hidden h-full bg-primary-100">
+              <div className="px-8 overflow-y-scroll overflow-x-hidden h-full bg-primary-100 dark:bg-primary-800">
                 <Editor
                   defaultValue="Hello world!"
                   dark={darkMode}

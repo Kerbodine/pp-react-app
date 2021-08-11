@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import PageItem from "./PageItem";
-import { BiCaretDownCircle, BiCaretUpCircle } from "react-icons/bi";
+import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
-export default function PageSidebar({ allPages }) {
+export default function PageSidebar({ darkMode, allPages }) {
   const [showLists, setShowLists] = useState(true);
 
   const showListHandler = () => {
@@ -11,19 +11,23 @@ export default function PageSidebar({ allPages }) {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div
+      className={`${
+        darkMode ? "dark" : ""
+      } flex flex-col h-full text-black dark:text-white`}
+    >
       <div className="flex mt-4 mx-4">
         <div className="w-full font-bold">ALL DOCUMENTS:</div>
         <button onClick={showListHandler}>
           <i className={`${showLists ? "visible" : "hidden"} text-2xl`}>
-            <BiCaretDownCircle />
+            <BiChevronDown />
           </i>
           <i className={`${showLists ? "hidden" : "visible"} text-2xl`}>
-            <BiCaretUpCircle />
+            <BiChevronUp />
           </i>
         </button>
       </div>
-      <hr className="border-none h-0.5 bg-gray-300 mx-4 my-2" />
+      <hr className="border-none h-0.5 bg-primary-300 dark:bg-primary-600 mx-4 my-2" />
       <div className={`flex-auto min-h-0 ${showLists ? "visible" : "hidden"}`}>
         <div className="overflow-hidden overflow-y-auto h-full">
           {allPages.map((page) => (
@@ -40,15 +44,13 @@ export default function PageSidebar({ allPages }) {
       <div
         className={`flex-auto min-h-0 ${showLists ? "hidden" : "visible"}`}
       ></div>
-      <hr className="border-none h-0.5 bg-gray-300" />
-      <div className="w-48 h-20 bg-primary-300 p-4">
-        <button className="bg-accent-400 hover:bg-accent-300 rounded-full h-12 flex items-center w-full text-white">
-          <i>
-            <AiOutlineFileAdd className={"w-6 h-6 text-2xl m-2"} />
-          </i>
-          <h2>New page</h2>
-        </button>
-      </div>
+      <hr className="border-none h-0.5 bg-gray-300 dark:bg-primary-600" />
+      <button className="h-12 flex-shrink-0 hover:bg-primary-300 dark:bg-primary-700 dark:hover:bg-primary-600 text-black dark:text-white flex items-center text-lg">
+        <i className="text-2xl ml-4 mr-2">
+          <AiOutlineFileAdd />
+        </i>
+        <h2>New List</h2>
+      </button>
     </div>
   );
 }

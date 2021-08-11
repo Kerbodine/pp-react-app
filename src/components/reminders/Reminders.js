@@ -442,7 +442,9 @@ export default function Reminders({ darkMode }) {
                       <i className="text-2xl text-primary-600 dark:text-primary-400">
                         <BiPlus />
                       </i>
-                      <h3 className="text-primary-600 dark:text-primary-400">Add new task</h3>
+                      <h3 className="text-primary-600 dark:text-primary-400">
+                        Add new task
+                      </h3>
                     </div>
                   </div>
                 </div>
