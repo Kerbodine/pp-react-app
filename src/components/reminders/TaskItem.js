@@ -22,6 +22,7 @@ export default function TaskItem({
   starred,
   deleteTask,
   expanded,
+  color,
 }) {
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDate, setTaskDate] = useState(dueDate);
@@ -81,14 +82,17 @@ export default function TaskItem({
       >
         {taskDropDown ? <BiCaretUpCircle /> : <BiCaretDownCircle />}
       </i>
-      <div className="mx-2">
-        <input
-          type="checkbox"
-          defaultChecked={taskComplete}
-          value={taskComplete}
-          onChange={completeHandler}
-          className={`w-6 h-6 my-1 border border-primary-400 dark:border-primary-500 border-[2px] checked:border-none rounded-md checkbox checked:bg-accent-400 dark:checked:bg-accent-400`}
-        ></input>
+      <div className="mx-2 relative">
+        <div
+          className="w-6 h-6 my-1 rounded-md border-2 border-primary-400 dark:border-primary-500 flex items-center justify-center"
+          onClick={completeHandler}
+        >
+          <div
+            className={`${
+              taskComplete ? "scale-1" : "scale-0"
+            } transition-transform w-3.5 h-3.5 bg-primary-400 dark:bg-primary-500 rounded`}
+          ></div>
+        </div>
       </div>
       <div className="text-black dark:text-white mx-2 flex-auto flex flex-col">
         <div className="flex items-center h-8">
@@ -112,7 +116,7 @@ export default function TaskItem({
           </div>
           <div className="flex">
             <button
-              className={`w-8 h-8 flex items-center justify-center rounded-l-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
+              className={`w-8 h-8 flex items-center justify-center rounded-l-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl hover:border-[3px] hover:border-blue-400 ${
                 today ? "!bg-blue-400 text-white" : ""
               }`}
               onClick={toggleTodayHandler}
@@ -120,7 +124,7 @@ export default function TaskItem({
               <BiSun />
             </button>
             <button
-              className={`w-8 h-8 flex items-center justify-center bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
+              className={`w-8 h-8 flex items-center justify-center bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl hover:border-[3px] hover:border-red-400 ${
                 important ? "!bg-red-400 text-white" : ""
               }`}
               onClick={toggleImportantHandler}
@@ -128,7 +132,7 @@ export default function TaskItem({
               <HiOutlineExclamationCircle />
             </button>
             <button
-              className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
+              className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl hover:border-[3px] hover:border-yellow-400 ${
                 starred ? "!bg-yellow-400 text-white" : ""
               }`}
               onClick={toggleStarredHandler}
