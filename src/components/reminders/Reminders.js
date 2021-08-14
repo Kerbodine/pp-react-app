@@ -12,7 +12,7 @@ import {
   BiChevronDown,
   BiPlus,
 } from "react-icons/bi";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "../ui/ConfirmModal";
 
 export default function Reminders({ darkMode }) {
   // Array for all lists
@@ -62,6 +62,7 @@ export default function Reminders({ darkMode }) {
           important: false,
           starred: false,
           expanded: false,
+          pinned: false,
         },
         {
           id: uuidv4(),
@@ -73,6 +74,7 @@ export default function Reminders({ darkMode }) {
           important: false,
           starred: false,
           expanded: false,
+          pinned: false,
         },
       ],
     },
@@ -92,6 +94,7 @@ export default function Reminders({ darkMode }) {
           important: false,
           starred: false,
           expanded: false,
+          pinned: false,
         },
         {
           id: uuidv4(),
@@ -103,6 +106,7 @@ export default function Reminders({ darkMode }) {
           important: false,
           starred: false,
           expanded: false,
+          pinned: false,
         },
       ],
     },
@@ -122,6 +126,7 @@ export default function Reminders({ darkMode }) {
           important: false,
           starred: false,
           expanded: false,
+          pinned: false,
         },
         {
           id: uuidv4(),
@@ -133,6 +138,7 @@ export default function Reminders({ darkMode }) {
           important: false,
           starred: false,
           expanded: false,
+          pinned: false,
         },
       ],
     },
@@ -143,7 +149,6 @@ export default function Reminders({ darkMode }) {
   const [taskList, setTaskList] = useState();
   const [colorDropdown, setColorDropdown] = useState(false);
   const [showColorSelector, setShowColorSelector] = useState(true);
-
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
   const updateTaskHandler = (
@@ -155,7 +160,8 @@ export default function Reminders({ darkMode }) {
     today,
     important,
     starred,
-    expanded
+    expanded,
+    pinned
   ) => {
     let tempTask = {
       id: id,
@@ -167,6 +173,7 @@ export default function Reminders({ darkMode }) {
       important: important,
       starred: starred,
       expanded: expanded,
+      pinned: pinned,
     };
     allLists.forEach((list, i) =>
       list.tasks.forEach((task, j) => {
@@ -248,6 +255,7 @@ export default function Reminders({ darkMode }) {
       important: important,
       starred: starred,
       expanded: true,
+      pinned: false,
     });
     setAllLists([...temp]);
   };
@@ -310,13 +318,13 @@ export default function Reminders({ darkMode }) {
         taskFilter = allTaskFilter;
         break;
     }
+
     setTaskList(
       allLists.slice(sliceStart, sliceEnd).map((task) =>
-        task.tasks.filter(taskFilter).map((task, taskIndex) => (
+        task.tasks.filter(taskFilter).map((task) => (
           <div key={task.id}>
             <TaskItem
               id={task.id}
-              index={taskIndex}
               title={task.title}
               completed={task.completed}
               dueDate={task.dueDate}
@@ -325,9 +333,9 @@ export default function Reminders({ darkMode }) {
               important={task.important}
               starred={task.starred}
               expanded={task.expanded}
+              pinned={task.pinned}
               updateComponent={updateTaskHandler}
               deleteTask={deleteTaskHandler}
-              color={allLists[currentListIndex].color}
             />
           </div>
         ))
@@ -424,6 +432,7 @@ export default function Reminders({ darkMode }) {
                     <BiTrash />
                   </div>
                   <ConfirmModal
+                    message={allLists[currentListIndex].title}
                     deleteConfirmation={deleteConfirmation}
                     toggleDeleteConfirmation={toggleDeleteConfirmation}
                     deleteListHandler={deleteListHandler}

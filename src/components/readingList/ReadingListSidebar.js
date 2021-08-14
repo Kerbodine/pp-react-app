@@ -72,7 +72,7 @@ export default function ReadingListSidebar({
                 // Set index to be offset by 4 (list categories)
                 index={listIndex + 5}
                 title={list.title}
-                amount={Object.keys(list.tasks).length}
+                amount={Object.keys(list.books).length}
                 color={list.color}
                 icon={list.icon}
                 darkMode={darkMode}

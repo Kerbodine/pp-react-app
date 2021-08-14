@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReadingListSidebar from "./ReadingListSidebar";
+import BookItem from "./BookItem";
 import { v4 as uuidv4 } from "uuid";
 import {
   BiBookHeart,
@@ -10,8 +11,10 @@ import {
   BiChevronDown,
   BiBook,
   BiTrash,
+  BiPlus,
+  BiListUl,
 } from "react-icons/bi";
-import ConfirmModal from "../reminders/ConfirmModal";
+import ConfirmModal from "../ui/ConfirmModal";
 
 export default function ReadingList({ darkMode }) {
   const data = [
@@ -50,6 +53,40 @@ export default function ReadingList({ darkMode }) {
       icon: <BiArchive />,
       books: [],
     },
+    {
+      id: uuidv4(),
+      title: "School reading",
+      color: "red",
+      icon: <BiListUl />,
+      books: [
+        {
+          id: uuidv4(),
+          title: "Book 1",
+          author: "author 1",
+          description:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore voluptates optio aliquid autem consequuntur quos architecto provident corrupti officia! Iure.",
+          rating: 5,
+          type: "Audiobook",
+          progress: "In progress",
+          startDate: null,
+          endDate: null,
+          expanded: true,
+        },
+        {
+          id: uuidv4(),
+          title: "Book 2",
+          author: "author 2",
+          description:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore voluptates optio aliquid autem consequuntur quos architecto provident corrupti officia! Iure.",
+          rating: 4,
+          type: "Printed copy",
+          progress: "Complete",
+          startDate: null,
+          endDate: null,
+          expanded: false,
+        },
+      ],
+    },
   ];
 
   const [allLists, setAllLists] = useState(data);
@@ -57,6 +94,42 @@ export default function ReadingList({ darkMode }) {
   const [colorDropdown, setColorDropdown] = useState(false);
   const [showColorSelector, setShowColorSelector] = useState(true);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [bookList, setBookList] = useState();
+
+  const updateBookHandler = (
+    id,
+    bookTitle,
+    bookAuthor,
+    bookDescription,
+    bookRating,
+    bookType,
+    bookProgress,
+    bookStartDate,
+    bookEndDate,
+    bookExpanded
+  ) => {
+    let tempTask = {
+      id: id,
+      title: bookTitle,
+      author: bookAuthor,
+      description: bookDescription,
+      rating: bookRating,
+      type: bookType,
+      progress: bookProgress,
+      startDate: bookStartDate,
+      endDate: bookEndDate,
+      expanded: bookExpanded,
+    };
+    allLists.forEach((list, i) =>
+      list.books.forEach((task, j) => {
+        if (task.id === tempTask.id) {
+          let temp = allLists;
+          temp[i].books[j] = tempTask;
+          setAllLists([...temp]);
+        }
+      })
+    );
+  };
 
   // Function to change current list to selected list
   const selectListHandler = (index) => {
@@ -85,6 +158,51 @@ export default function ReadingList({ darkMode }) {
     }
   };
 
+  // Deleting tasks based on their index in currentList.tasks
+  const deleteBookHandler = (id) => {
+    allLists.forEach((list, i) =>
+      list.books.forEach((task, j) => {
+        if (task.id === id) {
+          let temp = allLists;
+          temp[i].books.splice(j, 1);
+          setAllLists([...temp]);
+        }
+      })
+    );
+  };
+
+  const newBookHandler = () => {
+    let today = false;
+    let important = false;
+    let starred = false;
+    switch (currentListIndex) {
+      case 0:
+        today = true;
+        break;
+      case 1:
+        important = true;
+        break;
+      case 2:
+        starred = true;
+        break;
+      default:
+        break;
+    }
+    let temp = allLists;
+    temp[currentListIndex].books.push({
+      id: uuidv4(),
+      title: "",
+      completed: false,
+      dueDate: null,
+      description: "",
+      today: today,
+      important: important,
+      starred: starred,
+      expanded: true,
+    });
+    setAllLists([...temp]);
+  };
+
   // Adding a new list to the end of allLists
   const newListHandler = () => {
     const newList = {
@@ -92,7 +210,7 @@ export default function ReadingList({ darkMode }) {
       title: "Untitled list",
       color: "gray",
       icon: <BiBook />,
-      tasks: [],
+      books: [],
     };
     setAllLists([...allLists, newList]);
     setCurrentListIndex(allLists.length);
@@ -117,6 +235,33 @@ export default function ReadingList({ darkMode }) {
       setShowColorSelector(true);
     }
   }, [currentListIndex]);
+
+  useEffect(() => {
+    if (currentListIndex > 4) {
+      setBookList(
+        allLists.slice(currentListIndex).map((list) =>
+          list.books.map((book) => (
+            <div key={book.id}>
+              <BookItem
+                id={book.id}
+                title={book.title}
+                author={book.author}
+                description={book.description}
+                rating={book.rating}
+                type={book.type}
+                progress={book.progress}
+                startDate={book.startDate}
+                endDate={book.endDate}
+                expanded={book.expanded}
+                updateComponent={updateBookHandler}
+                deleteBook={deleteBookHandler}
+              />
+            </div>
+          ))
+        )
+      );
+    }
+  }, [currentListIndex, allLists]);
 
   return (
     <div className={`${darkMode ? "dark" : ""}`}>
@@ -207,6 +352,22 @@ export default function ReadingList({ darkMode }) {
                     toggleDeleteConfirmation={toggleDeleteConfirmation}
                     deleteListHandler={deleteListHandler}
                   />
+                </div>
+                <div className="mx-8">
+                  <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-10rem)] flex flex-col gap-2 pb-16">
+                    {bookList}
+                    <div
+                      className="w-full border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all dark:hover:bg-primary-700"
+                      onClick={newBookHandler}
+                    >
+                      <i className="text-2xl text-primary-600 dark:text-primary-400">
+                        <BiPlus />
+                      </i>
+                      <h3 className="text-primary-600 dark:text-primary-400">
+                        Add new task
+                      </h3>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

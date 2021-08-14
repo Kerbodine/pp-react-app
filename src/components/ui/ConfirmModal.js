@@ -3,6 +3,7 @@ import ReactDom from "react-dom";
 import { AiOutlineExclamation } from "react-icons/ai";
 
 export default function ConfirmModal({
+  message,
   deleteConfirmation,
   toggleDeleteConfirmation,
   deleteListHandler,
@@ -16,8 +17,8 @@ export default function ConfirmModal({
           </div>
           <h3 className="text-4xl font-light">Are you sure?</h3>
           <p className="text-center">
-            You are about to permanently delete [list name]. This action cannot
-            be undone.
+            You are about to permanently delete {message}. This action cannot be
+            undone.
           </p>
           <div className="flex gap-4">
             <button
