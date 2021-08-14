@@ -364,7 +364,7 @@ export default function ReadingList({ darkMode }) {
                         <BiPlus />
                       </i>
                       <h3 className="text-primary-600 dark:text-primary-400">
-                        Add new task
+                        Add new book
                       </h3>
                     </div>
                   </div>

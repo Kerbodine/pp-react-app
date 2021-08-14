@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { BiTrash, BiCaretUpCircle, BiCaretDownCircle } from "react-icons/bi";
+import {
+  BiTrash,
+  BiCaretUpCircle,
+  BiCaretDownCircle,
+  BiChevronDown,
+  BiChevronUp,
+} from "react-icons/bi";
+import Rating from "react-rating";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 export default function BookItem({
   id,
@@ -24,6 +32,8 @@ export default function BookItem({
   const [bookStartDate, setBookStartDate] = useState(startDate);
   const [bookEndDate, setBookEndDate] = useState(endDate);
   const [bookExpanded, setBookExpanded] = useState(expanded);
+  const [progressColor, setProgressColor] = useState();
+  const [progressDropDown, setProgressDropDown] = useState();
 
   const titleChangeHandler = (e) => {
     setBookTitle(e.target.value);
@@ -62,6 +72,20 @@ export default function BookItem({
     bookType,
   ]);
 
+  useEffect(() => {
+    switch (bookProgress) {
+      case "In progress":
+        setProgressColor("yellow");
+        break;
+      case "Complete":
+        setProgressColor("green");
+        break;
+      default:
+        setProgressColor("red");
+        break;
+    }
+  }, [bookProgress]);
+
   return (
     <div className="w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer">
       <i
@@ -88,9 +112,28 @@ export default function BookItem({
               placeholderText="Add date"
             /> */}
           </div>
-          <div className="flex">
-            <div className="w-20 h-4 bg-yellow-400 rounded-b-md"></div>
-            <div className="w-20 h-4 bg-green-400 rounded-b-md"></div>
+          <div className="flex text-black dark:text-white gap-2 items-center">
+            <div
+              className={`text-sm rounded-full bg-${progressColor}-400 flex px-2 py-1 flex items-center`}
+            >
+              <div className="text-white text-lg">
+                {progressDropDown ? <BiChevronDown /> : <BiChevronUp />}
+              </div>
+              <p className="text-white">{bookProgress}</p>
+            </div>
+            <div className="w-auto h-8 bg-primary-100 dark:bg-primary-800 rounded-md flex items-center pt-1.5 px-2">
+              <Rating
+                initialRating={bookRating}
+                fractions={2}
+                emptySymbol={
+                  <FaRegStar className="text-primary-400 dark:text-primary-500 text-lg" />
+                }
+                fullSymbol={<FaRegStar className="text-lg" />}
+                onChange={(rate) => {
+                  setBookRating(rate);
+                }}
+              />
+            </div>
           </div>
         </div>
         <div
