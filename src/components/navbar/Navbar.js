@@ -7,6 +7,7 @@ import {
   BiGridAlt,
   BiCheckSquare,
   BiNotepad,
+  BiBookBookmark,
   BiExtension,
   BiUserCircle,
   BiCog,
@@ -38,6 +39,13 @@ export default function Navbar({ darkMode }) {
                 darkMode={darkMode}
                 icon={<BiNotepad />}
                 path="/notes"
+              />
+            </Link>
+            <Link to="/reading-list" aria-label="reading list">
+              <NavbarItem
+                darkMode={darkMode}
+                icon={<BiBookBookmark />}
+                path="/reading-list"
               />
             </Link>
             <Link to="/extensions" aria-label="extensions">

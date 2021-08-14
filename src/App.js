@@ -10,6 +10,7 @@ import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import Reminders from "./components/reminders/Reminders";
 import Notes from "./components/notes/Notes";
+import ReadingList from "./components/readingList/ReadingList";
 import Extras from "./components/Extras";
 import Settings from "./components/Settings";
 import SidePanel from "./components/sidebar/SidePanel";
@@ -58,6 +59,12 @@ function App() {
                 <Route
                   path="/notes"
                   render={(props) => <Notes {...props} darkMode={darkMode} />}
+                />
+                <Route
+                  path="/reading-list"
+                  render={(props) => (
+                    <ReadingList {...props} darkMode={darkMode} />
+                  )}
                 />
                 <Route path="/extensions" component={Extras} />
                 <Route path="/profile" component={Profile} />

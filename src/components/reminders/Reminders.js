@@ -20,7 +20,6 @@ export default function Reminders({ darkMode }) {
     {
       id: uuidv4(),
       title: "Today",
-      amount: "10",
       color: "blue",
       icon: <BiSun />,
       tasks: [],
@@ -28,7 +27,6 @@ export default function Reminders({ darkMode }) {
     {
       id: uuidv4(),
       title: "Priority",
-      amount: "10",
       color: "red",
       icon: <BiCalendarExclamation />,
       tasks: [],
@@ -36,7 +34,6 @@ export default function Reminders({ darkMode }) {
     {
       id: uuidv4(),
       title: "Starred",
-      amount: "10",
       color: "yellow",
       icon: <BiStar />,
       tasks: [],
@@ -44,7 +41,6 @@ export default function Reminders({ darkMode }) {
     {
       id: uuidv4(),
       title: "All",
-      amount: "10",
       color: "green",
       icon: <BiArchive />,
       tasks: [],
