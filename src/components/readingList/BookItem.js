@@ -3,11 +3,12 @@ import {
   BiTrash,
   BiCaretUpCircle,
   BiCaretDownCircle,
-  BiChevronDown,
-  BiChevronUp,
+  BiChevronLeft,
+  BiChevronRight,
+  BiHeart,
 } from "react-icons/bi";
 import Rating from "react-rating";
-import { FaStar, FaRegStar } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 
 export default function BookItem({
   id,
@@ -33,7 +34,7 @@ export default function BookItem({
   const [bookEndDate, setBookEndDate] = useState(endDate);
   const [bookExpanded, setBookExpanded] = useState(expanded);
   const [progressColor, setProgressColor] = useState();
-  const [progressDropDown, setProgressDropDown] = useState();
+  const [bookFavorite, setBookFavorite] = useState();
 
   const titleChangeHandler = (e) => {
     setBookTitle(e.target.value);
@@ -58,6 +59,7 @@ export default function BookItem({
       bookProgress,
       bookStartDate,
       bookEndDate,
+      bookFavorite,
       bookExpanded
     );
   }, [
@@ -69,8 +71,16 @@ export default function BookItem({
     bookRating,
     bookStartDate,
     bookTitle,
+    bookFavorite,
     bookType,
   ]);
+
+  const progressSelect = (step) => {
+    const progressArray = ["Not started", "In progress", "Complete"];
+    let progressIndex = progressArray.indexOf(bookProgress);
+    progressIndex = (progressIndex + step) % progressArray.length;
+    setBookProgress(progressArray[progressIndex]);
+  };
 
   useEffect(() => {
     switch (bookProgress) {
@@ -94,7 +104,7 @@ export default function BookItem({
       >
         {bookExpanded ? <BiCaretUpCircle /> : <BiCaretDownCircle />}
       </i>
-      <div className="text-black dark:text-white mx-2 flex-auto flex flex-col">
+      <div className="text-black dark:text-white ml-2 flex-auto flex flex-col">
         <div className="flex items-center h-8">
           <input
             placeholder="Untitled task"
@@ -113,13 +123,30 @@ export default function BookItem({
             /> */}
           </div>
           <div className="flex text-black dark:text-white gap-2 items-center">
-            <div
-              className={`text-sm rounded-full bg-${progressColor}-400 flex px-2 py-1 flex items-center`}
-            >
-              <div className="text-white text-lg">
-                {progressDropDown ? <BiChevronDown /> : <BiChevronUp />}
+            <div className="flex flex-col relative">
+              <div
+                className={`text-sm rounded-md bg-${progressColor}-400 flex w-28 h-8 flex items-center overflow-hidden`}
+              >
+                <div
+                  className={`text-white text-lg w-8 h-full flex items-center justify-center`}
+                  onClick={() => {
+                    progressSelect(2);
+                  }}
+                >
+                  <BiChevronLeft />
+                </div>
+                <p className="text-white cursor-pointer w-full text-center noselect">
+                  {bookProgress}
+                </p>
+                <div
+                  className={`text-white text-lg w-8 h-full flex items-center justify-center`}
+                  onClick={() => {
+                    progressSelect(1);
+                  }}
+                >
+                  <BiChevronRight />
+                </div>
               </div>
-              <p className="text-white">{bookProgress}</p>
             </div>
             <div className="w-auto h-8 bg-primary-100 dark:bg-primary-800 rounded-md flex items-center pt-1.5 px-2">
               <Rating
@@ -134,6 +161,20 @@ export default function BookItem({
                 }}
               />
             </div>
+            <button
+              className={`${bookFavorite} w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-pink-400 dark:bg-primary-800 dark:text-white dark:hover:bg-pink-400 text-black hover:text-white text-2xl`}
+            >
+              <BiHeart />
+            </button>
+            <button
+              className="w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-red-400 dark:bg-primary-800 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl"
+              aria-label="delete task"
+              onClick={() => {
+                deleteBook(id);
+              }}
+            >
+              <BiTrash />
+            </button>
           </div>
         </div>
         <div
@@ -148,17 +189,6 @@ export default function BookItem({
             className="text-sm bg-transparent w-full h-auto outline-none resize-y text-primary-600 dark:text-primary-400 max-h-[12rem]"
           ></textarea>
         </div>
-      </div>
-      <div className="flex">
-        <button
-          className="w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-red-400 dark:bg-primary-800 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl"
-          aria-label="delete task"
-          onClick={() => {
-            deleteBook(id);
-          }}
-        >
-          <BiTrash />
-        </button>
       </div>
     </div>
   );

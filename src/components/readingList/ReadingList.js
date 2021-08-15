@@ -35,7 +35,7 @@ export default function ReadingList({ darkMode }) {
     {
       id: uuidv4(),
       title: "Favorites",
-      color: "red",
+      color: "pink",
       icon: <BiBookHeart />,
       books: [],
     },
@@ -70,6 +70,7 @@ export default function ReadingList({ darkMode }) {
           progress: "In progress",
           startDate: null,
           endDate: null,
+          favorite: false,
           expanded: true,
         },
         {
@@ -83,6 +84,7 @@ export default function ReadingList({ darkMode }) {
           progress: "Complete",
           startDate: null,
           endDate: null,
+          favorite: false,
           expanded: false,
         },
       ],
@@ -106,6 +108,7 @@ export default function ReadingList({ darkMode }) {
     bookProgress,
     bookStartDate,
     bookEndDate,
+    bookFavorite,
     bookExpanded
   ) => {
     let tempTask = {
@@ -118,6 +121,7 @@ export default function ReadingList({ darkMode }) {
       progress: bookProgress,
       startDate: bookStartDate,
       endDate: bookEndDate,
+      favorite: bookFavorite,
       expanded: bookExpanded,
     };
     allLists.forEach((list, i) =>
@@ -172,32 +176,18 @@ export default function ReadingList({ darkMode }) {
   };
 
   const newBookHandler = () => {
-    let today = false;
-    let important = false;
-    let starred = false;
-    switch (currentListIndex) {
-      case 0:
-        today = true;
-        break;
-      case 1:
-        important = true;
-        break;
-      case 2:
-        starred = true;
-        break;
-      default:
-        break;
-    }
     let temp = allLists;
     temp[currentListIndex].books.push({
       id: uuidv4(),
       title: "",
-      completed: false,
-      dueDate: null,
+      author: "",
       description: "",
-      today: today,
-      important: important,
-      starred: starred,
+      rating: null,
+      type: "",
+      progress: "Not started",
+      startDate: null,
+      endDate: null,
+      favorite: false,
       expanded: true,
     });
     setAllLists([...temp]);
@@ -252,6 +242,7 @@ export default function ReadingList({ darkMode }) {
                 progress={book.progress}
                 startDate={book.startDate}
                 endDate={book.endDate}
+                favorite={book.favorite}
                 expanded={book.expanded}
                 updateComponent={updateBookHandler}
                 deleteBook={deleteBookHandler}
@@ -307,7 +298,7 @@ export default function ReadingList({ darkMode }) {
                     <div
                       className={`${
                         colorDropdown ? "visible" : "hidden"
-                      } absolute top-10 -left-2 w-12 bg-white dark:bg-primary-900 rounded-md shadow-md`}
+                      } absolute top-10 -left-2 w-12 bg-white dark:bg-primary-900 rounded-md shadow-md z-10`}
                     >
                       <div
                         className="w-8 h-8 m-2 rounded-full bg-red-400 hover:bg-red-400/80"
@@ -348,6 +339,7 @@ export default function ReadingList({ darkMode }) {
                     <BiTrash />
                   </div>
                   <ConfirmModal
+                    message={`"${allLists[currentListIndex].title}"`}
                     deleteConfirmation={deleteConfirmation}
                     toggleDeleteConfirmation={toggleDeleteConfirmation}
                     deleteListHandler={deleteListHandler}

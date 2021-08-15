@@ -5,9 +5,10 @@ import SideStickie from "./SideStickie";
 
 import "./calendar.css";
 
-import { BiSearch, BiAdjust } from "react-icons/bi";
+import { BiBulb, BiAdjust } from "react-icons/bi";
+import SidePomodoro from "./SidePomodoro";
 
-export default function SidePanel({ darkMode, onClick }) {
+export default function SidePanel({ darkMode, onClick, credits, setCredits }) {
   const USERNAME = "Username";
 
   return (
@@ -15,13 +16,14 @@ export default function SidePanel({ darkMode, onClick }) {
       <div className="flex gap-4 h-20 bg-primary dark:bg-primary-900 px-4">
         <div className="w-48 flex items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl my-auto px-3 focus-within:ring-2 focus-within:ring-accent-400">
           <div className="text-2xl text-black dark:text-white mr-2">
-            <BiSearch />
+            <BiBulb />
           </div>
-          <input
+          <h4 className="text-black dark:text-white text-xl">{credits}</h4>
+          {/* <input
             className="bg-transparent text-black dark:text-white outline-none"
             placeholder="Search..."
             aria-label="search"
-          ></input>
+          ></input> */}
         </div>
         <button
           onClick={onClick}
@@ -45,6 +47,9 @@ export default function SidePanel({ darkMode, onClick }) {
         <div>
           <Calendar calendarType="US" />
         </div>
+        {/* <div>
+          <SidePomodoro />
+        </div> */}
         <div className="flex gap-4">
           <SideWidget
             eventName="Test event"

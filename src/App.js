@@ -25,6 +25,8 @@ function App() {
   const [darkMode, setDarkMode] = useState(darkModeValue);
   const [loading, setLoading] = useState(false);
 
+  const [credits, setCredits] = useState(0);
+
   useEffect(() => {
     setLoading(true);
     setTimeout(() => {
@@ -72,7 +74,12 @@ function App() {
               </Switch>
             </div>
             <div className="w-0 lg:w-72">
-              <SidePanel darkMode={darkMode} onClick={toggleThemeHandler} />
+              <SidePanel
+                darkMode={darkMode}
+                onClick={toggleThemeHandler}
+                credits={credits}
+                setCredits={setCredits}
+              />
             </div>
           </div>
         </Router>

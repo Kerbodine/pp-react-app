@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BiChevronDown, BiChevronUp, BiBookAdd } from "react-icons/bi";
+import { BiChevronDown, BiChevronUp, BiListPlus } from "react-icons/bi";
 import ReadingListItem from "./ReadingListItem";
 
 export default function ReadingListSidebar({
@@ -91,7 +91,7 @@ export default function ReadingListSidebar({
         onClick={newListHandler}
       >
         <i className="text-2xl ml-4 mr-2">
-          <BiBookAdd />
+          <BiListPlus />
         </i>
         <h2>New List</h2>
       </button>

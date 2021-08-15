@@ -391,7 +391,7 @@ export default function Reminders({ darkMode }) {
                     <div
                       className={`${
                         colorDropdown ? "visible" : "hidden"
-                      } absolute top-10 -left-2 w-12 bg-white dark:bg-primary-900 rounded-md shadow-md`}
+                      } absolute top-10 -left-2 w-12 bg-white dark:bg-primary-600 rounded-md shadow-md`}
                     >
                       <div
                         className="w-8 h-8 m-2 rounded-full bg-red-400 hover:bg-red-400/80"
@@ -432,7 +432,7 @@ export default function Reminders({ darkMode }) {
                     <BiTrash />
                   </div>
                   <ConfirmModal
-                    message={allLists[currentListIndex].title}
+                    message={`"${allLists[currentListIndex].title}"`}
                     deleteConfirmation={deleteConfirmation}
                     toggleDeleteConfirmation={toggleDeleteConfirmation}
                     deleteListHandler={deleteListHandler}
