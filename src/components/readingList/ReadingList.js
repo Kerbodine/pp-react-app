@@ -2,96 +2,11 @@ import React, { useState, useEffect } from "react";
 import ReadingListSidebar from "./ReadingListSidebar";
 import BookItem from "./BookItem";
 import { v4 as uuidv4 } from "uuid";
-import {
-  BiBookHeart,
-  BiTime,
-  BiCheckCircle,
-  BiBookContent,
-  BiArchive,
-  BiChevronDown,
-  BiBook,
-  BiTrash,
-  BiPlus,
-  BiListUl,
-} from "react-icons/bi";
+import { BiChevronDown, BiBook, BiTrash, BiPlus } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 
-export default function ReadingList({ darkMode }) {
-  const data = [
-    {
-      id: uuidv4(),
-      title: "In progress",
-      color: "yellow",
-      icon: <BiTime />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "Finished",
-      color: "blue",
-      icon: <BiCheckCircle />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "Favorites",
-      color: "pink",
-      icon: <BiBookHeart />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "Book type",
-      color: "purple",
-      icon: <BiBookContent />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "All",
-      color: "green",
-      icon: <BiArchive />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "School reading",
-      color: "red",
-      icon: <BiListUl />,
-      books: [
-        {
-          id: uuidv4(),
-          title: "Book 1",
-          author: "author 1",
-          description:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore voluptates optio aliquid autem consequuntur quos architecto provident corrupti officia! Iure.",
-          rating: 5,
-          type: "Audiobook",
-          progress: "In progress",
-          startDate: null,
-          endDate: null,
-          favorite: false,
-          expanded: true,
-        },
-        {
-          id: uuidv4(),
-          title: "Book 2",
-          author: "author 2",
-          description:
-            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore voluptates optio aliquid autem consequuntur quos architecto provident corrupti officia! Iure.",
-          rating: 4,
-          type: "Printed copy",
-          progress: "Complete",
-          startDate: null,
-          endDate: null,
-          favorite: false,
-          expanded: false,
-        },
-      ],
-    },
-  ];
-
-  const [allLists, setAllLists] = useState(data);
+export default function ReadingList({ darkMode, readingListData }) {
+  const [allLists, setAllLists] = useState(readingListData);
   const [currentListIndex, setCurrentListIndex] = useState(0);
   const [colorDropdown, setColorDropdown] = useState(false);
   const [showColorSelector, setShowColorSelector] = useState(true);
