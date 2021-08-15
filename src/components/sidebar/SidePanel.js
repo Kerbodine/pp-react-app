@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import Calendar from "react-calendar";
 import SideItem from "./SideItem";
 import SideWidget from "./SideWidget";
@@ -5,29 +7,43 @@ import SideStickie from "./SideStickie";
 
 import "./calendar.css";
 
-import { BiBulb, BiAdjust } from "react-icons/bi";
+import { BiAdjust, BiBriefcaseAlt, BiMoon } from "react-icons/bi";
 import SidePomodoro from "./SidePomodoro";
 
 export default function SidePanel({ darkMode, onClick, credits, setCredits }) {
   const USERNAME = "Username";
 
+  const [workMode, setWorkMode] = useState(true);
+
+  const toggleWorkMode = () => {
+    setWorkMode(!workMode);
+  };
+
   return (
     <div className={`${darkMode ? "dark" : ""} w-72 h-screen`}>
-      <div className="flex gap-4 h-20 bg-primary dark:bg-primary-900 px-4">
-        <div className="w-48 flex items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl my-auto px-3 focus-within:ring-2 focus-within:ring-accent-400">
-          <div className="text-2xl text-black dark:text-white mr-2">
-            <BiBulb />
+      <div className="flex gap-4 h-20 bg-primary dark:bg-primary-900 p-4">
+        <div className="w-32 flex gap-2 items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl px-3 justify-center text-black dark:text-white">
+          <div className="text-2xl">
+            <BiBriefcaseAlt />
           </div>
-          <h4 className="text-black dark:text-white text-xl">{credits}</h4>
-          {/* <input
-            className="bg-transparent text-black dark:text-white outline-none"
-            placeholder="Search..."
-            aria-label="search"
-          ></input> */}
+          <button
+            className="w-10 h-6 bg-accent-400 rounded-full flex items-center justify-center px-1"
+            onClick={toggleWorkMode}
+          >
+            <div
+              className={`w-4 h-4 rounded-full bg-white transition-transform ${
+                workMode ? "-translate-x-2" : "translate-x-2"
+              }`}
+            ></div>
+          </button>
+          <div className="text-2xl">
+            <BiMoon />
+          </div>
         </div>
+        <button className="w-12 h-12 bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"></button>
         <button
           onClick={onClick}
-          className="w-12 h-12 bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 my-auto rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"
+          className="w-12 h-12 bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"
         >
           <div className="dark:rotate-180 duration-500 transition-transform">
             <BiAdjust />
