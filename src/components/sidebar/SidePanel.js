@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Calendar from "react-calendar";
 import SideItem from "./SideItem";
@@ -10,17 +10,17 @@ import "./calendar.css";
 import { BiAdjust, BiBriefcaseAlt, BiMoon } from "react-icons/bi";
 import SidePomodoro from "./SidePomodoro";
 
-export default function SidePanel({ darkMode, onClick, credits, setCredits }) {
+export default function SidePanel({
+  onClick,
+  credits,
+  setCredits,
+  workMode,
+  toggleWorkMode,
+}) {
   const USERNAME = "Username";
 
-  const [workMode, setWorkMode] = useState(true);
-
-  const toggleWorkMode = () => {
-    setWorkMode(!workMode);
-  };
-
   return (
-    <div className={`${darkMode ? "dark" : ""} w-72 h-screen`}>
+    <div className={`w-72 h-screen`}>
       <div className="flex gap-4 h-20 bg-primary dark:bg-primary-900 p-4">
         <div className="w-32 flex gap-2 items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl px-3 justify-center text-black dark:text-white">
           <div className="text-2xl">
@@ -67,37 +67,15 @@ export default function SidePanel({ darkMode, onClick, credits, setCredits }) {
           <SidePomodoro />
         </div> */}
         <div className="flex gap-4">
-          <SideWidget
-            eventName="Test event"
-            countdown="6"
-            timeUnit="days"
-            darkMode={darkMode}
-          />
-          <SideWidget
-            eventName="Test event 2"
-            countdown="11"
-            timeUnit="days"
-            darkMode={darkMode}
-          />
+          <SideWidget eventName="Test event" countdown="6" timeUnit="days" />
+          <SideWidget eventName="Test event 2" countdown="11" timeUnit="days" />
         </div>
         <div className="flex flex-col gap-4">
-          <SideItem
-            taskName="Task 1"
-            dueDate="dd/mm/yyyy"
-            darkMode={darkMode}
-          />
-          <SideItem
-            taskName="Task 2"
-            dueDate="dd/mm/yyyy"
-            darkMode={darkMode}
-          />
-          <SideItem
-            taskName="Task 3"
-            dueDate="dd/mm/yyyy"
-            darkMode={darkMode}
-          />
+          <SideItem taskName="Task 1" dueDate="dd/mm/yyyy" />
+          <SideItem taskName="Task 2" dueDate="dd/mm/yyyy" />
+          <SideItem taskName="Task 3" dueDate="dd/mm/yyyy" />
         </div>
-        <SideStickie darkMode={darkMode} />
+        <SideStickie />
       </div>
     </div>
   );

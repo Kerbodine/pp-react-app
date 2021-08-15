@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/navbar/Navbar";
 
 // import "react-calendar/dist/Calendar.css";
-import HashLoader from "react-spinners/HashLoader";
 
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
@@ -14,6 +13,9 @@ import ReadingList from "./components/readingList/ReadingList";
 import Extras from "./components/Extras";
 import Settings from "./components/Settings";
 import SidePanel from "./components/sidebar/SidePanel";
+
+import HashLoader from "react-spinners/HashLoader";
+import WorkModeAlert from "./components/ui/WorkModeAlert";
 
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -29,7 +31,7 @@ import {
 } from "react-icons/bi";
 
 function App() {
-  const remindersData = [
+  const remindersData1 = [
     {
       id: uuidv4(),
       title: "Today",
@@ -157,6 +159,37 @@ function App() {
     },
   ];
 
+  const reminderData2 = [
+    {
+      id: uuidv4(),
+      title: "Today",
+      color: "blue",
+      icon: <BiSun />,
+      tasks: [],
+    },
+    {
+      id: uuidv4(),
+      title: "Priority",
+      color: "red",
+      icon: <BiCalendarExclamation />,
+      tasks: [],
+    },
+    {
+      id: uuidv4(),
+      title: "Starred",
+      color: "yellow",
+      icon: <BiStar />,
+      tasks: [],
+    },
+    {
+      id: uuidv4(),
+      title: "All",
+      color: "green",
+      icon: <BiArchive />,
+      tasks: [],
+    },
+  ];
+
   const readingListData = [
     {
       id: uuidv4(),
@@ -232,14 +265,21 @@ function App() {
   ];
 
   let darkModeValue = false;
+  let workModeValue = true;
 
   if (localStorage.getItem("darkMode") !== null) {
     darkModeValue = JSON.parse(localStorage.getItem("darkMode"));
   }
 
+  if (localStorage.getItem("workMode") !== null) {
+    workModeValue = JSON.parse(localStorage.getItem("workMode"));
+  }
+
   const [darkMode, setDarkMode] = useState(darkModeValue);
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
+  const [workMode, setWorkMode] = useState(workModeValue);
+  const [reminderData, setReminderData] = useState(remindersData1);
 
   useEffect(() => {
     setLoading(true);
@@ -253,8 +293,21 @@ function App() {
     setDarkMode(!darkMode);
   };
 
+  const toggleWorkMode = () => {
+    localStorage.setItem("workMode", !workMode);
+    setWorkMode(!workMode);
+  };
+
+  useEffect(() => {
+    if (workMode) {
+      setReminderData(remindersData1);
+    } else {
+      setReminderData(reminderData2);
+    }
+  }, [workMode]);
+
   return (
-    <div className="App overflow-hidden">
+    <div className={`${darkMode ? "dark" : ""} App overflow-hidden`}>
       {loading ? (
         <div className="text-center justify-center items-center flex w-screen h-screen">
           <HashLoader color={"#3B82F6"} loading={loading} size={75} />
@@ -262,8 +315,9 @@ function App() {
       ) : (
         <Router>
           <div className="flex">
-            <Navbar darkMode={darkMode} />
-            <div className="flex-auto">
+            <Navbar />
+            <div className="w-full relative">
+              <WorkModeAlert workMode={workMode} key={workMode} />
               <Switch>
                 <Route path="/" exact component={Dashboard} />
                 <Route
@@ -271,8 +325,8 @@ function App() {
                   render={(props) => (
                     <Reminders
                       {...props}
-                      darkMode={darkMode}
-                      remindersData={remindersData}
+                      key={reminderData}
+                      remindersData={reminderData}
                     />
                   )}
                 />
@@ -283,11 +337,7 @@ function App() {
                 <Route
                   path="/reading-list"
                   render={(props) => (
-                    <ReadingList
-                      {...props}
-                      darkMode={darkMode}
-                      readingListData={readingListData}
-                    />
+                    <ReadingList {...props} readingListData={readingListData} />
                   )}
                 />
                 <Route path="/extensions" component={Extras} />
@@ -297,10 +347,11 @@ function App() {
             </div>
             <div className="w-0 lg:w-72">
               <SidePanel
-                darkMode={darkMode}
                 onClick={toggleThemeHandler}
                 credits={credits}
                 setCredits={setCredits}
+                workMode={workMode}
+                toggleWorkMode={toggleWorkMode}
               />
             </div>
           </div>

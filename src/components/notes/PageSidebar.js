@@ -3,12 +3,7 @@ import { AiOutlineFileAdd } from "react-icons/ai";
 import PageItem from "./PageItem";
 import { BiChevronDown, BiChevronUp } from "react-icons/bi";
 
-export default function PageSidebar({
-  darkMode,
-  allPages,
-  selectPage,
-  newPageHandler,
-}) {
+export default function PageSidebar({ allPages, selectPage, newPageHandler }) {
   const [showLists, setShowLists] = useState(true);
 
   const showListHandler = () => {
@@ -16,11 +11,7 @@ export default function PageSidebar({
   };
 
   return (
-    <div
-      className={`${
-        darkMode ? "dark" : ""
-      } flex flex-col h-full text-black dark:text-white`}
-    >
+    <div className={`flex flex-col h-full text-black dark:text-white`}>
       <div className="flex mt-4 mx-4">
         <div className="w-full font-bold">ALL DOCUMENTS:</div>
         <button onClick={showListHandler}>

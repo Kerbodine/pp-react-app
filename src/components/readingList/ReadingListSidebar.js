@@ -3,7 +3,6 @@ import { BiChevronDown, BiChevronUp, BiListPlus } from "react-icons/bi";
 import ReadingListItem from "./ReadingListItem";
 
 export default function ReadingListSidebar({
-  darkMode,
   allLists,
   newListHandler,
   selectList,
@@ -22,11 +21,7 @@ export default function ReadingListSidebar({
   console.log(allLists);
 
   return (
-    <div
-      className={`${
-        darkMode ? "dark" : ""
-      } flex flex-col h-full cursor-pointer`}
-    >
+    <div className={`flex flex-col h-full cursor-pointer`}>
       <div className="flex mt-4 mx-4 text-black dark:text-white">
         <div className="w-full font-bold">CATEGORIES:</div>
         <button onClick={showCategoriesHandler}>
@@ -75,7 +70,6 @@ export default function ReadingListSidebar({
                 amount={Object.keys(list.books).length}
                 color={list.color}
                 icon={list.icon}
-                darkMode={darkMode}
                 selectList={selectList}
               />
             </div>

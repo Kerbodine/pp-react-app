@@ -3,7 +3,6 @@ import ReminderItem from "./ReminderItem";
 import { BiListPlus, BiChevronDown, BiChevronUp } from "react-icons/bi";
 
 export default function ReminderSidebar({
-  darkMode,
   allLists,
   newListHandler,
   selectList,
@@ -20,11 +19,7 @@ export default function ReminderSidebar({
   };
 
   return (
-    <div
-      className={`${
-        darkMode ? "dark" : ""
-      } flex flex-col h-full cursor-pointer`}
-    >
+    <div className={`flex flex-col h-full cursor-pointer`}>
       <div className="flex mt-4 mx-4 text-black dark:text-white">
         <div className="w-full font-bold">CATEGORIES:</div>
         <button onClick={showCategoriesHandler}>
@@ -73,7 +68,6 @@ export default function ReminderSidebar({
                 amount={Object.keys(list.tasks).length}
                 color={list.color}
                 icon={list.icon}
-                darkMode={darkMode}
                 selectList={selectList}
               />
             </div>

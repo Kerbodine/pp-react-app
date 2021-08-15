@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 
-export default function NavbarItem({ darkMode, icon, path }) {
+export default function NavbarItem({ icon, path }) {
   const location = useLocation();
   let active = false;
 
@@ -13,9 +13,7 @@ export default function NavbarItem({ darkMode, icon, path }) {
 
   return (
     <div
-      className={`${
-        darkMode ? "dark" : ""
-      } h-12 px-4 flex items-center text-2xl cursor-pointer select-none`}
+      className={`h-12 px-4 flex items-center text-2xl cursor-pointer select-none`}
     >
       <div
         className={`flex items-center w-full h-full ${
