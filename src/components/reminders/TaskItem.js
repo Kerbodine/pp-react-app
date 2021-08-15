@@ -29,6 +29,7 @@ export default function TaskItem({
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDate, setTaskDate] = useState(dueDate);
   const [taskComplete, setTaskComplete] = useState(completed);
+  const [displayComplete, setDisplayComplete] = useState(completed);
   const [taskDescription, setTaskDescription] = useState(description);
   const [taskToday, setTaskToday] = useState(today);
   const [taskImportant, setTaskImportant] = useState(important);
@@ -75,9 +76,17 @@ export default function TaskItem({
     taskPinned,
   ]);
 
-  const completeHandler = () => {
-    setTaskComplete(!completed);
-  };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (displayComplete === true) {
+        setTaskComplete(true);
+      }
+    }, 2500);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [displayComplete]);
 
   return (
     <div className="w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer">
@@ -90,11 +99,11 @@ export default function TaskItem({
       <div className="mx-2 relative">
         <div
           className="w-6 h-6 my-1 rounded-md border-2 border-primary-400 dark:border-primary-500 flex items-center justify-center"
-          onClick={completeHandler}
+          onClick={() => setDisplayComplete(!displayComplete)}
         >
           <div
             className={`${
-              taskComplete ? "visible" : "hidden"
+              displayComplete ? "visible" : "hidden"
             } text-2xl text-white bg-accent-400 rounded-md`}
           >
             <BiCheck />
@@ -109,7 +118,7 @@ export default function TaskItem({
             value={taskTitle}
             onChange={titleChangeHandler}
             className={`w-0 text-lg h-8 flex-auto mr-4 truncate bg-transparent outline-none ${
-              taskComplete ? "line-through" : "no-underline"
+              displayComplete ? "line-through" : "no-underline"
             }`}
           ></input>
           <div className="mr-2">

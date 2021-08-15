@@ -152,10 +152,21 @@ export default function Reminders({ remindersData }) {
   }, [currentListIndex]);
 
   useEffect(() => {
-    const todayFilter = (task) => task.today === true;
-    const importantFilter = (task) => task.important === true;
-    const starredFilter = (task) => task.starred === true;
-    const allTaskFilter = (task) => task;
+    if (currentListIndex < 4) {
+      setShowColorSelector(false);
+    } else {
+      setShowColorSelector(true);
+    }
+  }, [currentListIndex]);
+
+  useEffect(() => {
+    const todayFilter = (task) =>
+      task.today === true && task.completed === false;
+    const importantFilter = (task) =>
+      task.important === true && task.completed === false;
+    const starredFilter = (task) =>
+      task.starred === true && task.completed === false;
+    const allTaskFilter = (task) => task.completed === false;
 
     let taskFilter;
     let sliceStart;
