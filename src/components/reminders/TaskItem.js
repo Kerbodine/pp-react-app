@@ -81,7 +81,7 @@ export default function TaskItem({
       if (displayComplete === true) {
         setTaskComplete(true);
       }
-    }, 2500);
+    }, 5000);
 
     return () => {
       clearTimeout(timeout);

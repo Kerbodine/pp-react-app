@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { BiTrash, BiListUl, BiChevronDown, BiPlus } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 
-export default function Reminders({ remindersData }) {
+export default function Reminders({ remindersData, darkMode }) {
   const [allLists, setAllLists] = useState(remindersData);
   const [currentListIndex, setCurrentListIndex] = useState(0);
   const [taskList, setTaskList] = useState();
@@ -304,6 +304,7 @@ export default function Reminders({ remindersData }) {
                   <BiTrash />
                 </div>
                 <ConfirmModal
+                  darkMode={darkMode}
                   message={`"${allLists[currentListIndex].title}"`}
                   deleteConfirmation={deleteConfirmation}
                   toggleDeleteConfirmation={toggleDeleteConfirmation}

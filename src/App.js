@@ -368,6 +368,7 @@ function App() {
                       {...props}
                       key={reminderData}
                       remindersData={reminderData}
+                      darkMode={darkMode}
                     />
                   )}
                 />

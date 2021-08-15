@@ -3,15 +3,22 @@ import ReactDom from "react-dom";
 import { AiOutlineExclamation } from "react-icons/ai";
 
 export default function ConfirmModal({
+  darkMode,
   message,
   deleteConfirmation,
   toggleDeleteConfirmation,
   deleteListHandler,
 }) {
+  console.log(darkMode);
+
   if (deleteConfirmation) {
     return ReactDom.createPortal(
-      <div className="absolute top-0 bg-black/50 w-screen h-screen flex items-center justify-center z-10">
-        <div className="w-96 rounded-2xl bg-white shadow-md flex flex-col justify-center items-center p-4 gap-2 z-20">
+      <div
+        className={`${
+          darkMode ? "dark" : ""
+        } absolute top-0 bg-black/50 w-screen h-screen flex items-center justify-center z-10`}
+      >
+        <div className="w-96 rounded-2xl bg-white dark:bg-primary-700 shadow-md flex flex-col justify-center items-center p-4 gap-2 z-20 text-black dark:text-white">
           <div className="w-16 h-16 text-4xl rounded-full bg-red-400 text-white flex items-center justify-center">
             <AiOutlineExclamation />
           </div>
@@ -22,7 +29,7 @@ export default function ConfirmModal({
           </p>
           <div className="flex gap-4">
             <button
-              className="w-24 h-10 p-2 bg-gray-200 hover:bg-gray-300 rounded-md"
+              className="w-24 h-10 p-2 bg-primary-200 dark:bg-primary-600 hover:bg-primary-300 dark:hover:bg-primary-500 rounded-md"
               onClick={toggleDeleteConfirmation}
             >
               Cancel
