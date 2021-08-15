@@ -190,7 +190,7 @@ function App() {
     },
   ];
 
-  const readingListData = [
+  const readingListData1 = [
     {
       id: uuidv4(),
       title: "In progress",
@@ -264,6 +264,44 @@ function App() {
     },
   ];
 
+  const readingListData2 = [
+    {
+      id: uuidv4(),
+      title: "In progress",
+      color: "yellow",
+      icon: <BiTime />,
+      books: [],
+    },
+    {
+      id: uuidv4(),
+      title: "Finished",
+      color: "blue",
+      icon: <BiCheckCircle />,
+      books: [],
+    },
+    {
+      id: uuidv4(),
+      title: "Favorites",
+      color: "pink",
+      icon: <BiBookHeart />,
+      books: [],
+    },
+    {
+      id: uuidv4(),
+      title: "Book type",
+      color: "purple",
+      icon: <BiBookContent />,
+      books: [],
+    },
+    {
+      id: uuidv4(),
+      title: "All",
+      color: "green",
+      icon: <BiArchive />,
+      books: [],
+    },
+  ];
+
   let darkModeValue = false;
   let workModeValue = true;
 
@@ -280,6 +318,7 @@ function App() {
   const [credits, setCredits] = useState(0);
   const [workMode, setWorkMode] = useState(workModeValue);
   const [reminderData, setReminderData] = useState(remindersData1);
+  const [readingListData, setReadingListData] = useState(readingListData1);
 
   useEffect(() => {
     setLoading(true);
@@ -301,8 +340,10 @@ function App() {
   useEffect(() => {
     if (workMode) {
       setReminderData(remindersData1);
+      setReadingListData(readingListData1);
     } else {
       setReminderData(reminderData2);
+      setReadingListData(readingListData2);
     }
   }, [workMode]);
 
@@ -337,7 +378,11 @@ function App() {
                 <Route
                   path="/reading-list"
                   render={(props) => (
-                    <ReadingList {...props} readingListData={readingListData} />
+                    <ReadingList
+                      {...props}
+                      key={readingListData}
+                      readingListData={readingListData}
+                    />
                   )}
                 />
                 <Route path="/extensions" component={Extras} />

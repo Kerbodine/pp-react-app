@@ -8,7 +8,7 @@ export default function WorkModeAlert({ workMode }) {
     setBannerVisible(true);
     setTimeout(() => {
       setBannerVisible(false);
-    }, 3000);
+    }, 2500);
   }, [workMode]);
 
   console.log(bannerVisible);
@@ -24,8 +24,8 @@ export default function WorkModeAlert({ workMode }) {
       </div>
       <h3 className="leading-4">
         {workMode
-          ? "Workspace switched to work mode"
-          : "Workspace switched to personal mode"}
+          ? "Current workspace: Work mode"
+          : "Current workspace: Personal mode"}
       </h3>
     </div>
   );
