@@ -18,8 +18,6 @@ export default function ReadingListSidebar({
     setShowLists(!showLists);
   };
 
-  console.log(allLists);
-
   return (
     <div className={`flex flex-col h-full cursor-pointer`}>
       <div className="flex mt-4 mx-4 text-black dark:text-white">

@@ -25,6 +25,7 @@ export default function TaskItem({
   deleteTask,
   expanded,
   pinned,
+  isDragging,
 }) {
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDate, setTaskDate] = useState(dueDate);
@@ -89,7 +90,11 @@ export default function TaskItem({
   }, [displayComplete]);
 
   return (
-    <div className="w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer">
+    <div
+      className={`w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer mb-2 ${
+        isDragging ? "shadow-lg" : ""
+      }`}
+    >
       <i
         className="text-2xl ml-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-primary-400 dark:text-primary-500"
         onClick={toggleDetailsDropdown}
@@ -110,14 +115,14 @@ export default function TaskItem({
           </div>
         </div>
       </div>
-      <div className="text-black dark:text-white mx-2 flex-auto flex flex-col">
+      <div className="text-black dark:text-white flex-auto flex flex-col">
         <div className="flex items-center h-8">
           <input
             placeholder="Untitled task"
             type="text"
             value={taskTitle}
             onChange={titleChangeHandler}
-            className={`w-0 text-lg h-8 flex-auto mr-4 truncate bg-transparent outline-none ${
+            className={`text-lg h-8 flex-auto mr-4 truncate bg-transparent outline-none ${
               displayComplete ? "line-through" : "no-underline"
             }`}
           ></input>

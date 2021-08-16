@@ -82,7 +82,12 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
+/* 
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -94,7 +99,7 @@
 ::selection {
   color: white;
   background: var(--accent-color-400);
-}
+} */
 
 html {
   font-family: "Source Sans Pro", sans-serif;

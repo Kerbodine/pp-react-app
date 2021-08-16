@@ -9,8 +9,6 @@ export default function ConfirmModal({
   toggleDeleteConfirmation,
   deleteListHandler,
 }) {
-  console.log(darkMode);
-
   if (deleteConfirmation) {
     return ReactDom.createPortal(
       <div

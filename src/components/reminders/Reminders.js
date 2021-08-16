@@ -4,6 +4,7 @@ import TaskItem from "./TaskItem";
 import { v4 as uuidv4 } from "uuid";
 import { BiTrash, BiListUl, BiChevronDown, BiPlus } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export default function Reminders({ remindersData, darkMode }) {
   const [allLists, setAllLists] = useState(remindersData);
@@ -151,13 +152,17 @@ export default function Reminders({ remindersData, darkMode }) {
     }
   }, [currentListIndex]);
 
-  useEffect(() => {
-    if (currentListIndex < 4) {
-      setShowColorSelector(false);
-    } else {
-      setShowColorSelector(true);
-    }
-  }, [currentListIndex]);
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(allLists[currentListIndex].tasks);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    let temp = allLists;
+    temp[currentListIndex].tasks = [...items];
+
+    setAllLists([...temp]);
+  };
 
   useEffect(() => {
     const todayFilter = (task) =>
@@ -194,23 +199,37 @@ export default function Reminders({ remindersData, darkMode }) {
 
     setTaskList(
       allLists.slice(sliceStart, sliceEnd).map((task) =>
-        task.tasks.filter(taskFilter).map((task) => (
-          <div key={task.id}>
-            <TaskItem
-              id={task.id}
-              title={task.title}
-              completed={task.completed}
-              dueDate={task.dueDate}
-              description={task.description}
-              today={task.today}
-              important={task.important}
-              starred={task.starred}
-              expanded={task.expanded}
-              pinned={task.pinned}
-              updateComponent={updateTaskHandler}
-              deleteTask={deleteTaskHandler}
-            />
-          </div>
+        task.tasks.filter(taskFilter).map((task, index) => (
+          <Draggable
+            key={task.id}
+            draggableId={task.id}
+            index={index}
+            isDragDisabled={currentListIndex < 4}
+          >
+            {(provided, snapshot) => (
+              <div
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+              >
+                <TaskItem
+                  id={task.id}
+                  title={task.title}
+                  completed={task.completed}
+                  dueDate={task.dueDate}
+                  description={task.description}
+                  today={task.today}
+                  important={task.important}
+                  starred={task.starred}
+                  expanded={task.expanded}
+                  pinned={task.pinned}
+                  updateComponent={updateTaskHandler}
+                  deleteTask={deleteTaskHandler}
+                  isDragging={snapshot.isDragging}
+                />
+              </div>
+            )}
+          </Draggable>
         ))
       )
     );
@@ -311,11 +330,26 @@ export default function Reminders({ remindersData, darkMode }) {
                   deleteListHandler={deleteListHandler}
                 />
               </div>
-              <div className="mx-8">
-                <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-10rem)] flex flex-col gap-2 pb-16">
-                  {taskList}
+              <div className="">
+                <div className="overflow-y-auto overflow-hidden h-[calc(100vh-10rem)] pb-16">
+                  <DragDropContext onDragEnd={handleOnDragEnd}>
+                    <Droppable droppableId="reminders">
+                      {(provided, snapshot) => (
+                        <div
+                          className={`${
+                            snapshot.isDraggingOver ? "ring-2" : "ring-none"
+                          } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 mt-1 px-4 pt-4 pb-2 rounded-md flex flex-col`}
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                        >
+                          {taskList}
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
                   <div
-                    className="w-full border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all dark:hover:bg-primary-700"
+                    className="mx-8 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all dark:hover:bg-primary-700"
                     onClick={newTaskHandler}
                   >
                     <i className="text-2xl text-primary-600 dark:text-primary-400">

@@ -84,12 +84,10 @@ export default function Notes({ darkMode }) {
     setReadOnly(allPages[currentPageIndex].readOnly);
   }, [currentPageIndex]);
 
-  console.log(allPages[currentPageIndex]);
-
   return (
     <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
       <div className="w-full h-auto mr-4 mt-4 mb-4 lg:mr-0">
-        <div className="h-full rounded-2xl overflow-hidden shadow-md transition-width flex flex-row ">
+        <div className="h-full rounded-2xl overflow-hidden transition-width flex flex-row ">
           <div className="h-full">
             <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">
               <PageSidebar
