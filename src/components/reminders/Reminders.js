@@ -349,7 +349,7 @@ export default function Reminders({ remindersData, darkMode }) {
                     </Droppable>
                   </DragDropContext>
                   <div
-                    className="mx-8 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-gray-200 transition-all dark:hover:bg-primary-700"
+                    className="mx-8 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-primary-200 transition-all dark:hover:bg-primary-700"
                     onClick={newTaskHandler}
                   >
                     <i className="text-2xl text-primary-600 dark:text-primary-400">

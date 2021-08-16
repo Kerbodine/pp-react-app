@@ -3,7 +3,7 @@ import {
   BiSun,
   BiStar,
   BiTrash,
-  BiCaretUpCircle,
+  BiCaretRightCircle,
   BiCaretDownCircle,
   BiCheck,
   BiPin,
@@ -99,7 +99,7 @@ export default function TaskItem({
         className="text-2xl ml-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-primary-400 dark:text-primary-500"
         onClick={toggleDetailsDropdown}
       >
-        {taskDropDown ? <BiCaretUpCircle /> : <BiCaretDownCircle />}
+        {taskDropDown ? <BiCaretDownCircle /> : <BiCaretRightCircle />}
       </i>
       <div className="mx-2 relative">
         <div

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   BiTrash,
-  BiCaretUpCircle,
+  BiCaretRightCircle,
   BiCaretDownCircle,
   BiChevronLeft,
   BiChevronRight,
@@ -23,6 +23,7 @@ export default function BookItem({
   expanded,
   deleteBook,
   updateComponent,
+  isDragging,
 }) {
   const [bookTitle, setBookTitle] = useState(title);
   const [bookAuthor, setBookAuthor] = useState(author);
@@ -97,12 +98,16 @@ export default function BookItem({
   }, [bookProgress]);
 
   return (
-    <div className="w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer">
+    <div
+      className={`w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer mb-2 ${
+        isDragging ? "shadow-lg" : ""
+      }`}
+    >
       <i
         className="text-2xl ml-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-primary-400 dark:text-primary-500"
         onClick={toggleExpandedHandler}
       >
-        {bookExpanded ? <BiCaretUpCircle /> : <BiCaretDownCircle />}
+        {bookExpanded ? <BiCaretDownCircle /> : <BiCaretRightCircle />}
       </i>
       <div className="text-black dark:text-white ml-2 flex-auto flex flex-col">
         <div className="flex items-center h-8">
