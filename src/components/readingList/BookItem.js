@@ -49,6 +49,10 @@ export default function BookItem({
     setBookExpanded(!bookExpanded);
   };
 
+  const toggleFavoriteHandler = () => {
+    setBookFavorite(!bookFavorite);
+  };
+
   useEffect(() => {
     updateComponent(
       id,
@@ -167,7 +171,10 @@ export default function BookItem({
               />
             </div>
             <button
-              className={`${bookFavorite} w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-pink-400 dark:bg-primary-800 dark:text-white dark:hover:bg-pink-400 text-black hover:text-white text-2xl`}
+              className={`${
+                bookFavorite ? "!bg-pink-400 text-white" : ""
+              } w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-pink-400 dark:bg-primary-800 dark:text-white dark:hover:bg-pink-400 text-black hover:text-white text-2xl`}
+              onClick={toggleFavoriteHandler}
             >
               <BiHeart />
             </button>
