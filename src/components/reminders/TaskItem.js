@@ -27,7 +27,7 @@ export default function TaskItem({
   pinned,
   isDragging,
   completeTaskHandler,
-  uncompleteTaskHandler,
+  unCompleteTaskHandler,
 }) {
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDate, setTaskDate] = useState(dueDate);
@@ -78,17 +78,16 @@ export default function TaskItem({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (completed && displayComplete !== completed) {
-        uncompleteTaskHandler(id);
-      } else if (displayComplete !== completed) {
+      if (completed && !displayComplete) {
+        unCompleteTaskHandler(id);
+      } else if (!completed && displayComplete) {
         completeTaskHandler(id);
       }
     }, 500);
-
     return () => {
       clearTimeout(timeout);
     };
-  }, [displayComplete]);
+  }, [displayComplete, completed]);
 
   return (
     <div

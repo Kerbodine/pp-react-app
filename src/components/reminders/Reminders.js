@@ -25,7 +25,6 @@ export default function Reminders({ remindersData, darkMode }) {
     id,
     title,
     dueDate,
-    completed,
     description,
     today,
     important,
@@ -37,7 +36,7 @@ export default function Reminders({ remindersData, darkMode }) {
       id: id,
       title: title,
       dueDate: dueDate,
-      completed: completed,
+      completed: false,
       description: description,
       today: today,
       important: important,
@@ -96,33 +95,30 @@ export default function Reminders({ remindersData, darkMode }) {
     );
   };
 
+  // Deleting tasks based on their index in currentList.tasks
+  const deleteCompletedTaskHandler = (id) => {
+    allLists.forEach((list, i) =>
+      list.completed.forEach((task, j) => {
+        if (task.id === id) {
+          let temp = allLists;
+          temp[i].completed.splice(j, 1);
+          setAllLists([...temp]);
+        }
+      })
+    );
+  };
+
   // Adding a new task to the end of currentList.tasks
   const newTaskHandler = () => {
-    let today = false;
-    let important = false;
-    let starred = false;
-    switch (currentListIndex) {
-      case 0:
-        today = true;
-        break;
-      case 1:
-        important = true;
-        break;
-      case 2:
-        starred = true;
-        break;
-      default:
-        break;
-    }
     let temp = allLists;
     temp[currentListIndex].tasks.push({
       id: uuidv4(),
       title: "",
       dueDate: null,
       description: "",
-      today: today,
-      important: important,
-      starred: starred,
+      today: false,
+      important: false,
+      starred: false,
       expanded: true,
       pinned: false,
     });
@@ -178,7 +174,7 @@ export default function Reminders({ remindersData, darkMode }) {
     );
   };
 
-  const uncompleteTaskHandler = (id) => {
+  const unCompleteTaskHandler = (id) => {
     allLists.forEach((list, i) =>
       list.completed.forEach((task, j) => {
         if (task.id === id) {
@@ -396,7 +392,7 @@ export default function Reminders({ remindersData, darkMode }) {
                     <h3 className="text-lg mt-2 font-semibold text-primary-600">
                       Completed tasks:
                     </h3>
-                    {allLists[currentListIndex].completed !== undefined ? (
+                    {allLists[currentListIndex].completed.length !== 0 ? (
                       allLists[currentListIndex].completed.map((task) => (
                         <div key={task.id}>
                           <TaskItem
@@ -411,8 +407,8 @@ export default function Reminders({ remindersData, darkMode }) {
                             expanded={task.expanded}
                             pinned={task.pinned}
                             updateComponent={updateTaskHandler}
-                            deleteTask={deleteTaskHandler}
-                            uncompleteTaskHandler={uncompleteTaskHandler}
+                            deleteTask={deleteCompletedTaskHandler}
+                            unCompleteTaskHandler={unCompleteTaskHandler}
                           />
                         </div>
                       ))
@@ -434,7 +430,7 @@ export default function Reminders({ remindersData, darkMode }) {
                         <div
                           className={`${
                             snapshot.isDraggingOver ? "ring-2" : "ring-none"
-                          } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 px-4 pb-2 rounded-md flex flex-col`}
+                          } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 px-4 pt-4 pb-2 rounded-md flex flex-col`}
                           {...provided.droppableProps}
                           ref={provided.innerRef}
                         >

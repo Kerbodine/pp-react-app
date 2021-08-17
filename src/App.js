@@ -38,6 +38,7 @@ function App() {
       color: "blue",
       icon: <BiSun />,
       tasks: [],
+      completed: [],
       showCompleted: false,
     },
     {
@@ -46,6 +47,7 @@ function App() {
       color: "red",
       icon: <BiCalendarExclamation />,
       tasks: [],
+      completed: [],
       showCompleted: false,
     },
     {
@@ -54,6 +56,7 @@ function App() {
       color: "yellow",
       icon: <BiStar />,
       tasks: [],
+      completed: [],
       showCompleted: false,
     },
     {
@@ -62,6 +65,7 @@ function App() {
       color: "green",
       icon: <BiArchive />,
       tasks: [],
+      completed: [],
       showCompleted: false,
     },
     {
