@@ -180,6 +180,8 @@ function App() {
       color: "blue",
       icon: <BiSun />,
       tasks: [],
+      completed: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -187,6 +189,8 @@ function App() {
       color: "red",
       icon: <BiCalendarExclamation />,
       tasks: [],
+      completed: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -194,6 +198,8 @@ function App() {
       color: "yellow",
       icon: <BiStar />,
       tasks: [],
+      completed: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -201,6 +207,8 @@ function App() {
       color: "green",
       icon: <BiArchive />,
       tasks: [],
+      completed: [],
+      showCompleted: false,
     },
   ];
 
