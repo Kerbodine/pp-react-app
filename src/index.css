@@ -87,6 +87,21 @@
   scrollbar-width: none; /* Firefox */
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color-300);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color-500);
+}
+
 /* 
 ::-webkit-scrollbar {
   width: 6px;

@@ -380,6 +380,7 @@ export default function Reminders({ remindersData, darkMode }) {
                   )}
                 </div>
               </div>
+              <div className="w-full h-2 bg-primary-100 dark:bg-primary-800"></div>
               <div className="">
                 <div className="overflow-y-auto overflow-hidden h-[calc(100vh-10rem)] pb-16">
                   <div
