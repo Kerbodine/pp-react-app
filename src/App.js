@@ -38,6 +38,7 @@ function App() {
       color: "blue",
       icon: <BiSun />,
       tasks: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -45,6 +46,7 @@ function App() {
       color: "red",
       icon: <BiCalendarExclamation />,
       tasks: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -52,6 +54,7 @@ function App() {
       color: "yellow",
       icon: <BiStar />,
       tasks: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -59,6 +62,7 @@ function App() {
       color: "green",
       icon: <BiArchive />,
       tasks: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -69,8 +73,8 @@ function App() {
         {
           id: uuidv4(),
           title: "Task 1",
-          completed: false,
           dueDate: Date.now(),
+
           description:
             "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos maxime iste illum et deleniti doloribus quas dolorem dicta, accusamus ullam.",
           today: false,
@@ -82,8 +86,8 @@ function App() {
         {
           id: uuidv4(),
           title: "Task 2",
-          completed: false,
           dueDate: Date.now(),
+
           description: "",
           today: false,
           important: false,
@@ -92,6 +96,8 @@ function App() {
           pinned: false,
         },
       ],
+      completed: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -102,8 +108,8 @@ function App() {
         {
           id: uuidv4(),
           title: "Task 3",
-          completed: false,
           dueDate: Date.now(),
+
           description: "desc 3",
           today: false,
           important: false,
@@ -114,8 +120,8 @@ function App() {
         {
           id: uuidv4(),
           title: "Task 4",
-          completed: false,
           dueDate: Date.now(),
+
           description: "desc 4",
           today: false,
           important: false,
@@ -124,6 +130,8 @@ function App() {
           pinned: false,
         },
       ],
+      completed: [],
+      showCompleted: false,
     },
     {
       id: uuidv4(),
@@ -134,8 +142,8 @@ function App() {
         {
           id: uuidv4(),
           title: "Task 5",
-          completed: false,
           dueDate: Date.now(),
+
           description: "desc 5",
           today: false,
           important: false,
@@ -146,8 +154,8 @@ function App() {
         {
           id: uuidv4(),
           title: "Task 6",
-          completed: false,
           dueDate: Date.now(),
+
           description: "desc 6",
           today: false,
           important: false,
@@ -156,6 +164,8 @@ function App() {
           pinned: false,
         },
       ],
+      completed: [],
+      showCompleted: false,
     },
   ];
 
@@ -358,7 +368,7 @@ function App() {
           <div className="flex">
             <Navbar />
             <div className="w-full relative">
-              <WorkModeAlert workMode={workMode} key={workMode} />
+              <WorkModeAlert workMode={workMode} />
               <Switch>
                 <Route path="/" exact component={Dashboard} />
                 <Route

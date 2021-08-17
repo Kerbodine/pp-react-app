@@ -2,7 +2,15 @@ import React, { useState, useEffect } from "react";
 import ReminderSidebar from "./ReminderSidebar";
 import TaskItem from "./TaskItem";
 import { v4 as uuidv4 } from "uuid";
-import { BiTrash, BiListUl, BiChevronDown, BiPlus } from "react-icons/bi";
+import {
+  BiTrash,
+  BiListUl,
+  BiChevronDown,
+  BiPlus,
+  BiShow,
+  BiHide,
+  BiInfoCircle,
+} from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -11,14 +19,13 @@ export default function Reminders({ remindersData, darkMode }) {
   const [currentListIndex, setCurrentListIndex] = useState(0);
   const [taskList, setTaskList] = useState();
   const [colorDropdown, setColorDropdown] = useState(false);
-  const [showColorSelector, setShowColorSelector] = useState(true);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
   const updateTaskHandler = (
     id,
-    completed,
     title,
     dueDate,
+    completed,
     description,
     today,
     important,
@@ -29,8 +36,8 @@ export default function Reminders({ remindersData, darkMode }) {
     let tempTask = {
       id: id,
       title: title,
-      completed: completed,
       dueDate: dueDate,
+      completed: completed,
       description: description,
       today: today,
       important: important,
@@ -111,7 +118,6 @@ export default function Reminders({ remindersData, darkMode }) {
     temp[currentListIndex].tasks.push({
       id: uuidv4(),
       title: "",
-      completed: false,
       dueDate: null,
       description: "",
       today: today,
@@ -131,6 +137,8 @@ export default function Reminders({ remindersData, darkMode }) {
       color: "gray",
       icon: <BiListUl />,
       tasks: [],
+      completed: [],
+      showCompleted: false,
     };
     setAllLists([...allLists, newList]);
     setCurrentListIndex(allLists.length);
@@ -144,14 +152,6 @@ export default function Reminders({ remindersData, darkMode }) {
     setCurrentListIndex(allLists.length - 1);
   };
 
-  useEffect(() => {
-    if (currentListIndex < 4) {
-      setShowColorSelector(false);
-    } else {
-      setShowColorSelector(true);
-    }
-  }, [currentListIndex]);
-
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
     const items = Array.from(allLists[currentListIndex].tasks);
@@ -164,14 +164,46 @@ export default function Reminders({ remindersData, darkMode }) {
     setAllLists([...temp]);
   };
 
+  const completeTaskHandler = (id) => {
+    allLists.forEach((list, i) =>
+      list.tasks.forEach((task, j) => {
+        if (task.id === id) {
+          let temp = allLists;
+          let tempTask = task;
+          temp[i].tasks.splice(j, 1);
+          temp[i].completed = [...allLists[i].completed, tempTask];
+          setAllLists([...temp]);
+        }
+      })
+    );
+  };
+
+  const uncompleteTaskHandler = (id) => {
+    allLists.forEach((list, i) =>
+      list.completed.forEach((task, j) => {
+        if (task.id === id) {
+          let temp = allLists;
+          let tempTask = task;
+          temp[i].completed.splice(j, 1);
+          temp[i].tasks = [...allLists[i].tasks, tempTask];
+          setAllLists([...temp]);
+        }
+      })
+    );
+  };
+
+  const toggleShowCompleted = () => {
+    let temp = allLists;
+    temp[currentListIndex].showCompleted =
+      !allLists[currentListIndex].showCompleted;
+    setAllLists([...temp]);
+  };
+
   useEffect(() => {
-    const todayFilter = (task) =>
-      task.today === true && task.completed === false;
-    const importantFilter = (task) =>
-      task.important === true && task.completed === false;
-    const starredFilter = (task) =>
-      task.starred === true && task.completed === false;
-    const allTaskFilter = (task) => task.completed === false;
+    const todayFilter = (task) => task.today === true;
+    const importantFilter = (task) => task.important === true;
+    const starredFilter = (task) => task.starred === true;
+    const allTaskFilter = (task) => task;
 
     let taskFilter;
     let sliceStart;
@@ -215,8 +247,8 @@ export default function Reminders({ remindersData, darkMode }) {
                 <TaskItem
                   id={task.id}
                   title={task.title}
-                  completed={task.completed}
                   dueDate={task.dueDate}
+                  completed={false}
                   description={task.description}
                   today={task.today}
                   important={task.important}
@@ -226,6 +258,7 @@ export default function Reminders({ remindersData, darkMode }) {
                   updateComponent={updateTaskHandler}
                   deleteTask={deleteTaskHandler}
                   isDragging={snapshot.isDragging}
+                  completeTaskHandler={completeTaskHandler}
                 />
               </div>
             )}
@@ -257,7 +290,7 @@ export default function Reminders({ remindersData, darkMode }) {
               <div
                 className={`w-full h-12 bg-${allLists[currentListIndex].color}-400`}
               ></div>
-              <div className="h-12 m-8 flex flex-row items-center">
+              <div className="h-12 mx-8 mt-8 flex flex-row items-center">
                 <input
                   className="flex-auto bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
                   autoComplete="off"
@@ -268,7 +301,7 @@ export default function Reminders({ remindersData, darkMode }) {
                 ></input>
                 <div
                   className={`${
-                    showColorSelector ? "visible" : "hidden"
+                    currentListIndex < 4 ? "hidden" : "visible"
                   } relative w-8 h-8 rounded-full bg-${
                     allLists[currentListIndex].color
                       ? `${allLists[currentListIndex].color}-400 text-white`
@@ -316,7 +349,7 @@ export default function Reminders({ remindersData, darkMode }) {
                 </div>
                 <div
                   className={`${
-                    showColorSelector ? "visible" : "hidden"
+                    currentListIndex < 4 ? "hidden" : "visible"
                   } relative w-8 h-8 rounded-full bg-primary-200 hover:bg-red-400 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl ml-2 flex items-center justify-center`}
                   onClick={toggleDeleteConfirmation}
                 >
@@ -330,15 +363,78 @@ export default function Reminders({ remindersData, darkMode }) {
                   deleteListHandler={deleteListHandler}
                 />
               </div>
+              <div
+                className={`mx-8 flex gap-2 ${
+                  currentListIndex < 4 ? "hidden" : "visible"
+                } text-black dark:text-white`}
+              >
+                <div className="w-full h-6 bg-primary-200 text-sm dark:bg-primary-700 rounded-md flex items-center px-2">{`${
+                  allLists[currentListIndex].completed
+                    ? allLists[currentListIndex].completed.length
+                    : "0"
+                } completed`}</div>
+                <div
+                  className="w-6 h-6 text-lg bg-primary-200 dark:bg-primary-700 hover:bg-primary-300 rounded-md flex items-center justify-center"
+                  onClick={toggleShowCompleted}
+                >
+                  {allLists[currentListIndex].showCompleted ? (
+                    <BiShow />
+                  ) : (
+                    <BiHide />
+                  )}
+                </div>
+              </div>
               <div className="">
                 <div className="overflow-y-auto overflow-hidden h-[calc(100vh-10rem)] pb-16">
+                  <div
+                    className={`${
+                      allLists[currentListIndex].showCompleted
+                        ? "visible"
+                        : "hidden"
+                    } mx-8`}
+                  >
+                    <h3 className="text-lg mt-2 font-semibold text-primary-600">
+                      Completed tasks:
+                    </h3>
+                    {allLists[currentListIndex].completed !== undefined ? (
+                      allLists[currentListIndex].completed.map((task) => (
+                        <div key={task.id}>
+                          <TaskItem
+                            id={task.id}
+                            title={task.title}
+                            dueDate={task.dueDate}
+                            completed={true}
+                            description={task.description}
+                            today={task.today}
+                            important={task.important}
+                            starred={task.starred}
+                            expanded={task.expanded}
+                            pinned={task.pinned}
+                            updateComponent={updateTaskHandler}
+                            deleteTask={deleteTaskHandler}
+                            uncompleteTaskHandler={uncompleteTaskHandler}
+                          />
+                        </div>
+                      ))
+                    ) : (
+                      <div className="flex items-center gap-1">
+                        <BiInfoCircle />
+                        <p className="text-sm">No completed tasks</p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mx-8 mt-2">
+                    <h3 className="text-lg font-semibold text-primary-600">
+                      Current tasks:
+                    </h3>
+                  </div>
                   <DragDropContext onDragEnd={handleOnDragEnd}>
                     <Droppable droppableId="reminders">
                       {(provided, snapshot) => (
                         <div
                           className={`${
                             snapshot.isDraggingOver ? "ring-2" : "ring-none"
-                          } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 mt-1 px-4 pt-4 pb-2 rounded-md flex flex-col`}
+                          } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 px-4 pb-2 rounded-md flex flex-col`}
                           {...provided.droppableProps}
                           ref={provided.innerRef}
                         >
@@ -349,7 +445,9 @@ export default function Reminders({ remindersData, darkMode }) {
                     </Droppable>
                   </DragDropContext>
                   <div
-                    className="mx-8 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-primary-200 transition-all dark:hover:bg-primary-700"
+                    className={`${
+                      currentListIndex < 4 ? "hidden" : "visible"
+                    } mx-8 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-primary-200 transition-all dark:hover:bg-primary-700`}
                     onClick={newTaskHandler}
                   >
                     <i className="text-2xl text-primary-600 dark:text-primary-400">

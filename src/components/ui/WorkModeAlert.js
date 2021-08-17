@@ -6,9 +6,12 @@ export default function WorkModeAlert({ workMode }) {
 
   useEffect(() => {
     setBannerVisible(true);
-    setTimeout(() => {
+    const banner = setTimeout(() => {
       setBannerVisible(false);
     }, 2500);
+    return () => {
+      clearTimeout(banner);
+    };
   }, [workMode]);
 
   return (

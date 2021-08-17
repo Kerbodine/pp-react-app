@@ -26,10 +26,11 @@ export default function TaskItem({
   expanded,
   pinned,
   isDragging,
+  completeTaskHandler,
+  uncompleteTaskHandler,
 }) {
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDate, setTaskDate] = useState(dueDate);
-  const [taskComplete, setTaskComplete] = useState(completed);
   const [displayComplete, setDisplayComplete] = useState(completed);
   const [taskDescription, setTaskDescription] = useState(description);
   const [taskToday, setTaskToday] = useState(today);
@@ -55,7 +56,6 @@ export default function TaskItem({
   useEffect(() => {
     updateComponent(
       id,
-      taskComplete,
       taskTitle,
       taskDate,
       taskDescription,
@@ -66,7 +66,6 @@ export default function TaskItem({
       taskPinned
     );
   }, [
-    taskComplete,
     taskTitle,
     taskDate,
     taskDescription,
@@ -79,10 +78,12 @@ export default function TaskItem({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (displayComplete === true) {
-        setTaskComplete(true);
+      if (completed && displayComplete !== completed) {
+        uncompleteTaskHandler(id);
+      } else if (displayComplete !== completed) {
+        completeTaskHandler(id);
       }
-    }, 5000);
+    }, 500);
 
     return () => {
       clearTimeout(timeout);
