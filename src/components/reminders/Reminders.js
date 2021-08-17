@@ -389,7 +389,7 @@ export default function Reminders({ remindersData, darkMode }) {
                         : "hidden"
                     } mx-8`}
                   >
-                    <h3 className="text-lg mt-2 font-semibold text-primary-600">
+                    <h3 className="text-lg mt-2 font-semibold text-primary-600 dark:text-primary-300">
                       Completed tasks:
                     </h3>
                     {allLists[currentListIndex].completed.length !== 0 ? (
@@ -413,14 +413,14 @@ export default function Reminders({ remindersData, darkMode }) {
                         </div>
                       ))
                     ) : (
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 text-black dark:text-white">
                         <BiInfoCircle />
                         <p className="text-sm">No completed tasks</p>
                       </div>
                     )}
                   </div>
                   <div className="mx-8 mt-2">
-                    <h3 className="text-lg font-semibold text-primary-600">
+                    <h3 className="text-lg font-semibold text-primary-600 dark:text-primary-300">
                       Current tasks:
                     </h3>
                   </div>
