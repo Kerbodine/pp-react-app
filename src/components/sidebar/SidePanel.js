@@ -65,10 +65,10 @@ export default function SidePanel({
             </div>
           </div>
           <div>
-            <Calendar calendarType="US" />
+            <SidePomodoro />
           </div>
           <div>
-            <SidePomodoro />
+            <Calendar calendarType="US" />
           </div>
           <div className="flex gap-4">
             <SideWidget eventName="Test event" countdown="6" timeUnit="days" />

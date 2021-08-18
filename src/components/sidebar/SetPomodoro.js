@@ -44,10 +44,10 @@ const SetPomodoro = () => {
     <div className="w-full h-full text-center">
       <form noValidate onSubmit={handleSubmit}>
         <button
-          className="w-20 h-8 rounded-md bg-primary-200 dark:bg-primary-700 text-black dark:text-white hover:bg-accent-400 hover:text-white dark:hover:bg-accent-400"
+          className="w-24 h-8 rounded-md bg-primary-200 dark:bg-primary-700 text-black dark:text-white hover:bg-accent-400 hover:text-white dark:hover:bg-accent-400"
           type="submit"
         >
-          Go back
+          Start timer
         </button>
         <h3 className="mt-4 font-semibold text-xl mb-2">Time in minutes:</h3>
         <div className="flex gap-4 justify-center">
