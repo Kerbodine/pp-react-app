@@ -29,6 +29,7 @@ import {
   BiCheckCircle,
   BiBookContent,
 } from "react-icons/bi";
+import PomodoroAlert from "./components/ui/PomodoroAlert";
 
 function App() {
   const remindersData1 = [
@@ -341,6 +342,7 @@ function App() {
   const [workMode, setWorkMode] = useState(workModeValue);
   const [reminderData, setReminderData] = useState(remindersData1);
   const [readingListData, setReadingListData] = useState(readingListData1);
+  const [timerComplete, setTimerComplete] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -369,6 +371,8 @@ function App() {
     }
   }, [workMode]);
 
+  console.log(timerComplete);
+
   return (
     <div className={`${darkMode ? "dark" : ""} App overflow-hidden`}>
       {loading ? (
@@ -381,6 +385,7 @@ function App() {
             <Navbar />
             <div className="w-full relative">
               <WorkModeAlert workMode={workMode} />
+              <PomodoroAlert timerComplete={timerComplete} />
               <Switch>
                 <Route path="/" exact component={Dashboard} />
                 <Route
@@ -420,6 +425,7 @@ function App() {
                 setCredits={setCredits}
                 workMode={workMode}
                 toggleWorkMode={toggleWorkMode}
+                setTimerComplete={setTimerComplete}
               />
             </div>
           </div>

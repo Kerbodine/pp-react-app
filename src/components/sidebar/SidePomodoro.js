@@ -21,6 +21,7 @@ export default function SidePomodoro() {
 
   useEffect(() => {
     updateExecute(executing);
+    return () => {};
   }, [executing, startAnimate]);
 
   return (
@@ -57,20 +58,6 @@ export default function SidePomodoro() {
                   Short Break
                 </button>
               </li>
-              {/* <li>
-                <button
-                  className={`${
-                    executing.active === "long"
-                      ? "!bg-accent-400 text-white"
-                      : ""
-                  } px-1 py-0.5 text-black dark:text-white flex items-center justify-center rounded-md bg-primary-200 dark:bg-primary-700 cursor-pointer`}
-                  onClick={() => {
-                    setCurrentTimer("long");
-                  }}
-                >
-                  Long Break
-                </button>
-              </li> */}
               <li>
                 <button
                   className={`w-8 h-8 text-lg text-black dark:text-white flex items-center justify-center rounded-md bg-primary-200 dark:bg-primary-700 cursor-pointer`}
@@ -80,8 +67,6 @@ export default function SidePomodoro() {
                 </button>
               </li>
             </ul>
-
-            {/* <Button title="Settings" _callback={SettingsBtn} /> */}
             <div className="flex items-center justify-center">
               <div className="flex items-center justify-center h-[9.5rem] w-[9.5rem] rounded-full text-white bg-primary-200 dark:bg-primary-700 text-4xl">
                 <CountdownAnimation
@@ -100,22 +85,12 @@ export default function SidePomodoro() {
               >
                 Start
               </div>
-              {/* <Button
-                title="Start"
-                activeClass={!startAnimate ? "active" : undefined}
-                _callback={startTimer}
-              /> */}
               <div
                 className="w-16 h-8 rounded-md bg-primary-200 text-black dark:text-white hover:bg-accent-400 dark:hover:bg-accent-400 cursor-pointer hover:text-white dark:bg-primary-700 flex items-center justify-center"
                 onClick={pauseTimer}
               >
                 Pause
               </div>
-              {/* <Button
-                title="Pause"
-                activeClass={startAnimate ? "active" : undefined}
-                _callback={pauseTimer}
-              /> */}
             </div>
           </div>
         ) : (

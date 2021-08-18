@@ -25,15 +25,7 @@ function SettingsContextProvider(props) {
   }
   // pass time to counter
   const children = ({ remainingTime }) => {
-    var m = Math.floor((remainingTime % 3600) / 60);
-    var s = Math.floor((remainingTime % 3600) % 60);
-    var mDisplay = m > 0 ? m + ":" : "";
-    var sDisplay = s > 0 ? s : "00";
-    return mDisplay + sDisplay;
-    // const minutes = Math.floor(remainingTime / 60);
-    // const seconds = remainingTime % 60;
-
-    // return `${minutes}:${seconds}`;
+    return new Date(remainingTime * 1000).toISOString().substr(14, 5);
   };
 
   // clear session storage
@@ -64,8 +56,9 @@ function SettingsContextProvider(props) {
     }
   };
 
-  function stopAimate() {
+  function stopAnimate() {
     setStartAnimate(false);
+    props.setTimerComplete(true);
   }
 
   return (
@@ -80,7 +73,7 @@ function SettingsContextProvider(props) {
         children,
         SettingsBtn,
         setCurrentTimer,
-        stopAimate,
+        stopAnimate,
       }}
     >
       {props.children}
