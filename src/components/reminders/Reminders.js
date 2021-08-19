@@ -443,7 +443,7 @@ export default function Reminders({ remindersData, darkMode }) {
                   </DragDropContext>
                   <div
                     className={`${
-                      currentListIndex < 4 ? "hidden" : "visible"
+                      currentListIndex > 3 ? "visible" : "hidden"
                     } mx-8 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-primary-200 transition-all dark:hover:bg-primary-700`}
                     onClick={newTaskHandler}
                   >
