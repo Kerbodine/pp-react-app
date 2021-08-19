@@ -58,6 +58,8 @@ const SetPomodoro = () => {
               name="work"
               onChange={handleChange}
               value={newTimer.work}
+              min="10"
+              max="180"
             />
             <h4>Work</h4>
           </div>
@@ -68,6 +70,8 @@ const SetPomodoro = () => {
               name="shortBreak"
               onChange={handleChange}
               value={newTimer.short}
+              min="2"
+              max="30"
             />
             <h4>Break</h4>
           </div>

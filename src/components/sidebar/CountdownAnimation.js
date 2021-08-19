@@ -14,7 +14,7 @@ const CountdownAnimation = ({ key, timer, animate, children }) => {
         ["#3b82f6", 0.33],
         ["#3b82f6", 0.33],
       ]}
-      strokeWidth={8}
+      strokeWidth={6}
       size={140}
       trailColor="#b0b5bf"
       onComplete={() => {

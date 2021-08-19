@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import ReadingListSidebar from "./ReadingListSidebar";
 import BookItem from "./BookItem";
 import { v4 as uuidv4 } from "uuid";
-import { BiChevronDown, BiListUl, BiTrash, BiPlus } from "react-icons/bi";
+import {
+  BiChevronDown,
+  BiListUl,
+  BiTrash,
+  BiPlus,
+  BiCaretDownCircle,
+  BiCaretUpCircle,
+} from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -13,6 +20,17 @@ export default function ReadingList({ readingListData }) {
   const [showColorSelector, setShowColorSelector] = useState(true);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [bookList, setBookList] = useState();
+  const [bookTypeFilter, setBookTypeFilter] = useState("Paperback");
+  const [typeDropdown, setTypeDropdown] = useState(false);
+
+  const toggleTypeDropdown = () => {
+    setTypeDropdown(!typeDropdown);
+  };
+
+  const setBookType = (type) => {
+    setBookTypeFilter(type);
+    setTypeDropdown(false);
+  };
 
   const updateBookHandler = (
     id,
@@ -22,8 +40,6 @@ export default function ReadingList({ readingListData }) {
     bookRating,
     bookType,
     bookProgress,
-    bookStartDate,
-    bookEndDate,
     bookFavorite,
     bookExpanded
   ) => {
@@ -35,8 +51,6 @@ export default function ReadingList({ readingListData }) {
       rating: bookRating,
       type: bookType,
       progress: bookProgress,
-      startDate: bookStartDate,
-      endDate: bookEndDate,
       favorite: bookFavorite,
       expanded: bookExpanded,
     };
@@ -99,10 +113,8 @@ export default function ReadingList({ readingListData }) {
       author: "",
       description: "",
       rating: null,
-      type: "",
+      type: null,
       progress: "Not started",
-      startDate: null,
-      endDate: null,
       favorite: false,
       expanded: true,
     });
@@ -155,46 +167,76 @@ export default function ReadingList({ readingListData }) {
   };
 
   useEffect(() => {
-    if (currentListIndex > 4) {
-      setBookList(
-        allLists.slice(currentListIndex).map((list) =>
-          list.books.map((book, index) => (
-            <Draggable
-              key={book.id}
-              draggableId={book.id}
-              index={index}
-              isDragDisabled={currentListIndex < 5}
-            >
-              {(provided, snapshot) => (
-                <div
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  ref={provided.innerRef}
-                >
-                  <BookItem
-                    id={book.id}
-                    title={book.title}
-                    author={book.author}
-                    description={book.description}
-                    rating={book.rating}
-                    type={book.type}
-                    progress={book.progress}
-                    startDate={book.startDate}
-                    endDate={book.endDate}
-                    favorite={book.favorite}
-                    expanded={book.expanded}
-                    updateComponent={updateBookHandler}
-                    deleteBook={deleteBookHandler}
-                    isDragging={snapshot.isDragging}
-                  />
-                </div>
-              )}
-            </Draggable>
-          ))
-        )
-      );
+    const inProgressFilter = (task) => task.progress === "In progress";
+    const completedFilter = (task) => task.progress === "Complete";
+    const favoritesFilter = (task) => task.favorite === true;
+    const bookFilter = (task) => task.type === bookTypeFilter;
+    const allTaskFilter = (task) => task;
+
+    let taskFilter;
+    let sliceStart;
+    let sliceEnd;
+
+    switch (currentListIndex) {
+      case 0:
+        taskFilter = inProgressFilter;
+        break;
+      case 1:
+        taskFilter = completedFilter;
+        break;
+      case 2:
+        taskFilter = bookFilter;
+        break;
+      case 3:
+        taskFilter = favoritesFilter;
+        break;
+      case 4:
+        taskFilter = allTaskFilter;
+        break;
+      default:
+        sliceStart = currentListIndex;
+        sliceEnd = currentListIndex + 1;
+        taskFilter = allTaskFilter;
+        break;
     }
-  }, [currentListIndex, allLists]);
+    setBookList(
+      allLists.slice(sliceStart, sliceEnd).map((list) =>
+        list.books.filter(taskFilter).map((book, index) => (
+          <Draggable
+            key={book.id}
+            draggableId={book.id}
+            index={index}
+            isDragDisabled={currentListIndex < 5}
+          >
+            {(provided, snapshot) => (
+              <div
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                ref={provided.innerRef}
+              >
+                <BookItem
+                  id={book.id}
+                  title={book.title}
+                  author={book.author}
+                  description={book.description}
+                  rating={book.rating}
+                  type={book.type}
+                  progress={book.progress}
+                  startDate={book.startDate}
+                  endDate={book.endDate}
+                  favorite={book.favorite}
+                  expanded={book.expanded}
+                  updateComponent={updateBookHandler}
+                  deleteBook={deleteBookHandler}
+                  isDragging={snapshot.isDragging}
+                />
+              </div>
+            )}
+          </Draggable>
+        ))
+      )
+    );
+  }, [currentListIndex, allLists, bookTypeFilter]);
 
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
@@ -239,7 +281,7 @@ export default function ReadingList({ readingListData }) {
                   <div
                     className={`${
                       colorDropdown ? "visible" : "hidden"
-                    } absolute top-10 -left-2 w-12 bg-white dark:bg-primary-900 rounded-md shadow-md z-10`}
+                    } absolute top-10 -left-2 w-12 bg-white dark:bg-primary-600 rounded-md shadow-md z-10`}
                   >
                     <div
                       className="w-8 h-8 m-2 rounded-full bg-red-400 hover:bg-red-400/80"
@@ -287,6 +329,56 @@ export default function ReadingList({ readingListData }) {
                 />
               </div>
               <div className="">
+                <div
+                  className={`${
+                    currentListIndex === 2 ? "visible" : "hidden"
+                  } h-6 px-8 text-black dark:text-white relative`}
+                >
+                  <div className="w-36 h-6 bg-primary-200 dark:bg-primary-700 text-sm flex items-center px-2 rounded-md">
+                    <p className="flex-auto">Filter: {bookTypeFilter}</p>
+                    {typeDropdown ? (
+                      <BiCaretDownCircle
+                        className="ml-2 text-lg"
+                        onClick={toggleTypeDropdown}
+                      />
+                    ) : (
+                      <BiCaretUpCircle
+                        className="ml-2 text-lg"
+                        onClick={toggleTypeDropdown}
+                      />
+                    )}
+                  </div>
+                  <div
+                    className={`${
+                      typeDropdown ? "visible" : "hidden"
+                    } absolute w-36 noselect h-24 top-8 rounded-md bg-white dark:bg-primary-600 shadow-md text-sm flex flex-col overflow-hidden`}
+                  >
+                    <div
+                      className="w-full h-6 flex items-center hover:bg-primary-100 dark:hover:bg-primary-500 cursor-pointer px-2"
+                      onClick={() => setBookType("Paperback")}
+                    >
+                      Paperback
+                    </div>
+                    <div
+                      className="w-full h-6 flex items-center hover:bg-primary-100 dark:hover:bg-primary-500 cursor-pointer px-2"
+                      onClick={() => setBookType("E-book")}
+                    >
+                      E-book
+                    </div>
+                    <div
+                      className="w-full h-6 flex items-center hover:bg-primary-100 dark:hover:bg-primary-500 cursor-pointer px-2"
+                      onClick={() => setBookType("Audiobook")}
+                    >
+                      Audiobook
+                    </div>
+                    <div
+                      className="w-full h-6 flex items-center hover:bg-primary-100 dark:hover:bg-primary-500 cursor-pointer px-2"
+                      onClick={() => setBookType("Article")}
+                    >
+                      Article
+                    </div>
+                  </div>
+                </div>
                 <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-10rem)] pb-16">
                   <DragDropContext onDragEnd={handleOnDragEnd}>
                     <Droppable droppableId="reminders">

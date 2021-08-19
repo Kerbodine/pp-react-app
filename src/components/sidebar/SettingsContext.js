@@ -25,7 +25,7 @@ function SettingsContextProvider(props) {
   }
   // pass time to counter
   const children = ({ remainingTime }) => {
-    return new Date(remainingTime * 1000).toISOString().substr(14, 5);
+    return new Date(remainingTime * 1000).toISOString().substr(12, 7);
   };
 
   // clear session storage

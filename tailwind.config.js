@@ -10,6 +10,9 @@ module.exports = {
       "bg-purple-400",
       "bg-pink-400",
       "bg-gray-400",
+      "border-red-400",
+      "border-yellow-400",
+      "border-green-400",
     ],
   },
   darkMode: "class", // or 'media' or 'class'

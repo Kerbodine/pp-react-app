@@ -63,7 +63,7 @@ function App() {
     {
       id: uuidv4(),
       title: "All",
-      color: "green",
+      color: "gray",
       icon: <BiArchive />,
       tasks: [],
       completed: [],
@@ -205,7 +205,7 @@ function App() {
     {
       id: uuidv4(),
       title: "All",
-      color: "green",
+      color: "gray",
       icon: <BiArchive />,
       tasks: [],
       completed: [],
@@ -224,8 +224,15 @@ function App() {
     {
       id: uuidv4(),
       title: "Finished",
-      color: "blue",
+      color: "green",
       icon: <BiCheckCircle />,
+      books: [],
+    },
+    {
+      id: uuidv4(),
+      title: "Book type",
+      color: "blue",
+      icon: <BiBookContent />,
       books: [],
     },
     {
@@ -237,15 +244,8 @@ function App() {
     },
     {
       id: uuidv4(),
-      title: "Book type",
-      color: "purple",
-      icon: <BiBookContent />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
       title: "All",
-      color: "green",
+      color: "gray",
       icon: <BiArchive />,
       books: [],
     },
@@ -264,8 +264,6 @@ function App() {
           rating: 5,
           type: "Audiobook",
           progress: "In progress",
-          startDate: null,
-          endDate: null,
           favorite: false,
           expanded: true,
         },
@@ -276,10 +274,8 @@ function App() {
           description:
             "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore voluptates optio aliquid autem consequuntur quos architecto provident corrupti officia! Iure.",
           rating: 4,
-          type: "Printed copy",
+          type: "Paperback",
           progress: "Complete",
-          startDate: null,
-          endDate: null,
           favorite: false,
           expanded: false,
         },
@@ -298,8 +294,15 @@ function App() {
     {
       id: uuidv4(),
       title: "Finished",
-      color: "blue",
+      color: "green",
       icon: <BiCheckCircle />,
+      books: [],
+    },
+    {
+      id: uuidv4(),
+      title: "Book type",
+      color: "blue",
+      icon: <BiBookContent />,
       books: [],
     },
     {
@@ -311,15 +314,8 @@ function App() {
     },
     {
       id: uuidv4(),
-      title: "Book type",
-      color: "purple",
-      icon: <BiBookContent />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
       title: "All",
-      color: "green",
+      color: "gray",
       icon: <BiArchive />,
       books: [],
     },

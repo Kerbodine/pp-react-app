@@ -18,12 +18,11 @@ export default function BookItem({
   rating,
   type,
   progress,
-  startDate,
-  endDate,
   expanded,
   deleteBook,
   updateComponent,
   isDragging,
+  favorite,
 }) {
   const [bookTitle, setBookTitle] = useState(title);
   const [bookAuthor, setBookAuthor] = useState(author);
@@ -31,11 +30,9 @@ export default function BookItem({
   const [bookRating, setBookRating] = useState(rating);
   const [bookType, setBookType] = useState(type);
   const [bookProgress, setBookProgress] = useState(progress);
-  const [bookStartDate, setBookStartDate] = useState(startDate);
-  const [bookEndDate, setBookEndDate] = useState(endDate);
   const [bookExpanded, setBookExpanded] = useState(expanded);
   const [progressColor, setProgressColor] = useState();
-  const [bookFavorite, setBookFavorite] = useState();
+  const [bookFavorite, setBookFavorite] = useState(favorite);
 
   const titleChangeHandler = (e) => {
     setBookTitle(e.target.value);
@@ -43,6 +40,10 @@ export default function BookItem({
 
   const descriptionChangeHandler = (e) => {
     setBookDescription(e.target.value);
+  };
+
+  const authorChangeHandler = (e) => {
+    setBookAuthor(e.target.value);
   };
 
   const toggleExpandedHandler = () => {
@@ -62,19 +63,15 @@ export default function BookItem({
       bookRating,
       bookType,
       bookProgress,
-      bookStartDate,
-      bookEndDate,
       bookFavorite,
       bookExpanded
     );
   }, [
     bookAuthor,
     bookDescription,
-    bookEndDate,
     bookExpanded,
     bookProgress,
     bookRating,
-    bookStartDate,
     bookTitle,
     bookFavorite,
     bookType,
@@ -85,6 +82,13 @@ export default function BookItem({
     let progressIndex = progressArray.indexOf(bookProgress);
     progressIndex = (progressIndex + step) % progressArray.length;
     setBookProgress(progressArray[progressIndex]);
+  };
+
+  const bookTypeSelect = (step) => {
+    const progressArray = ["Paperback", "E-book", "Audiobook", "Article"];
+    let progressIndex = progressArray.indexOf(bookType);
+    progressIndex = (progressIndex + step) % progressArray.length;
+    setBookType(progressArray[progressIndex]);
   };
 
   useEffect(() => {
@@ -116,25 +120,16 @@ export default function BookItem({
       <div className="text-black dark:text-white ml-2 flex-auto flex flex-col">
         <div className="flex items-center h-8">
           <input
-            placeholder="Untitled task"
+            placeholder="Untitled book"
             type="text"
             value={bookTitle}
             onChange={titleChangeHandler}
             className={`w-0 text-lg h-8 flex-auto mr-4 truncate bg-transparent outline-none`}
           ></input>
-          <div className="mr-2">
-            {/* <DatePicker
-              selected={taskDate}
-              onChange={(date) => setTaskDate(date)}
-              className="bg-primary-100 dark:bg-primary-800 w-24 h-8 text-center px-2 rounded outline-none"
-              dateFormat="dd/MM/yyyy"
-              placeholderText="Add date"
-            /> */}
-          </div>
           <div className="flex text-black dark:text-white gap-2 items-center">
             <div className="flex flex-col relative">
               <div
-                className={`text-sm rounded-md bg-${progressColor}-400 flex w-28 h-8 flex items-center overflow-hidden`}
+                className={`text-sm rounded-md border-[3px] border-${progressColor}-400 box-border flex w-28 h-8 flex items-center overflow-hidden`}
               >
                 <div
                   className={`text-white text-lg w-8 h-full flex items-center justify-center`}
@@ -157,19 +152,6 @@ export default function BookItem({
                 </div>
               </div>
             </div>
-            <div className="w-auto h-8 bg-primary-100 dark:bg-primary-800 rounded-md flex items-center pt-1.5 px-2">
-              <Rating
-                initialRating={bookRating}
-                fractions={2}
-                emptySymbol={
-                  <FaRegStar className="text-primary-400 dark:text-primary-500 text-lg" />
-                }
-                fullSymbol={<FaRegStar className="text-lg" />}
-                onChange={(rate) => {
-                  setBookRating(rate);
-                }}
-              />
-            </div>
             <button
               className={`${
                 bookFavorite ? "!bg-pink-400 text-white" : ""
@@ -178,28 +160,83 @@ export default function BookItem({
             >
               <BiHeart />
             </button>
-            <button
-              className="w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-red-400 dark:bg-primary-800 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl"
-              aria-label="delete task"
-              onClick={() => {
-                deleteBook(id);
-              }}
-            >
-              <BiTrash />
-            </button>
           </div>
         </div>
         <div
           className={`${
             bookExpanded ? "visible" : "hidden"
-          } w-full h-auto mt-2`}
+          } w-full h-auto mt-2 flex`}
         >
-          <textarea
-            placeholder="Add a description..."
-            value={bookDescription}
-            onChange={descriptionChangeHandler}
-            className="text-sm bg-transparent w-full h-auto outline-none resize-y text-primary-600 dark:text-primary-400 max-h-[12rem]"
-          ></textarea>
+          <div className="flex flex-col flex-auto">
+            <div className="flex text-sm">
+              <h4>Author:</h4>
+              <input
+                className="bg-transparent ml-2 outline-none"
+                placeholder="Author name"
+                value={bookAuthor}
+                onChange={authorChangeHandler}
+              ></input>
+            </div>
+            <textarea
+              placeholder="Add a description..."
+              value={bookDescription}
+              onChange={descriptionChangeHandler}
+              className="text-sm bg-transparent mt-1 h-full min-h-[48px] outline-none resize-y text-primary-700 dark:text-primary-300 max-h-[12rem]"
+            ></textarea>
+          </div>
+          <div className="flex flex-col">
+            <div
+              className={`text-sm rounded-md ml-2 bg-primary-100 dark:bg-primary-800 text-black dark:text-white flex w-28 h-8 flex items-center overflow-hidden`}
+            >
+              <div
+                className={`text-lg w-8 h-full flex items-center justify-center`}
+                onClick={() => {
+                  bookTypeSelect(3);
+                }}
+              >
+                <BiChevronLeft />
+              </div>
+              <p className="cursor-pointer w-full text-center noselect">
+                {bookType === null ? (
+                  <p className="text-primary-500 dark:text-primary-400">
+                    Select type
+                  </p>
+                ) : (
+                  bookType
+                )}
+              </p>
+              <div
+                className={`text-lg w-8 h-full flex items-center justify-center`}
+                onClick={() => {
+                  bookTypeSelect(1);
+                }}
+              >
+                <BiChevronRight />
+              </div>
+            </div>
+            <div className="w-28 mt-2 justify-center ml-2 h-8 bg-primary-100 dark:bg-primary-800 rounded-md flex items-center pt-1.5">
+              <Rating
+                initialRating={bookRating}
+                fractions={2}
+                emptySymbol={
+                  <FaRegStar className="text-primary-400 dark:text-primary-500 text-xl" />
+                }
+                fullSymbol={<FaRegStar className="text-xl" />}
+                onChange={(rate) => {
+                  setBookRating(rate);
+                }}
+              />
+            </div>
+          </div>
+          <button
+            className="ml-2 w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-red-400 dark:bg-primary-800 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl"
+            aria-label="delete task"
+            onClick={() => {
+              deleteBook(id);
+            }}
+          >
+            <BiTrash />
+          </button>
         </div>
       </div>
     </div>
