@@ -367,8 +367,6 @@ function App() {
     }
   }, [workMode]);
 
-  console.log(timerComplete);
-
   return (
     <div className={`${darkMode ? "dark" : ""} App overflow-hidden`}>
       {loading ? (

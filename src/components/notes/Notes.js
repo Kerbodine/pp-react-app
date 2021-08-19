@@ -45,11 +45,6 @@ export default function Notes({ darkMode }) {
   ];
 
   const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
 
   const [readOnly, setReadOnly] = useState(false);
   const [viewModeDropdown, setViewModeDropdown] = useState(false);
@@ -97,8 +92,6 @@ export default function Notes({ darkMode }) {
     temp[currentPageIndex].content = value;
     setAllPages(temp);
   };
-
-  console.log(readOnly);
 
   return (
     <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
@@ -200,7 +193,7 @@ export default function Notes({ darkMode }) {
                   content_css: darkMode ? "dark" : "default",
                   // icons: "material",
                   height: "calc(100% - 222px)",
-                  resize: true,
+                  // resize: true,
                   menubar: false,
                   plugins: [
                     "advlist autolink lists link image charmap print preview anchor",
@@ -213,7 +206,7 @@ export default function Notes({ darkMode }) {
                     "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                 }}
               />
-              <button onClick={log}>Log editor content</button>
+              {/* <button onClick={log}>Log editor content</button> */}
             </div>
           </div>
         </div>
