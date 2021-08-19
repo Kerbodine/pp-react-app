@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TagList from "./TagList";
 import PageSidebar from "./PageSidebar";
+import { Editor } from "@tinymce/tinymce-react";
 import {
   AiOutlineEye,
   AiOutlineFileExclamation,
@@ -10,7 +11,7 @@ import {
 } from "react-icons/ai";
 import { BiPencil, BiCaretDownCircle, BiCaretUpCircle } from "react-icons/bi";
 
-import Editor from "rich-markdown-editor";
+// import Editor from "rich-markdown-editor";
 
 export default function Notes({ darkMode }) {
   const data = [
@@ -42,6 +43,13 @@ export default function Notes({ darkMode }) {
       readOnly: false,
     },
   ];
+
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
 
   const [readOnly, setReadOnly] = useState(false);
   const [viewModeDropdown, setViewModeDropdown] = useState(false);
@@ -83,6 +91,14 @@ export default function Notes({ darkMode }) {
   useEffect(() => {
     setReadOnly(allPages[currentPageIndex].readOnly);
   }, [currentPageIndex]);
+
+  const handleUpdate = (value, editor) => {
+    let temp = allPages;
+    temp[currentPageIndex].content = value;
+    setAllPages(temp);
+  };
+
+  console.log(readOnly);
 
   return (
     <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
@@ -165,12 +181,39 @@ export default function Notes({ darkMode }) {
               </div>
               <div className="w-full h-4 bg-primary-100 dark:bg-primary-800"></div>
             </div>
-            <div className="px-8 overflow-y-scroll overflow-x-hidden h-full bg-primary-100 dark:bg-primary-800">
-              <Editor
+            <div className="px-8 overflow-hidden h-full bg-primary-100 dark:bg-primary-800 !text-black dark:!text-white">
+              {/* <Editor
                 defaultValue="Hello world!"
                 dark={darkMode}
                 readOnly={readOnly}
+              /> */}
+              <Editor
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                key={[darkMode, currentPageIndex]}
+                id="tinymce-editor"
+                onEditorChange={handleUpdate}
+                initialValue={allPages[currentPageIndex].content}
+                apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+                init={{
+                  // readonly: readOnly,
+                  skin: darkMode ? "oxide-dark" : "oxide",
+                  content_css: darkMode ? "dark" : "default",
+                  // icons: "material",
+                  height: "calc(100% - 222px)",
+                  resize: true,
+                  menubar: false,
+                  plugins: [
+                    "advlist autolink lists link image charmap print preview anchor",
+                    "searchreplace visualblocks code fullscreen preview emoticons print",
+                    "insertdatetime media table paste code help wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image emoticons | code | fullscreen print",
+                  content_style:
+                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                }}
               />
+              <button onClick={log}>Log editor content</button>
             </div>
           </div>
         </div>

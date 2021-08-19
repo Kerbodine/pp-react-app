@@ -132,18 +132,18 @@ export default function BookItem({
                 className={`text-sm rounded-md border-[3px] border-${progressColor}-400 box-border flex w-28 h-8 flex items-center overflow-hidden`}
               >
                 <div
-                  className={`text-white text-lg w-8 h-full flex items-center justify-center`}
+                  className={`text-black dark:text-white text-lg w-8 h-full flex items-center justify-center`}
                   onClick={() => {
                     progressSelect(2);
                   }}
                 >
                   <BiChevronLeft />
                 </div>
-                <p className="text-white cursor-pointer w-full text-center noselect">
+                <p className="text-black dark:text-white cursor-pointer w-full text-center noselect">
                   {bookProgress}
                 </p>
                 <div
-                  className={`text-white text-lg w-8 h-full flex items-center justify-center`}
+                  className={`text-black dark:text-white text-lg w-8 h-full flex items-center justify-center`}
                   onClick={() => {
                     progressSelect(1);
                   }}
