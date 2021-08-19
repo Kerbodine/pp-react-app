@@ -15,7 +15,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export default function ReadingList({ readingListData }) {
   const [allLists, setAllLists] = useState(readingListData);
-  const [currentListIndex, setCurrentListIndex] = useState(0);
+  const [currentListIndex, setCurrentListIndex] = useState(4);
   const [colorDropdown, setColorDropdown] = useState(false);
   const [showColorSelector, setShowColorSelector] = useState(true);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
