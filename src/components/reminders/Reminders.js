@@ -457,7 +457,7 @@ export default function Reminders({
                       </Droppable>
                     </DragDropContext>
                   ) : (
-                    <div className="flex items-center ml-8 mb-4">
+                    <div className="flex items-center ml-8 mb-4 text-black dark:text-white">
                       <BiInfoCircle />
                       <p className="ml-1 text-sm">No tasks</p>
                     </div>
