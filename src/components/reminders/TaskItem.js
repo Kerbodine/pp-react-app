@@ -47,6 +47,14 @@ export default function TaskItem({
     setTaskDescription(e.target.value);
   };
 
+  useEffect(() => {
+    setTaskTitle(title);
+  }, [title]);
+
+  useEffect(() => {
+    setTaskPinned(pinned);
+  }, [pinned]);
+
   const toggleTodayHandler = () => [setTaskToday(!taskToday)];
   const toggleImportantHandler = () => [setTaskImportant(!taskImportant)];
   const toggleStarredHandler = () => [setTaskStarred(!taskStarred)];
@@ -65,6 +73,7 @@ export default function TaskItem({
       taskDropDown,
       taskPinned
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     taskTitle,
     taskDate,

@@ -13,7 +13,7 @@ import {
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-export default function ReadingList({ readingListData }) {
+export default function ReadingList({ readingListData, setReadingListData }) {
   const [allLists, setAllLists] = useState(readingListData);
   const [currentListIndex, setCurrentListIndex] = useState(4);
   const [colorDropdown, setColorDropdown] = useState(false);
@@ -237,6 +237,10 @@ export default function ReadingList({ readingListData }) {
       )
     );
   }, [currentListIndex, allLists, bookTypeFilter]);
+
+  useEffect(() => {
+    setReadingListData(allLists);
+  });
 
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">

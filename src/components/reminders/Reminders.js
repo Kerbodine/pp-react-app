@@ -14,7 +14,11 @@ import {
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-export default function Reminders({ remindersData, darkMode }) {
+export default function Reminders({
+  remindersData,
+  setReminderData,
+  darkMode,
+}) {
   const [allLists, setAllLists] = useState(remindersData);
   const [currentListIndex, setCurrentListIndex] = useState(0);
   const [taskList, setTaskList] = useState();
@@ -262,11 +266,15 @@ export default function Reminders({ remindersData, darkMode }) {
         ))
       )
     );
-  }, [currentListIndex, allLists]);
+  }, [currentListIndex, allLists, remindersData]);
 
   const toggleDeleteConfirmation = () => {
     setDeleteConfirmation(!deleteConfirmation);
   };
+
+  useEffect(() => {
+    setReminderData(allLists);
+  }, [allLists]);
 
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">

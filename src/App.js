@@ -88,7 +88,7 @@ function App() {
           important: false,
           starred: false,
           expanded: false,
-          pinned: false,
+          pinned: true,
         },
         {
           id: uuidv4(),
@@ -122,7 +122,7 @@ function App() {
           important: false,
           starred: false,
           expanded: false,
-          pinned: false,
+          pinned: true,
         },
         {
           id: uuidv4(),
@@ -156,7 +156,7 @@ function App() {
           important: false,
           starred: false,
           expanded: false,
-          pinned: false,
+          pinned: true,
         },
         {
           id: uuidv4(),
@@ -393,6 +393,7 @@ function App() {
                       key={reminderData}
                       remindersData={reminderData}
                       darkMode={darkMode}
+                      setReminderData={setReminderData}
                     />
                   )}
                 />
@@ -407,6 +408,7 @@ function App() {
                       {...props}
                       key={readingListData}
                       readingListData={readingListData}
+                      setReadingListData={setReadingListData}
                     />
                   )}
                 />
@@ -423,6 +425,8 @@ function App() {
                 workMode={workMode}
                 toggleWorkMode={toggleWorkMode}
                 setTimerComplete={setTimerComplete}
+                reminderData={reminderData}
+                setReminderData={setReminderData}
               />
             </div>
           </div>
