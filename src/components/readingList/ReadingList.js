@@ -9,6 +9,7 @@ import {
   BiPlus,
   BiCaretDownCircle,
   BiCaretUpCircle,
+  BiInfoCircle,
 } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -19,7 +20,7 @@ export default function ReadingList({ readingListData, setReadingListData }) {
   const [colorDropdown, setColorDropdown] = useState(false);
   const [showColorSelector, setShowColorSelector] = useState(true);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-  const [bookList, setBookList] = useState();
+  const [bookList, setBookList] = useState([]);
   const [bookTypeFilter, setBookTypeFilter] = useState("Paperback");
   const [typeDropdown, setTypeDropdown] = useState(false);
 
@@ -200,42 +201,45 @@ export default function ReadingList({ readingListData, setReadingListData }) {
         break;
     }
     setBookList(
-      allLists.slice(sliceStart, sliceEnd).map((list) =>
-        list.books.filter(taskFilter).map((book, index) => (
-          <Draggable
-            key={book.id}
-            draggableId={book.id}
-            index={index}
-            isDragDisabled={currentListIndex < 5}
-          >
-            {(provided, snapshot) => (
-              <div
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                ref={provided.innerRef}
-              >
-                <BookItem
-                  id={book.id}
-                  title={book.title}
-                  author={book.author}
-                  description={book.description}
-                  rating={book.rating}
-                  type={book.type}
-                  progress={book.progress}
-                  startDate={book.startDate}
-                  endDate={book.endDate}
-                  favorite={book.favorite}
-                  expanded={book.expanded}
-                  updateComponent={updateBookHandler}
-                  deleteBook={deleteBookHandler}
-                  isDragging={snapshot.isDragging}
-                  dragEnabled={currentListIndex > 4 ? true : false}
-                />
-              </div>
-            )}
-          </Draggable>
-        ))
-      )
+      allLists
+        .slice(sliceStart, sliceEnd)
+        .map((list) =>
+          list.books.filter(taskFilter).map((book, index) => (
+            <Draggable
+              key={book.id}
+              draggableId={book.id}
+              index={index}
+              isDragDisabled={currentListIndex < 5}
+            >
+              {(provided, snapshot) => (
+                <div
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                >
+                  <BookItem
+                    id={book.id}
+                    title={book.title}
+                    author={book.author}
+                    description={book.description}
+                    rating={book.rating}
+                    type={book.type}
+                    progress={book.progress}
+                    startDate={book.startDate}
+                    endDate={book.endDate}
+                    favorite={book.favorite}
+                    expanded={book.expanded}
+                    updateComponent={updateBookHandler}
+                    deleteBook={deleteBookHandler}
+                    isDragging={snapshot.isDragging}
+                    dragEnabled={currentListIndex > 4 ? true : false}
+                  />
+                </div>
+              )}
+            </Draggable>
+          ))
+        )
+        .filter((book) => book.length !== 0)
     );
   }, [currentListIndex, allLists, bookTypeFilter]);
 
@@ -385,22 +389,29 @@ export default function ReadingList({ readingListData, setReadingListData }) {
                   </div>
                 </div>
                 <div className="overflow-y-auto overflow-hidden no-scrollbar h-[calc(100vh-10rem)] pb-16">
-                  <DragDropContext onDragEnd={handleOnDragEnd}>
-                    <Droppable droppableId="reminders">
-                      {(provided, snapshot) => (
-                        <div
-                          className={`${
-                            snapshot.isDraggingOver ? "ring-2" : "ring-none"
-                          } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 mt-1 px-4 pt-4 pb-2 rounded-md flex flex-col`}
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                        >
-                          {bookList}
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
-                  </DragDropContext>
+                  {bookList.length > 0 ? (
+                    <DragDropContext onDragEnd={handleOnDragEnd}>
+                      <Droppable droppableId="reminders">
+                        {(provided, snapshot) => (
+                          <div
+                            className={`${
+                              snapshot.isDraggingOver ? "ring-2" : "ring-none"
+                            } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 mt-1 px-4 pt-4 pb-2 rounded-md flex flex-col`}
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {bookList}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
+                    </DragDropContext>
+                  ) : (
+                    <div className="flex items-center ml-8 mb-4">
+                      <BiInfoCircle />
+                      <p className="ml-1 text-sm">No books to show</p>
+                    </div>
+                  )}
                   <div
                     className={`${
                       currentListIndex > 4 ? "visible" : "hidden"
