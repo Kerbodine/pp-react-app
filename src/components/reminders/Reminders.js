@@ -21,7 +21,7 @@ export default function Reminders({
 }) {
   const [allLists, setAllLists] = useState(remindersData);
   const [currentListIndex, setCurrentListIndex] = useState(0);
-  const [taskList, setTaskList] = useState();
+  const [taskList, setTaskList] = useState([]);
   const [colorDropdown, setColorDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
@@ -230,42 +230,45 @@ export default function Reminders({
     }
 
     setTaskList(
-      allLists.slice(sliceStart, sliceEnd).map((task) =>
-        task.tasks.filter(taskFilter).map((task, index) => (
-          <Draggable
-            key={task.id}
-            draggableId={task.id}
-            index={index}
-            isDragDisabled={currentListIndex < 4}
-          >
-            {(provided, snapshot) => (
-              <div
-                {...provided.draggableProps}
-                {...provided.dragHandleProps}
-                ref={provided.innerRef}
-              >
-                <TaskItem
-                  id={task.id}
-                  title={task.title}
-                  dueDate={task.dueDate}
-                  completed={false}
-                  description={task.description}
-                  today={task.today}
-                  important={task.important}
-                  starred={task.starred}
-                  expanded={task.expanded}
-                  pinned={task.pinned}
-                  updateComponent={updateTaskHandler}
-                  deleteTask={deleteTaskHandler}
-                  isDragging={snapshot.isDragging}
-                  completeTaskHandler={completeTaskHandler}
-                  dragEnabled={currentListIndex > 3 ? true : false}
-                />
-              </div>
-            )}
-          </Draggable>
-        ))
-      )
+      allLists
+        .slice(sliceStart, sliceEnd)
+        .map((task) =>
+          task.tasks.filter(taskFilter).map((task, index) => (
+            <Draggable
+              key={task.id}
+              draggableId={task.id}
+              index={index}
+              isDragDisabled={currentListIndex < 4}
+            >
+              {(provided, snapshot) => (
+                <div
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                >
+                  <TaskItem
+                    id={task.id}
+                    title={task.title}
+                    dueDate={task.dueDate}
+                    completed={false}
+                    description={task.description}
+                    today={task.today}
+                    important={task.important}
+                    starred={task.starred}
+                    expanded={task.expanded}
+                    pinned={task.pinned}
+                    updateComponent={updateTaskHandler}
+                    deleteTask={deleteTaskHandler}
+                    isDragging={snapshot.isDragging}
+                    completeTaskHandler={completeTaskHandler}
+                    dragEnabled={currentListIndex > 3 ? true : false}
+                  />
+                </div>
+              )}
+            </Draggable>
+          ))
+        )
+        .filter((task) => task.length !== 0)
     );
   }, [currentListIndex, allLists, remindersData]);
 
@@ -293,7 +296,7 @@ export default function Reminders({
           <div className="w-full h-full">
             <div className="bg-primary-100 dark:bg-primary-800 h-full">
               <div
-                className={`w-full h-12 bg-${allLists[currentListIndex].color}-400`}
+                className={`w-full h-12 bg-${allLists[currentListIndex].color}-400 relative`}
               ></div>
               <div className="h-12 mx-8 mt-8 flex flex-row items-center">
                 <input
@@ -435,22 +438,29 @@ export default function Reminders({
                       Current tasks:
                     </h3>
                   </div>
-                  <DragDropContext onDragEnd={handleOnDragEnd}>
-                    <Droppable droppableId="reminders">
-                      {(provided, snapshot) => (
-                        <div
-                          className={`${
-                            snapshot.isDraggingOver ? "ring-2" : "ring-none"
-                          } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 px-4 pt-4 pb-2 rounded-md flex flex-col`}
-                          {...provided.droppableProps}
-                          ref={provided.innerRef}
-                        >
-                          {taskList}
-                          {provided.placeholder}
-                        </div>
-                      )}
-                    </Droppable>
-                  </DragDropContext>
+                  {taskList.length > 0 ? (
+                    <DragDropContext onDragEnd={handleOnDragEnd}>
+                      <Droppable droppableId="reminders">
+                        {(provided, snapshot) => (
+                          <div
+                            className={`${
+                              snapshot.isDraggingOver ? "ring-2" : "ring-none"
+                            } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 px-4 pt-4 pb-2 rounded-md flex flex-col`}
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                          >
+                            {taskList}
+                            {provided.placeholder}
+                          </div>
+                        )}
+                      </Droppable>
+                    </DragDropContext>
+                  ) : (
+                    <div className="flex items-center ml-8 mb-4">
+                      <BiInfoCircle />
+                      <p className="ml-1 text-sm">No tasks</p>
+                    </div>
+                  )}
                   <div
                     className={`${
                       currentListIndex > 3 ? "visible" : "hidden"

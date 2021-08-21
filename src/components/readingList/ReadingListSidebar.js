@@ -19,8 +19,13 @@ export default function ReadingListSidebar({
   };
 
   return (
-    <div className={`flex flex-col h-full cursor-pointer`}>
-      <div className="flex mt-4 mx-4 text-black dark:text-white">
+    <div
+      className={`flex flex-col h-full cursor-pointer text-black dark:text-white`}
+    >
+      <div className="w-full h-12 bg-primary-300 dark:bg-primary-600 flex items-end px-4">
+        <h2 className="mb-0.5 text-lg font-bold ">READING LIST</h2>
+      </div>
+      <div className="flex mt-4 mx-4">
         <div className="w-full font-bold">CATEGORIES:</div>
         <button onClick={showCategoriesHandler}>
           <i className={`${showCategories ? "visible" : "hidden"} text-2xl`}>
@@ -45,7 +50,7 @@ export default function ReadingListSidebar({
           </div>
         ))}
       </div>
-      <div className="flex mt-4 mx-4 text-black dark:text-white">
+      <div className="flex mt-4 mx-4">
         <div className="w-full font-bold">MY LISTS:</div>
         <button onClick={showListHandler}>
           <i className={`${showLists ? "visible" : "hidden"} text-2xl`}>

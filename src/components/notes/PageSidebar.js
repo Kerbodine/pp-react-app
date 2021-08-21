@@ -12,6 +12,9 @@ export default function PageSidebar({ allPages, selectPage, newPageHandler }) {
 
   return (
     <div className={`flex flex-col h-full text-black dark:text-white`}>
+      <div className="w-full h-12 bg-primary-300 dark:bg-primary-600 flex items-end px-4">
+        <h2 className="mb-0.5 text-lg font-bold">NOTES</h2>
+      </div>
       <div className="flex mt-4 mx-4">
         <div className="w-full font-bold">ALL DOCUMENTS:</div>
         <button onClick={showListHandler}>
