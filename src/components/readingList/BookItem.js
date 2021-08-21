@@ -6,6 +6,7 @@ import {
   BiChevronLeft,
   BiChevronRight,
   BiHeart,
+  BiGridVertical,
 } from "react-icons/bi";
 import Rating from "react-rating";
 import { FaRegStar } from "react-icons/fa";
@@ -23,6 +24,7 @@ export default function BookItem({
   updateComponent,
   isDragging,
   favorite,
+  dragEnabled,
 }) {
   const [bookTitle, setBookTitle] = useState(title);
   const [bookAuthor, setBookAuthor] = useState(author);
@@ -33,6 +35,8 @@ export default function BookItem({
   const [bookExpanded, setBookExpanded] = useState(expanded);
   const [progressColor, setProgressColor] = useState();
   const [bookFavorite, setBookFavorite] = useState(favorite);
+
+  const [hover, setHover] = useState(false);
 
   const titleChangeHandler = (e) => {
     setBookTitle(e.target.value);
@@ -110,9 +114,22 @@ export default function BookItem({
       className={`w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer mb-2 ${
         isDragging ? "shadow-lg" : ""
       }`}
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+      }}
     >
       <i
-        className="text-2xl ml-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-primary-400 dark:text-primary-500"
+        className={`-ml-2 -mr-1 text-2xl my-1 text-primary-400 dark:text-primary-500 cursor-move ${
+          dragEnabled && hover ? "visible" : "invisible mr-4"
+        }`}
+      >
+        <BiGridVertical />
+      </i>
+      <i
+        className="text-2xl w-6 h-6 my-1 rounded-full flex items-center justify-center text-primary-400 dark:text-primary-500"
         onClick={toggleExpandedHandler}
       >
         {bookExpanded ? <BiCaretDownCircle /> : <BiCaretRightCircle />}

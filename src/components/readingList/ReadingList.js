@@ -229,6 +229,7 @@ export default function ReadingList({ readingListData, setReadingListData }) {
                   updateComponent={updateBookHandler}
                   deleteBook={deleteBookHandler}
                   isDragging={snapshot.isDragging}
+                  dragEnabled={currentListIndex > 4 ? true : false}
                 />
               </div>
             )}
