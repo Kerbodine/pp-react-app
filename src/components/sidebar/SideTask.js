@@ -52,7 +52,7 @@ export default function SideTask({
           </div>
         </div>
       </div>
-      <h3 className="text-lg w-40 truncate">{taskTitle}</h3>
+      <h3 className="text-lg w-32 truncate">{taskTitle}</h3>
       <button
         className={`mx-2 w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-primary-300 dark:bg-primary-800 dark:text-white dark:hover:bg-primary-600 text-black text-2xl ${
           taskPinned ? "!bg-primary-400 dark:!bg-primary-500 text-white" : ""

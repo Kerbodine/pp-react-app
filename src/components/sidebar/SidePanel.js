@@ -121,7 +121,7 @@ export default function SidePanel({
             <div className="w-16 h-16 ml-auto my-auto mr-4 rounded-full bg-accent-400"></div>
           </div>
           <div className="p-2 bg-primary-100 dark:bg-primary-800 rounded-2xl">
-            <Calendar calendarType="US" />
+            <Calendar calendarType="US" view="month" />
           </div>
           <div>
             <SidePomodoro />
