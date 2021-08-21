@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 import Calendar from "react-calendar";
-import SideItem from "./SideItem";
 import SideWidget from "./SideWidget";
 import SideStickie from "./SideStickie";
 import SideTask from "./SideTask";
@@ -10,13 +9,11 @@ import SettingsContextProvider from "./SettingsContext";
 
 import "./calendar.css";
 
-import { BiAdjust, BiBriefcaseAlt, BiMoon } from "react-icons/bi";
+import { BiAdjust, BiBriefcaseAlt, BiMoon, BiInfoCircle } from "react-icons/bi";
 import SidePomodoro from "./SidePomodoro";
 
 export default function SidePanel({
   onClick,
-  credits,
-  setCredits,
   workMode,
   toggleWorkMode,
   setTimerComplete,
@@ -26,7 +23,7 @@ export default function SidePanel({
   const USERNAME = "Username";
 
   const [allReminders, setAllReminders] = useState(reminderData);
-  const [taskList, setTaskList] = useState();
+  const [taskList, setTaskList] = useState([]);
 
   const updateTaskHandler = (id, pinned) => {
     allReminders.forEach((list, i) =>
@@ -56,28 +53,32 @@ export default function SidePanel({
 
   useEffect(() => {
     setTaskList(
-      allReminders.map((task, index) =>
-        task.tasks
-          .filter((task) => task.pinned === true)
-          .map((task) => (
-            <SideTask
-              key={task.id}
-              id={task.id}
-              title={task.title}
-              completed={task.completed}
-              pinned={task.pinned}
-              color={allReminders[index].color}
-              updateComponent={updateTaskHandler}
-              completeTaskHandler={completeTaskHandler}
-            />
-          ))
-      )
+      allReminders
+        .map((task, index) =>
+          task.tasks
+            .filter((task) => task.pinned === true)
+            .map((task) => (
+              <SideTask
+                key={task.id}
+                id={task.id}
+                title={task.title}
+                completed={task.completed}
+                pinned={task.pinned}
+                color={allReminders[index].color}
+                updateComponent={updateTaskHandler}
+                completeTaskHandler={completeTaskHandler}
+              />
+            ))
+        )
+        .filter((task) => task.length !== 0)
     );
   }, [allReminders, reminderData]);
 
   useEffect(() => {
     setReminderData(allReminders);
   }, [allReminders]);
+
+  console.log(taskList);
 
   return (
     <SettingsContextProvider setTimerComplete={setTimerComplete}>
@@ -127,7 +128,16 @@ export default function SidePanel({
           </div>
           <div className="w-full p-4 flex flex-col bg-primary-100 dark:bg-primary-800 rounded-2xl">
             <h3 className="text-lg font-bold mb-2">Pinned tasks</h3>
-            <div className="flex flex-col gap-2">{taskList}</div>
+            <div className="flex flex-col gap-2">
+              {taskList.length !== 0 ? (
+                taskList
+              ) : (
+                <div className="flex items-center">
+                  <BiInfoCircle />
+                  <p className="ml-1 text-sm">No pinned tasks</p>
+                </div>
+              )}
+            </div>
           </div>
           <div className="flex gap-4">
             <SideWidget eventName="Test event" countdown="6" timeUnit="days" />
