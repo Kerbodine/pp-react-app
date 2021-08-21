@@ -186,7 +186,7 @@ export default function Notes({ darkMode }) {
                 id="tinymce-editor"
                 onEditorChange={handleUpdate}
                 initialValue={allPages[currentPageIndex].content}
-                apiKey={process.env.REACT_APP_TINYMCE_API_KEY}
+                apiKey="9jz5ulzyll0jkomjnscn6f2rm725w3kuuu6eoay5e974vhm7"
                 init={{
                   // readonly: readOnly,
                   skin: darkMode ? "oxide-dark" : "oxide",
