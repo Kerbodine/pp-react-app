@@ -55,20 +55,11 @@ export default function SidePanel({
           </button>
         </div>
         <div className="h-[calc(100%-5rem)] bg-primary dark:bg-primary-900 overflow-y-auto overflow-hidden no-scrollbar px-4 flex flex-col gap-4 text-black dark:text-white">
-          <div>
-            <div className="w-full h-auto bg-primary-100 dark:bg-primary-800 rounded-2xl flex">
-              <div className="my-4">
-                <p className="mx-4 text-xl">Hello,</p>
-                <p className="mx-4 text-3xl font-bold">{USERNAME}</p>
-              </div>
-              <div className="w-16 h-16 ml-auto my-auto mr-4 rounded-full bg-accent-400"></div>
-            </div>
+          <div className="p-2 bg-primary-100 dark:bg-primary-800 rounded-2xl">
+            <Calendar calendarType="US" />
           </div>
           <div>
             <SidePomodoro />
-          </div>
-          <div>
-            <Calendar calendarType="US" />
           </div>
           <div className="flex gap-4">
             <SideWidget eventName="Test event" countdown="6" timeUnit="days" />

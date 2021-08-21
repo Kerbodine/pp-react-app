@@ -14,6 +14,8 @@ import Extras from "./components/Extras";
 import Settings from "./components/Settings";
 import SidePanel from "./components/sidebar/SidePanel";
 
+// import Login from "./components/Login";
+
 import HashLoader from "react-spinners/HashLoader";
 import WorkModeAlert from "./components/ui/WorkModeAlert";
 
@@ -375,6 +377,7 @@ function App() {
         </div>
       ) : (
         <Router>
+          {/* <Login /> */}
           <div className="flex">
             <Navbar />
             <div className="w-full relative">
