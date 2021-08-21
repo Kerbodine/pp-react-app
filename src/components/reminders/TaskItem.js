@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import {
   BiSun,
@@ -7,6 +8,7 @@ import {
   BiCaretDownCircle,
   BiCheck,
   BiPin,
+  BiGridVertical,
 } from "react-icons/bi";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import DatePicker from "react-datepicker";
@@ -28,6 +30,7 @@ export default function TaskItem({
   isDragging,
   completeTaskHandler,
   unCompleteTaskHandler,
+  dragEnabled,
 }) {
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDate, setTaskDate] = useState(dueDate);
@@ -38,6 +41,8 @@ export default function TaskItem({
   const [taskStarred, setTaskStarred] = useState(starred);
   const [taskDropDown, setTaskDropdown] = useState(expanded);
   const [taskPinned, setTaskPinned] = useState(pinned);
+
+  const [hover, setHover] = useState(false);
 
   const titleChangeHandler = (e) => {
     setTaskTitle(e.target.value);
@@ -73,7 +78,6 @@ export default function TaskItem({
       taskDropDown,
       taskPinned
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     taskTitle,
     taskDate,
@@ -103,14 +107,27 @@ export default function TaskItem({
       className={`w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer mb-2 ${
         isDragging ? "shadow-lg" : ""
       }`}
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+      }}
     >
       <i
-        className="text-2xl ml-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-primary-400 dark:text-primary-500"
+        className={`-ml-2 -mr-1 text-2xl my-1 text-primary-400 dark:text-primary-500 cursor-move ${
+          dragEnabled && hover ? "visible" : "invisible mr-4"
+        }`}
+      >
+        <BiGridVertical />
+      </i>
+      <i
+        className="text-2xl mr-2 w-6 h-6 my-1 rounded-full flex items-center justify-center text-primary-400 dark:text-primary-500"
         onClick={toggleDetailsDropdown}
       >
         {taskDropDown ? <BiCaretDownCircle /> : <BiCaretRightCircle />}
       </i>
-      <div className="mx-2 relative">
+      <div className="mr-2 relative">
         <div
           className="w-6 h-6 my-1 rounded-md border-2 border-primary-400 dark:border-primary-500 flex items-center justify-center"
           onClick={() => setDisplayComplete(!displayComplete)}

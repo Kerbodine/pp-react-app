@@ -259,6 +259,7 @@ export default function Reminders({
                   deleteTask={deleteTaskHandler}
                   isDragging={snapshot.isDragging}
                   completeTaskHandler={completeTaskHandler}
+                  dragEnabled={currentListIndex > 3 ? true : false}
                 />
               </div>
             )}
@@ -418,6 +419,7 @@ export default function Reminders({
                             updateComponent={updateTaskHandler}
                             deleteTask={deleteCompletedTaskHandler}
                             unCompleteTaskHandler={unCompleteTaskHandler}
+                            dragEnabled={false}
                           />
                         </div>
                       ))
