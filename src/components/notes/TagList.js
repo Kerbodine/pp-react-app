@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useRef, useEffect } from "react";
 import TagItem from "./TagItem";
 import { BiPlusCircle } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
 
-export default function TagList() {
-  const [allTags, setAllTags] = useState([]);
+export default function TagList({ tags, updateTagHandler }) {
+  const [allTags, setAllTags] = useState(tags);
 
   const tagRef = useRef();
 
@@ -14,20 +15,42 @@ export default function TagList() {
       return;
     }
     const tag = {
-      key: uuidv4(),
+      id: uuidv4(),
       title: title,
+      deleteTagHandler: deleteTagHandler,
     };
-    setAllTags((prevTags) => {
-      return [...prevTags, tag];
-    });
+    setAllTags((prevTags) => [...prevTags, tag]);
     tagRef.current.value = null;
   };
 
+  const deleteTagHandler = (id) => {
+    allTags.forEach((tag, i) => {
+      if (tag.id === id) {
+        let temp = allTags;
+        temp.splice(i, 1);
+        setAllTags([...temp]);
+      }
+    });
+  };
+
+  useEffect(() => {
+    updateTagHandler(allTags);
+  }, [allTags]);
+
   return (
     <div className="w-full h-auto flex flex-wrap gap-2 whitespace-nowrap">
-      {allTags.map((tag) => (
-        <TagItem key={tag.key} title={tag.title} color={`${tag.color}`} />
-      ))}
+      {allTags.length > 0
+        ? allTags.map((tag) => (
+            <TagItem
+              key={tag.id}
+              id={tag.id}
+              title={tag.title}
+              color={`${tag.color}`}
+              deleteTagHandler={deleteTagHandler}
+            />
+          ))
+        : ""}
+
       <div
         className={`h-auto w-auto flex rounded-full overflow-hidden text-2xl bg-primary-200 dark:bg-primary-700 hover:bg-accent-400 dark:hover:bg-accent-400 text-black hover:text-white dark:text-white`}
       >

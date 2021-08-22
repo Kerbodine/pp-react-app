@@ -93,6 +93,12 @@ export default function Notes({ darkMode }) {
     setAllPages(temp);
   };
 
+  const updateTagHandler = (tagList) => {
+    let temp = allPages;
+    temp[currentPageIndex].tags = tagList;
+    setAllPages([...temp]);
+  };
+
   return (
     <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
       <div className="w-full h-auto mr-4 mt-4 mb-4 lg:mr-0">
@@ -114,6 +120,7 @@ export default function Notes({ darkMode }) {
               <input
                 id="document-title"
                 autoComplete="off"
+                placeholder="Untitled document"
                 value={allPages[currentPageIndex].title}
                 onChange={titleChangeHandler}
                 className="h-12 bg-transparent text-black dark:text-white font-bold outline-none text-4xl mb-4"
@@ -122,7 +129,11 @@ export default function Notes({ darkMode }) {
               ></input>
               <div className="flex">
                 <div className="flex-auto">
-                  <TagList />
+                  <TagList
+                    tags={allPages[currentPageIndex].tags}
+                    updateTagHandler={updateTagHandler}
+                    key={currentPageIndex}
+                  />
                 </div>
                 <button
                   className="w-20 h-8 bg-primary-200 dark:bg-primary-700 text-black dark:text-white rounded-full relative flex items-center"
