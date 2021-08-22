@@ -13,6 +13,7 @@ import {
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import DatePicker from "react-datepicker";
 import "./datepicker.css";
+import ReactTooltip from "react-tooltip";
 
 export default function TaskItem({
   id,
@@ -31,6 +32,7 @@ export default function TaskItem({
   completeTaskHandler,
   unCompleteTaskHandler,
   dragEnabled,
+  darkMode,
 }) {
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDate, setTaskDate] = useState(dueDate);
@@ -127,7 +129,7 @@ export default function TaskItem({
       >
         {taskDropDown ? <BiCaretDownCircle /> : <BiCaretRightCircle />}
       </i>
-      <div className="mr-2 relative">
+      <div className="mr-2">
         <div
           className="w-6 h-6 my-1 rounded-md border-2 border-primary-400 dark:border-primary-500 flex items-center justify-center"
           onClick={() => setDisplayComplete(!displayComplete)}
@@ -169,9 +171,19 @@ export default function TaskItem({
             }`}
             aria-label="delete task"
             onClick={togglePinned}
+            data-tip
+            data-for="pinTask"
           >
             <BiPin />
           </button>
+          <ReactTooltip
+            id="pinTask"
+            effect="solid"
+            place="bottom"
+            backgroundColor="#4b5563"
+          >
+            Pin task to sidebar
+          </ReactTooltip>
         </div>
         <div
           className={`${
@@ -190,25 +202,56 @@ export default function TaskItem({
                 today ? "!bg-blue-400 text-white" : ""
               } ${completed ? "!bg-blue-400/50 text-white" : ""}`}
               onClick={toggleTodayHandler}
+              data-tip
+              data-for="today"
             >
               <BiSun />
             </button>
+            <ReactTooltip
+              id="today"
+              effect="solid"
+              place="bottom"
+              backgroundColor="#4b5563"
+            >
+              Add to today
+            </ReactTooltip>
             <button
               className={`w-8 h-8 flex items-center justify-center bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
                 important ? "!bg-red-400 text-white" : ""
               } ${completed ? "!bg-red-400/50 text-white" : ""}`}
               onClick={toggleImportantHandler}
+              data-tip
+              data-for="priority"
             >
               <HiOutlineExclamationCircle />
             </button>
+            <ReactTooltip
+              id="priority"
+              effect="solid"
+              place="bottom"
+              backgroundColor="#4b5563"
+            >
+              Add to priority
+            </ReactTooltip>
             <button
               className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
                 starred ? "!bg-yellow-400 text-white" : ""
               } ${completed ? "!bg-yellow-400/50 text-white" : ""}`}
               onClick={toggleStarredHandler}
+              title="Add to starred"
+              data-tip
+              data-for="starred"
             >
               <BiStar />
             </button>
+            <ReactTooltip
+              id="starred"
+              effect="solid"
+              place="bottom"
+              backgroundColor="#4b5563"
+            >
+              Add to starred
+            </ReactTooltip>
           </div>
           <button
             className="w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-red-400 dark:bg-primary-800 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl"
@@ -216,9 +259,19 @@ export default function TaskItem({
             onClick={() => {
               deleteTask(id);
             }}
+            data-tip
+            data-for="deleteTask"
           >
             <BiTrash />
           </button>
+          <ReactTooltip
+            id="deleteTask"
+            effect="solid"
+            place="bottom"
+            backgroundColor="#4b5563"
+          >
+            Delete task
+          </ReactTooltip>
         </div>
       </div>
     </div>

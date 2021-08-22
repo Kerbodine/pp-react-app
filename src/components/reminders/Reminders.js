@@ -15,6 +15,8 @@ import {
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+import ReactTooltip from "react-tooltip";
+
 export default function Reminders({
   remindersData,
   setReminderData,
@@ -324,7 +326,7 @@ export default function Reminders({
                   <div
                     className={`${
                       colorDropdown ? "visible" : "hidden"
-                    } absolute top-10 -left-2 w-12 bg-white dark:bg-primary-600 rounded-md shadow-md`}
+                    } absolute top-10 -left-2 w-12 z-20 bg-white dark:bg-primary-600 rounded-md shadow-md`}
                   >
                     <div
                       className="w-8 h-8 m-2 rounded-full bg-red-400 hover:bg-red-400/80"
@@ -382,16 +384,28 @@ export default function Reminders({
                     ? allLists[currentListIndex].completed.length
                     : "0"
                 } completed`}</div>
-                <div
+                <button
                   className="w-6 h-6 text-lg bg-primary-200 dark:bg-primary-700 hover:bg-primary-300 rounded-md flex items-center justify-center"
                   onClick={toggleShowCompleted}
+                  data-tip
+                  data-for="completedTasks"
                 >
                   {allLists[currentListIndex].showCompleted ? (
                     <BiShow />
                   ) : (
                     <BiHide />
                   )}
-                </div>
+                </button>
+                <ReactTooltip
+                  id="completedTasks"
+                  effect="solid"
+                  place="bottom"
+                  backgroundColor="#4b5563"
+                >
+                  {allLists[currentListIndex].showCompleted
+                    ? "Hide completed tasks"
+                    : "Show completed tasks"}
+                </ReactTooltip>
               </div>
               <div className="w-full h-2 bg-primary-100 dark:bg-primary-800"></div>
               <div className="">

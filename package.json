@@ -26,6 +26,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
+    "react-tooltip": "^4.2.21",
     "rich-markdown-editor": "^11.17.2",
     "uuidv4": "^6.2.11",
     "wait-on": "^6.0.0",
