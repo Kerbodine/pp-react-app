@@ -142,7 +142,7 @@ export default function TaskItem({
         </div>
       </div>
       <div className="text-black dark:text-white flex-auto flex flex-col">
-        <div className="flex items-center h-8">
+        <div className="flex items-center h-8 gap-2">
           <input
             placeholder="Untitled task"
             type="text"
@@ -152,57 +152,31 @@ export default function TaskItem({
               displayComplete ? "line-through" : "no-underline"
             }`}
           ></input>
-          <div className="mr-2">
+          <div className="mx-0">
             <DatePicker
               selected={taskDate}
               onChange={(date) => setTaskDate(date)}
-              className="bg-primary-100 dark:bg-primary-800 w-24 h-8 text-center px-2 rounded outline-none"
+              className="bg-primary-100 dark:bg-primary-800 w-24 h-8 text-center rounded outline-none"
               dateFormat="dd/MM/yyyy"
               placeholderText="Add date"
             />
           </div>
-          <div className="flex">
-            <button
-              className={`w-8 h-8 flex items-center justify-center rounded-l-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
-                today ? "!bg-blue-400 text-white" : ""
-              }`}
-              onClick={toggleTodayHandler}
-            >
-              <BiSun />
-            </button>
-            <button
-              className={`w-8 h-8 flex items-center justify-center bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
-                important ? "!bg-red-400 text-white" : ""
-              }`}
-              onClick={toggleImportantHandler}
-            >
-              <HiOutlineExclamationCircle />
-            </button>
-            <button
-              className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
-                starred ? "!bg-yellow-400 text-white" : ""
-              }`}
-              onClick={toggleStarredHandler}
-            >
-              <BiStar />
-            </button>
-            <button
-              className={`w-8 h-8 ml-2 flex items-center justify-center rounded-md bg-primary-100 hover:bg-primary-300 dark:bg-primary-800 dark:text-white dark:hover:bg-primary-600 text-black text-2xl ${
-                taskPinned
-                  ? "!bg-primary-400 dark:!bg-primary-500 text-white"
-                  : ""
-              }`}
-              aria-label="delete task"
-              onClick={togglePinned}
-            >
-              <BiPin />
-            </button>
-          </div>
+          <button
+            className={`w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-primary-300 dark:bg-primary-800 dark:text-white dark:hover:bg-primary-600 text-black text-2xl ${
+              taskPinned
+                ? "!bg-primary-400 dark:!bg-primary-500 text-white"
+                : ""
+            }`}
+            aria-label="delete task"
+            onClick={togglePinned}
+          >
+            <BiPin />
+          </button>
         </div>
         <div
           className={`${
             taskDropDown ? "visible" : "hidden"
-          } w-full h-auto mt-2 flex`}
+          } w-full h-auto mt-2 flex gap-2`}
         >
           <textarea
             placeholder="Add a description..."
@@ -210,6 +184,32 @@ export default function TaskItem({
             onChange={descriptionChangeHandler}
             className="text-sm bg-transparent flex-auto h-auto outline-none mr-2 resize-y text-primary-600 dark:text-primary-400 max-h-[12rem]"
           ></textarea>
+          <div className="flex">
+            <button
+              className={`w-8 h-8 flex items-center justify-center rounded-l-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
+                today ? "!bg-blue-400 text-white" : ""
+              } ${completed ? "!bg-blue-400/50 text-white" : ""}`}
+              onClick={toggleTodayHandler}
+            >
+              <BiSun />
+            </button>
+            <button
+              className={`w-8 h-8 flex items-center justify-center bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
+                important ? "!bg-red-400 text-white" : ""
+              } ${completed ? "!bg-red-400/50 text-white" : ""}`}
+              onClick={toggleImportantHandler}
+            >
+              <HiOutlineExclamationCircle />
+            </button>
+            <button
+              className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
+                starred ? "!bg-yellow-400 text-white" : ""
+              } ${completed ? "!bg-yellow-400/50 text-white" : ""}`}
+              onClick={toggleStarredHandler}
+            >
+              <BiStar />
+            </button>
+          </div>
           <button
             className="w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-red-400 dark:bg-primary-800 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl"
             aria-label="delete task"

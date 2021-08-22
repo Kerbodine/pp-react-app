@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 
 import Navbar from "./components/navbar/Navbar";
 
-// import "react-calendar/dist/Calendar.css";
-
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import Reminders from "./components/reminders/Reminders";
@@ -19,11 +17,12 @@ import SidePanel from "./components/sidebar/SidePanel";
 import HashLoader from "react-spinners/HashLoader";
 import WorkModeAlert from "./components/ui/WorkModeAlert";
 
+import { HiOutlineExclamationCircle } from "react-icons/hi";
+
 import { v4 as uuidv4 } from "uuid";
 import {
   BiListUl,
   BiSun,
-  BiCalendarExclamation,
   BiStar,
   BiArchive,
   BiBookHeart,
@@ -48,7 +47,7 @@ function App() {
       id: uuidv4(),
       title: "Priority",
       color: "red",
-      icon: <BiCalendarExclamation />,
+      icon: <HiOutlineExclamationCircle />,
       tasks: [],
       completed: [],
       showCompleted: false,
@@ -190,7 +189,7 @@ function App() {
       id: uuidv4(),
       title: "Priority",
       color: "red",
-      icon: <BiCalendarExclamation />,
+      icon: <HiOutlineExclamationCircle />,
       tasks: [],
       completed: [],
       showCompleted: false,
