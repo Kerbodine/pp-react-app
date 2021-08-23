@@ -200,7 +200,7 @@ export default function TaskItem({
             <button
               className={`w-8 h-8 flex items-center justify-center rounded-l-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
                 today ? "!bg-blue-400 text-white" : ""
-              } ${completed ? "!bg-blue-400/50 text-white" : ""}`}
+              } ${completed && today ? "!bg-blue-400/50 text-white" : ""}`}
               onClick={toggleTodayHandler}
               data-tip
               data-for="today"
@@ -218,7 +218,7 @@ export default function TaskItem({
             <button
               className={`w-8 h-8 flex items-center justify-center bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
                 important ? "!bg-red-400 text-white" : ""
-              } ${completed ? "!bg-red-400/50 text-white" : ""}`}
+              } ${completed && important ? "!bg-red-400/50 text-white" : ""}`}
               onClick={toggleImportantHandler}
               data-tip
               data-for="priority"
@@ -236,7 +236,7 @@ export default function TaskItem({
             <button
               className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
                 starred ? "!bg-yellow-400 text-white" : ""
-              } ${completed ? "!bg-yellow-400/50 text-white" : ""}`}
+              } ${completed && starred ? "!bg-yellow-400/50 text-white" : ""}`}
               onClick={toggleStarredHandler}
               title="Add to starred"
               data-tip

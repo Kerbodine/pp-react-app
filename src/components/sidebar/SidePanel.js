@@ -82,7 +82,7 @@ export default function SidePanel({
 
   return (
     <SettingsContextProvider setTimerComplete={setTimerComplete}>
-      <div className={`w-72 h-screen`}>
+      <div className="w-72 h-screen">
         <div className="flex gap-4 h-20 bg-primary dark:bg-primary-900 p-4">
           <div className="w-32 flex gap-2 items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl px-3 justify-center text-black dark:text-white">
             <div className="text-2xl">
