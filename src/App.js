@@ -33,7 +33,7 @@ import {
 import PomodoroAlert from "./components/ui/PomodoroAlert";
 
 function App() {
-  const remindersData1 = [
+  const reminderCategories = [
     {
       id: uuidv4(),
       title: "Today",
@@ -70,6 +70,9 @@ function App() {
       completed: [],
       showCompleted: false,
     },
+  ];
+
+  const remindersData1 = [
     {
       id: uuidv4(),
       title: "Reminder List 1",
@@ -175,46 +178,9 @@ function App() {
     },
   ];
 
-  const reminderData2 = [
-    {
-      id: uuidv4(),
-      title: "Today",
-      color: "blue",
-      icon: <BiSun />,
-      tasks: [],
-      completed: [],
-      showCompleted: false,
-    },
-    {
-      id: uuidv4(),
-      title: "Priority",
-      color: "red",
-      icon: <HiOutlineExclamationCircle />,
-      tasks: [],
-      completed: [],
-      showCompleted: false,
-    },
-    {
-      id: uuidv4(),
-      title: "Starred",
-      color: "yellow",
-      icon: <BiStar />,
-      tasks: [],
-      completed: [],
-      showCompleted: false,
-    },
-    {
-      id: uuidv4(),
-      title: "All",
-      color: "gray",
-      icon: <BiArchive />,
-      tasks: [],
-      completed: [],
-      showCompleted: false,
-    },
-  ];
+  const remindersData2 = [];
 
-  const readingListData1 = [
+  const readingListCategories = [
     {
       id: uuidv4(),
       title: "In progress",
@@ -250,6 +216,9 @@ function App() {
       icon: <BiArchive />,
       books: [],
     },
+  ];
+
+  const readingListData1 = [
     {
       id: uuidv4(),
       title: "School reading",
@@ -284,43 +253,7 @@ function App() {
     },
   ];
 
-  const readingListData2 = [
-    {
-      id: uuidv4(),
-      title: "In progress",
-      color: "yellow",
-      icon: <BiTime />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "Finished",
-      color: "green",
-      icon: <BiCheckCircle />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "Book type",
-      color: "blue",
-      icon: <BiBookContent />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "Favorites",
-      color: "pink",
-      icon: <BiBookHeart />,
-      books: [],
-    },
-    {
-      id: uuidv4(),
-      title: "All",
-      color: "gray",
-      icon: <BiArchive />,
-      books: [],
-    },
-  ];
+  const readingListData2 = [];
 
   let darkModeValue = false;
   let workModeValue = true;
@@ -337,8 +270,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
   const [workMode, setWorkMode] = useState(workModeValue);
-  const [reminderData, setReminderData] = useState(remindersData1);
-  const [readingListData, setReadingListData] = useState(readingListData1);
+  const [reminderData, setReminderData] = useState([
+    ...reminderCategories,
+    ...remindersData1,
+  ]);
+  const [readingListData, setReadingListData] = useState([
+    ...readingListCategories,
+    ...readingListData1,
+  ]);
   const [timerComplete, setTimerComplete] = useState(false);
 
   useEffect(() => {
@@ -360,11 +299,11 @@ function App() {
 
   useEffect(() => {
     if (workMode) {
-      setReminderData(remindersData1);
-      setReadingListData(readingListData1);
+      setReminderData([...reminderCategories, ...remindersData1]);
+      setReadingListData([...readingListCategories, ...readingListData1]);
     } else {
-      setReminderData(reminderData2);
-      setReadingListData(readingListData2);
+      setReminderData([...reminderCategories, ...remindersData2]);
+      setReadingListData([...readingListCategories, ...readingListData2]);
     }
   }, [workMode]);
 
