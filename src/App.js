@@ -9,7 +9,7 @@ import Reminders from "./components/reminders/Reminders";
 import Notes from "./components/notes/Notes";
 import ReadingList from "./components/readingList/ReadingList";
 import Extras from "./components/Extras";
-import Settings from "./components/Settings";
+import SettingsPage from "./components/settings/SettingsPage";
 import SidePanel from "./components/sidebar/SidePanel";
 
 // import Login from "./components/Login";
@@ -413,7 +413,7 @@ function App() {
                 />
                 <Route path="/extensions" component={Extras} />
                 <Route path="/profile" component={Profile} />
-                <Route path="/settings" component={Settings} />
+                <Route path="/settings" component={SettingsPage} />
               </Switch>
             </div>
             <div className="w-0 lg:w-72">
