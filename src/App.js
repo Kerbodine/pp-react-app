@@ -258,6 +258,11 @@ function App() {
   let darkModeValue = false;
   let workModeValue = true;
 
+  const [remindersListIndex, setRemindersListIndex] = useState({
+    work: 0,
+    personal: 0,
+  });
+
   if (localStorage.getItem("darkMode") !== null) {
     darkModeValue = JSON.parse(localStorage.getItem("darkMode"));
   }
@@ -331,7 +336,10 @@ function App() {
                       key={reminderData}
                       remindersData={reminderData}
                       darkMode={darkMode}
+                      workMode={workMode}
                       setReminderData={setReminderData}
+                      remindersListIndex={remindersListIndex}
+                      setRemindersListIndex={setRemindersListIndex}
                     />
                   )}
                 />

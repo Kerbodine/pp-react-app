@@ -186,38 +186,37 @@ export default function Notes({ darkMode }) {
               <div className="w-full h-4 bg-primary-100 dark:bg-primary-800"></div>
             </div>
             <div className="px-8 overflow-hidden h-full bg-primary-100 dark:bg-primary-800 !text-black dark:!text-white">
-              {/* <Editor
-                defaultValue="Hello world!"
-                dark={darkMode}
-                readOnly={readOnly}
-              /> */}
-              <Editor
-                onInit={(evt, editor) => (editorRef.current = editor)}
-                key={[darkMode, currentPageIndex]}
-                id="tinymce-editor"
-                onEditorChange={handleUpdate}
-                initialValue={allPages[currentPageIndex].content}
-                apiKey="9jz5ulzyll0jkomjnscn6f2rm725w3kuuu6eoay5e974vhm7"
-                init={{
-                  // readonly: readOnly,
-                  skin: darkMode ? "oxide-dark" : "oxide",
-                  content_css: darkMode ? "dark" : "default",
-                  // icons: "material",
-                  height: "calc(100% - 222px)",
-                  // resize: true,
-                  menubar: false,
-                  plugins: [
-                    "advlist autolink lists link image charmap print preview anchor",
-                    "searchreplace visualblocks code fullscreen preview emoticons print",
-                    "insertdatetime media table paste code help wordcount",
-                  ],
-                  toolbar:
-                    "undo redo | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image emoticons | code | fullscreen print",
-                  content_style:
-                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                }}
-              />
-              {/* <button onClick={log}>Log editor content</button> */}
+              <div className="w-full h-[calc(100%-222px)] rounded-2xl overflow-hidden">
+                <Editor
+                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  key={[darkMode]}
+                  id="tinymce-editor"
+                  onEditorChange={handleUpdate}
+                  initialValue={allPages[currentPageIndex].content}
+                  apiKey="9jz5ulzyll0jkomjnscn6f2rm725w3kuuu6eoay5e974vhm7"
+                  init={{
+                    // readonly: readOnly,
+                    // skin: darkMode ? "oxide-dark" : "oxide",
+                    skin_url: darkMode ? "/oxide-dark" : "/oxide",
+                    content_css: darkMode
+                      ? "/dark-mode-content.css"
+                      : "./light-mode-content.css",
+                    height: "100%",
+                    // resize: true,
+                    menubar: false,
+                    resize: false,
+                    plugins: [
+                      "advlist autolink lists link charmap print preview anchor",
+                      "searchreplace visualblocks code fullscreen preview emoticons print",
+                      "insertdatetime media table paste code help wordcount",
+                    ],
+                    toolbar:
+                      "undo redo | styleselect | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link emoticons | code | fullscreen print",
+                    content_style:
+                      "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -21,9 +21,13 @@ export default function Reminders({
   remindersData,
   setReminderData,
   darkMode,
+  workMode,
+  remindersListIndex,
 }) {
   const [allLists, setAllLists] = useState(remindersData);
-  const [currentListIndex, setCurrentListIndex] = useState(0);
+  const [currentListIndex, setCurrentListIndex] = useState(
+    workMode ? remindersListIndex.work : remindersListIndex.personal
+  );
   const [taskList, setTaskList] = useState([]);
   const [colorDropdown, setColorDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -280,6 +284,12 @@ export default function Reminders({
   };
 
   useEffect(() => {
+    let temp = remindersListIndex;
+    if (workMode === true) {
+      temp.work = currentListIndex;
+    } else {
+      temp.personal = currentListIndex;
+    }
     setReminderData(allLists);
   }, [allLists]);
 
