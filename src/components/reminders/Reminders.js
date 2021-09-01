@@ -14,7 +14,7 @@ import {
 } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import ReminderColorPicker from "./ReminderColorPicker";
+import ReminderColorPicker from "../ui/ColorPicker";
 import ReactTooltip from "react-tooltip";
 
 export default function Reminders({
@@ -33,8 +33,6 @@ export default function Reminders({
     "red",
     "orange",
     "amber",
-    "yellow",
-    "lime",
     "green",
     "emerald",
     "teal",

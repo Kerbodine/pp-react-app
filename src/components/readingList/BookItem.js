@@ -98,7 +98,7 @@ export default function BookItem({
   useEffect(() => {
     switch (bookProgress) {
       case "In progress":
-        setProgressColor("yellow");
+        setProgressColor("amber");
         break;
       case "Complete":
         setProgressColor("green");

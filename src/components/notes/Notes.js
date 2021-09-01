@@ -31,7 +31,7 @@ export default function Notes({ darkMode }) {
       id: uuidv4(),
       icon: <AiOutlineFileText />,
       title: "Note 2",
-      color: "yellow",
+      color: "amber",
       content: "",
       tags: [],
       readOnly: false,

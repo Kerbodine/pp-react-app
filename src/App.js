@@ -54,7 +54,7 @@ function App() {
     {
       id: uuidv4(),
       title: "Starred",
-      color: "yellow",
+      color: "amber",
       icon: <BiStar />,
       tasks: [],
       completed: [],
@@ -110,7 +110,7 @@ function App() {
     {
       id: uuidv4(),
       title: "Reminder List 2",
-      color: "yellow",
+      color: "amber",
       icon: <BiListUl />,
       tasks: [
         {
@@ -181,7 +181,7 @@ function App() {
     {
       id: uuidv4(),
       title: "In progress",
-      color: "yellow",
+      color: "amber",
       icon: <BiTime />,
       books: [],
     },
@@ -251,12 +251,18 @@ function App() {
   ];
 
   let darkModeValue = false;
-
-  const [remindersListIndex, setRemindersListIndex] = useState(0);
-  const [readingListIndex, setReadingListIndex] = useState(0);
-
   if (localStorage.getItem("darkMode") !== null) {
     darkModeValue = JSON.parse(localStorage.getItem("darkMode"));
+  }
+
+  let remindersListIndex = 0;
+  if (localStorage.getItem("remindersListIndex") !== null) {
+    darkModeValue = JSON.parse(localStorage.getItem("remindersListIndex"));
+  }
+
+  let readingListIndex = 0;
+  if (localStorage.getItem("readingListIndex") !== null) {
+    darkModeValue = JSON.parse(localStorage.getItem("readingListIndex"));
   }
 
   const [darkMode, setDarkMode] = useState(darkModeValue);
@@ -309,7 +315,6 @@ function App() {
                       darkMode={darkMode}
                       setReminderData={setReminderData}
                       remindersListIndex={remindersListIndex}
-                      setRemindersListIndex={setRemindersListIndex}
                     />
                   )}
                 />

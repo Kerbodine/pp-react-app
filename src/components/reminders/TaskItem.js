@@ -235,8 +235,8 @@ export default function TaskItem({
             </ReactTooltip>
             <button
               className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${
-                starred ? "!bg-yellow-400 text-white" : ""
-              } ${completed && starred ? "!bg-yellow-400/50 text-white" : ""}`}
+                starred ? "!bg-amber-400 text-white" : ""
+              } ${completed && starred ? "!bg-amber-400/50 text-white" : ""}`}
               onClick={toggleStarredHandler}
               title="Add to starred"
               data-tip
