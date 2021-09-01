@@ -186,9 +186,8 @@ export default function BookItem({
         >
           <div className="flex flex-col flex-auto">
             <div className="flex text-sm">
-              <h4>Author:</h4>
               <input
-                className="bg-transparent ml-2 outline-none"
+                className="bg-transparent outline-none"
                 placeholder="Author name"
                 value={bookAuthor}
                 onChange={authorChangeHandler}
