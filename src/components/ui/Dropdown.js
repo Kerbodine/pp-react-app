@@ -47,29 +47,3 @@ export default function Dropdown({ title, allItems }) {
     </div>
   );
 }
-
-// export default function Dropdown({ menuTitle, allItems }) {
-
-//   return (
-//     <Menu>
-//       <Menu.Button>{menuTitle}</Menu.Button>
-// <Menu.Items>
-//   {allItems.map((option) => (
-//     <Menu.Item>
-//       {({ active }) => (
-//         <a
-//           className={`${active && 'bg-accent-400 w-10 h-10'}`}
-//           key={option.key}
-//           icon={option.icon}
-//           title={option.title}
-//           onclick={option.function}/>
-//       )}
-//     </Menu.Item>
-//   ))}
-//         {/* <Menu.Item disabled>
-//           <span className="opacity-75">Invite a friend (coming soon!)</span>
-//         </Menu.Item> */}
-//       </Menu.Items>
-//     </Menu>
-//   )
-// }

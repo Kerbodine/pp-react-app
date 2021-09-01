@@ -3,24 +3,24 @@ import { v4 as uuidv4 } from "uuid";
 import TagList from "./TagList";
 import PageSidebar from "./PageSidebar";
 import { Editor } from "@tinymce/tinymce-react";
-import {
-  AiOutlineEye,
-  AiOutlineFileExclamation,
-  AiOutlineFileText,
-  AiOutlineFileImage,
-} from "react-icons/ai";
+import ReminderColorPicker from "../ui/ColorPicker";
+import ConfirmModal from "../ui/ConfirmModal";
 import {
   BiPencil,
   BiCaretDownCircle,
   BiCaretUpCircle,
   BiLoaderAlt,
+  BiFile,
+  BiShow,
+  BiChevronDown,
+  BiTrash,
 } from "react-icons/bi";
 
 export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
   const data = [
     {
       id: uuidv4(),
-      icon: <AiOutlineFileExclamation />,
+      icon: <BiFile />,
       title: "Note 1",
       color: "red",
       content: "",
@@ -29,7 +29,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
     },
     {
       id: uuidv4(),
-      icon: <AiOutlineFileText />,
+      icon: <BiFile />,
       title: "Note 2",
       color: "amber",
       content: "",
@@ -38,13 +38,31 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
     },
     {
       id: uuidv4(),
-      icon: <AiOutlineFileImage />,
+      icon: <BiFile />,
       title: "Note 3",
       color: "blue",
       content: "",
       tags: [],
       readOnly: false,
     },
+  ];
+
+  const allColors = [
+    "red",
+    "orange",
+    "amber",
+    "green",
+    "emerald",
+    "teal",
+    "cyan",
+    "sky",
+    "blue",
+    "indigo",
+    "violet",
+    "purple",
+    "fuchsia",
+    "pink",
+    "rose",
   ];
 
   const editorRef = useRef(null);
@@ -54,6 +72,8 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
   const [allPages, setAllPages] = useState(data);
   const [currentPageIndex, setCurrentPageIndex] = useState(notesListIndex);
   const [editorLoading, setEditorLoading] = useState(true);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [colorDropdown, setColorDropdown] = useState(false);
 
   const readOnlyHandler = () => {
     setReadOnly(!readOnly);
@@ -76,7 +96,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
   const newPageHandler = () => {
     const newPage = {
       id: uuidv4(),
-      icon: <AiOutlineFileText />,
+      icon: <BiFile />,
       title: "Untitled note",
       color: "gray",
       content: "",
@@ -107,6 +127,29 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
     setNotesListIndex(currentPageIndex);
   });
 
+  const deleteListHandler = () => {
+    setDeleteConfirmation(false);
+    const temp = allPages;
+    temp.splice(currentPageIndex, 1);
+    setAllPages([...temp]);
+    setCurrentPageIndex(allPages.length - 1);
+  };
+
+  const handleColorDropdown = () => {
+    setColorDropdown(!colorDropdown);
+  };
+
+  const toggleDeleteConfirmation = () => {
+    setDeleteConfirmation(!deleteConfirmation);
+  };
+
+  const listColorHandler = (newColor) => {
+    let temp = allPages;
+    temp[currentPageIndex].color = newColor;
+    setAllPages([...temp]);
+    setColorDropdown(false);
+  };
+
   return (
     <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
       <div className="w-full h-auto mr-4 mt-4 mb-4 lg:mr-0">
@@ -125,16 +168,55 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
               className={`w-full h-12 bg-${allPages[currentPageIndex].color}-400`}
             ></div>
             <div className="px-8 pt-8 bg-primary-100 dark:bg-primary-800 flex flex-col">
-              <input
-                id="document-title"
-                autoComplete="off"
-                placeholder="Untitled document"
-                value={allPages[currentPageIndex].title}
-                onChange={titleChangeHandler}
-                className="h-12 bg-transparent text-black dark:text-white font-bold outline-none text-4xl mb-4"
-                type="text"
-                aria-label="document title"
-              ></input>
+              <div className="flex flex-row items-center">
+                <input
+                  id="document-title"
+                  autoComplete="off"
+                  placeholder="Untitled document"
+                  value={allPages[currentPageIndex].title}
+                  onChange={titleChangeHandler}
+                  className="h-12 flex-auto truncate bg-transparent text-black dark:text-white font-bold outline-none text-4xl mb-4"
+                  type="text"
+                  aria-label="document title"
+                ></input>
+                <div
+                  className={`relative w-8 h-8 rounded-full bg-${
+                    allPages[currentPageIndex].color
+                      ? `${allPages[currentPageIndex].color}-400 text-white`
+                      : "primary-200 text-black"
+                  } text-2xl flex items-center justify-center hover:bg-${
+                    allPages[currentPageIndex].color
+                  }-400/80`}
+                  onClick={handleColorDropdown}
+                >
+                  <BiChevronDown />
+                  <div
+                    className={`${
+                      colorDropdown ? "visible" : "hidden"
+                    } absolute top-10 w-[6.5rem] h-auto z-20 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
+                  >
+                    {allColors.map((color) => (
+                      <ReminderColorPicker
+                        color={color}
+                        listColorHandler={listColorHandler}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div
+                  className={`relative w-8 h-8 rounded-full bg-primary-200 hover:bg-red-400 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl ml-2 flex items-center justify-center`}
+                  onClick={toggleDeleteConfirmation}
+                >
+                  <BiTrash />
+                </div>
+                <ConfirmModal
+                  darkMode={darkMode}
+                  message={`"${allPages[currentPageIndex].title}"`}
+                  deleteConfirmation={deleteConfirmation}
+                  toggleDeleteConfirmation={toggleDeleteConfirmation}
+                  deleteListHandler={deleteListHandler}
+                />
+              </div>
               <div className="flex">
                 <div className="flex-auto">
                   <TagList
@@ -148,7 +230,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
                   onClick={viewModeDropdownHandler}
                 >
                   <i className="text-2xl px-2">
-                    {readOnly ? <AiOutlineEye /> : <BiPencil />}
+                    {readOnly ? <BiShow /> : <BiPencil />}
                   </i>
                   <div className="text-2xl px-2">
                     {viewModeDropdown ? (
@@ -171,7 +253,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
                       onClick={readOnlyHandler}
                     >
                       <i className="text-2xl">
-                        <AiOutlineEye />
+                        <BiShow />
                       </i>
                       <h4 className="mx-1.5 whitespace-nowrap">Viewing</h4>
                     </div>

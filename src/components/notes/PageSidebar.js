@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import PageItem from "./PageItem";
-import { BiChevronDown, BiChevronUp } from "react-icons/bi";
+import { BiChevronDown, BiChevronUp, BiFileBlank } from "react-icons/bi";
 
 export default function PageSidebar({ allPages, selectPage, newPageHandler }) {
   const [showLists, setShowLists] = useState(true);
