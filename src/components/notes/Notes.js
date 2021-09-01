@@ -16,7 +16,7 @@ import {
   BiLoaderAlt,
 } from "react-icons/bi";
 
-export default function Notes({ darkMode }) {
+export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
   const data = [
     {
       id: uuidv4(),
@@ -52,7 +52,7 @@ export default function Notes({ darkMode }) {
   const [readOnly, setReadOnly] = useState(false);
   const [viewModeDropdown, setViewModeDropdown] = useState(false);
   const [allPages, setAllPages] = useState(data);
-  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [currentPageIndex, setCurrentPageIndex] = useState(notesListIndex);
   const [editorLoading, setEditorLoading] = useState(true);
 
   const readOnlyHandler = () => {
@@ -102,6 +102,10 @@ export default function Notes({ darkMode }) {
     temp[currentPageIndex].tags = tagList;
     setAllPages([...temp]);
   };
+
+  useEffect(() => {
+    setNotesListIndex(currentPageIndex);
+  });
 
   return (
     <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">

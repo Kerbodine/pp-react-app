@@ -264,6 +264,15 @@ function App() {
     localStorage.setItem("reminderIndex", remindersListIndex);
   };
 
+  let notesListIndex = 0;
+  if (localStorage.getItem("notesIndex") !== null) {
+    notesListIndex = JSON.parse(localStorage.getItem("notesIndex"));
+  }
+  const setNotesListIndex = (index) => {
+    notesListIndex = index;
+    localStorage.setItem("notesIndex", notesListIndex);
+  };
+
   let readingListIndex = 0;
   if (localStorage.getItem("readingIndex") !== null) {
     readingListIndex = JSON.parse(localStorage.getItem("readingIndex"));
@@ -329,7 +338,14 @@ function App() {
                 />
                 <Route
                   path="/notes"
-                  render={(props) => <Notes {...props} darkMode={darkMode} />}
+                  render={(props) => (
+                    <Notes
+                      {...props}
+                      darkMode={darkMode}
+                      notesListIndex={notesListIndex}
+                      setNotesListIndex={setNotesListIndex}
+                    />
+                  )}
                 />
                 <Route
                   path="/reading-list"
