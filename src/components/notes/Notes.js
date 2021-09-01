@@ -201,7 +201,7 @@ export default function Notes({ darkMode }) {
                     editorRef.current = editor;
                     setEditorLoading(false);
                   }}
-                  key={[darkMode]}
+                  key={[darkMode, currentPageIndex]}
                   id="tinymce-editor"
                   onEditorChange={handleUpdate}
                   initialValue={allPages[currentPageIndex].content}

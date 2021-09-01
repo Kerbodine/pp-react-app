@@ -15,7 +15,6 @@ import SidePanel from "./components/sidebar/SidePanel";
 // import Login from "./components/Login";
 
 import HashLoader from "react-spinners/HashLoader";
-import WorkModeAlert from "./components/ui/WorkModeAlert";
 
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 
@@ -178,8 +177,6 @@ function App() {
     },
   ];
 
-  const remindersData2 = [];
-
   const readingListCategories = [
     {
       id: uuidv4(),
@@ -253,28 +250,18 @@ function App() {
     },
   ];
 
-  const readingListData2 = [];
-
   let darkModeValue = false;
-  let workModeValue = true;
 
-  const [remindersListIndex, setRemindersListIndex] = useState({
-    work: 0,
-    personal: 0,
-  });
+  const [remindersListIndex, setRemindersListIndex] = useState(0);
+  const [readingListIndex, setReadingListIndex] = useState(0);
 
   if (localStorage.getItem("darkMode") !== null) {
     darkModeValue = JSON.parse(localStorage.getItem("darkMode"));
   }
 
-  if (localStorage.getItem("workMode") !== null) {
-    workModeValue = JSON.parse(localStorage.getItem("workMode"));
-  }
-
   const [darkMode, setDarkMode] = useState(darkModeValue);
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
-  const [workMode, setWorkMode] = useState(workModeValue);
   const [reminderData, setReminderData] = useState([
     ...reminderCategories,
     ...remindersData1,
@@ -297,21 +284,6 @@ function App() {
     setDarkMode(!darkMode);
   };
 
-  const toggleWorkMode = () => {
-    localStorage.setItem("workMode", !workMode);
-    setWorkMode(!workMode);
-  };
-
-  useEffect(() => {
-    if (workMode) {
-      setReminderData([...reminderCategories, ...remindersData1]);
-      setReadingListData([...readingListCategories, ...readingListData1]);
-    } else {
-      setReminderData([...reminderCategories, ...remindersData2]);
-      setReadingListData([...readingListCategories, ...readingListData2]);
-    }
-  }, [workMode]);
-
   return (
     <div className={`${darkMode ? "dark" : ""} App overflow-hidden`}>
       {loading ? (
@@ -324,7 +296,6 @@ function App() {
           <div className="flex">
             <Navbar />
             <div className="w-full relative">
-              <WorkModeAlert workMode={workMode} />
               <PomodoroAlert timerComplete={timerComplete} />
               <Switch>
                 <Route path="/" exact component={Dashboard} />
@@ -333,10 +304,9 @@ function App() {
                   render={(props) => (
                     <Reminders
                       {...props}
-                      key={reminderData}
+                      // key={reminderData}
                       remindersData={reminderData}
                       darkMode={darkMode}
-                      workMode={workMode}
                       setReminderData={setReminderData}
                       remindersListIndex={remindersListIndex}
                       setRemindersListIndex={setRemindersListIndex}
@@ -368,8 +338,6 @@ function App() {
                 onClick={toggleThemeHandler}
                 credits={credits}
                 setCredits={setCredits}
-                workMode={workMode}
-                toggleWorkMode={toggleWorkMode}
                 setTimerComplete={setTimerComplete}
                 reminderData={reminderData}
                 setReminderData={setReminderData}

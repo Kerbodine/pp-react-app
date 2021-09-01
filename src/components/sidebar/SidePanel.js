@@ -14,8 +14,6 @@ import SidePomodoro from "./SidePomodoro";
 
 export default function SidePanel({
   onClick,
-  workMode,
-  toggleWorkMode,
   setTimerComplete,
   reminderData,
   setReminderData,
@@ -84,24 +82,7 @@ export default function SidePanel({
     <SettingsContextProvider setTimerComplete={setTimerComplete}>
       <div className="w-72 h-screen">
         <div className="flex gap-4 h-20 bg-primary dark:bg-primary-900 p-4">
-          <div className="w-32 flex gap-2 items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl px-3 justify-center text-black dark:text-white">
-            <div className="text-2xl">
-              <BiBriefcaseAlt />
-            </div>
-            <button
-              className="w-10 h-6 bg-accent-400 rounded-full flex items-center justify-center px-1"
-              onClick={toggleWorkMode}
-            >
-              <div
-                className={`w-4 h-4 rounded-full bg-white transition-transform ${
-                  workMode ? "-translate-x-2" : "translate-x-2"
-                }`}
-              ></div>
-            </button>
-            <div className="text-2xl">
-              <BiMoon />
-            </div>
-          </div>
+          <div className="w-32 flex gap-2 items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl px-3 justify-center text-black dark:text-white"></div>
           <button className="w-12 h-12 bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"></button>
           <button
             onClick={onClick}

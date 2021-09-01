@@ -1,6 +1,6 @@
-import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
-import { BiCaretDownCircle } from "react-icons/bi"
+import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { BiCaretDownCircle } from "react-icons/bi";
 
 export default function Dropdown({ title, allItems }) {
   return (
@@ -25,25 +25,27 @@ export default function Dropdown({ title, allItems }) {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="w-auto mt-2 origin-top-right bg-white rounded-md shadow-md">
-          {allItems.map((option) => (
-            <Menu.Item key={option.key}>
-              {({ active }) => (
+            {allItems.map((option) => (
+              <Menu.Item key={option.key}>
+                {({ active }) => (
                   <button
-                    className={`${active && 'bg-accent-400'} group hover:text-white flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                    className={`${
+                      active && "bg-accent-400"
+                    } group hover:text-white flex rounded-md items-center w-full px-2 py-2 text-sm`}
                     key={option.key}
                     onClick={option.func}
-                    >
+                  >
                     <i className="mr-1">{option.icon}</i>
-                  {option.title}
+                    {option.title}
                   </button>
-              )}
-            </Menu.Item>
-          ))}
+                )}
+              </Menu.Item>
+            ))}
           </Menu.Items>
         </Transition>
       </Menu>
     </div>
-  )
+  );
 }
 
 // export default function Dropdown({ menuTitle, allItems }) {
@@ -51,19 +53,19 @@ export default function Dropdown({ title, allItems }) {
 //   return (
 //     <Menu>
 //       <Menu.Button>{menuTitle}</Menu.Button>
-      // <Menu.Items>
-      //   {allItems.map((option) => (
-      //     <Menu.Item>
-      //       {({ active }) => (
-      //         <a
-      //           className={`${active && 'bg-accent-400 w-10 h-10'}`}
-      //           key={option.key}
-      //           icon={option.icon}
-      //           title={option.title}
-      //           onclick={option.function}/>
-      //       )}
-      //     </Menu.Item>
-      //   ))}
+// <Menu.Items>
+//   {allItems.map((option) => (
+//     <Menu.Item>
+//       {({ active }) => (
+//         <a
+//           className={`${active && 'bg-accent-400 w-10 h-10'}`}
+//           key={option.key}
+//           icon={option.icon}
+//           title={option.title}
+//           onclick={option.function}/>
+//       )}
+//     </Menu.Item>
+//   ))}
 //         {/* <Menu.Item disabled>
 //           <span className="opacity-75">Invite a friend (coming soon!)</span>
 //         </Menu.Item> */}

@@ -14,23 +14,40 @@ import {
 } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
+import ReminderColorPicker from "./ReminderColorPicker";
 import ReactTooltip from "react-tooltip";
 
 export default function Reminders({
   remindersData,
   setReminderData,
   darkMode,
-  workMode,
   remindersListIndex,
 }) {
   const [allLists, setAllLists] = useState(remindersData);
-  const [currentListIndex, setCurrentListIndex] = useState(
-    workMode ? remindersListIndex.work : remindersListIndex.personal
-  );
+  const [currentListIndex, setCurrentListIndex] = useState(remindersListIndex);
   const [taskList, setTaskList] = useState([]);
   const [colorDropdown, setColorDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+
+  const allColors = [
+    "red",
+    "orange",
+    "amber",
+    "yellow",
+    "lime",
+    "green",
+    "emerald",
+    "teal",
+    "cyan",
+    "sky",
+    "blue",
+    "indigo",
+    "violet",
+    "purple",
+    "fuchsia",
+    "pink",
+    "rose",
+  ];
 
   const updateTaskHandler = (
     id,
@@ -284,12 +301,6 @@ export default function Reminders({
   };
 
   useEffect(() => {
-    let temp = remindersListIndex;
-    if (workMode === true) {
-      temp.work = currentListIndex;
-    } else {
-      temp.personal = currentListIndex;
-    }
     setReminderData(allLists);
   }, [allLists]);
 
@@ -336,36 +347,14 @@ export default function Reminders({
                   <div
                     className={`${
                       colorDropdown ? "visible" : "hidden"
-                    } absolute top-10 -left-2 w-12 z-20 bg-white dark:bg-primary-600 rounded-md shadow-md`}
+                    } absolute top-10 w-[6.5rem] h-auto z-20 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
                   >
-                    <div
-                      className="w-8 h-8 m-2 rounded-full bg-red-400 hover:bg-red-400/80"
-                      onClick={() => listColorHandler("red")}
-                    ></div>
-                    <div
-                      className="w-8 h-8 m-2 rounded-full bg-yellow-400 hover:bg-yellow-400/80"
-                      onClick={() => listColorHandler("yellow")}
-                    ></div>
-                    <div
-                      className="w-8 h-8 m-2 rounded-full bg-green-400 hover:bg-green-400/80"
-                      onClick={() => listColorHandler("green")}
-                    ></div>
-                    <div
-                      className="w-8 h-8 m-2 rounded-full bg-blue-400 hover:bg-blue-400/80"
-                      onClick={() => listColorHandler("blue")}
-                    ></div>
-                    <div
-                      className="w-8 h-8 m-2 rounded-full bg-purple-400 hover:bg-purple-400/80"
-                      onClick={() => listColorHandler("purple")}
-                    ></div>
-                    <div
-                      className="w-8 h-8 m-2 rounded-full bg-gray-400 hover:bg-gray-400/80"
-                      onClick={() => listColorHandler("gray")}
-                    ></div>
-                    <div
-                      className="w-8 h-8 m-2 rounded-full border-gray-400 border-2 hover:bg-gray-200"
-                      onClick={() => listColorHandler(false)}
-                    ></div>
+                    {allColors.map((color) => (
+                      <ReminderColorPicker
+                        color={color}
+                        listColorHandler={listColorHandler}
+                      />
+                    ))}
                   </div>
                 </div>
                 <div
