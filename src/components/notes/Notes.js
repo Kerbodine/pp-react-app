@@ -9,9 +9,12 @@ import {
   AiOutlineFileText,
   AiOutlineFileImage,
 } from "react-icons/ai";
-import { BiPencil, BiCaretDownCircle, BiCaretUpCircle } from "react-icons/bi";
-
-// import Editor from "rich-markdown-editor";
+import {
+  BiPencil,
+  BiCaretDownCircle,
+  BiCaretUpCircle,
+  BiLoaderAlt,
+} from "react-icons/bi";
 
 export default function Notes({ darkMode }) {
   const data = [
@@ -50,6 +53,7 @@ export default function Notes({ darkMode }) {
   const [viewModeDropdown, setViewModeDropdown] = useState(false);
   const [allPages, setAllPages] = useState(data);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [editorLoading, setEditorLoading] = useState(true);
 
   const readOnlyHandler = () => {
     setReadOnly(!readOnly);
@@ -187,22 +191,27 @@ export default function Notes({ darkMode }) {
             </div>
             <div className="px-8 overflow-hidden h-full bg-primary-100 dark:bg-primary-800 !text-black dark:!text-white">
               <div className="w-full h-[calc(100%-222px)] rounded-2xl overflow-hidden">
+                {editorLoading ? (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <BiLoaderAlt className="text-4xl text-white animate-spin" />
+                  </div>
+                ) : null}
                 <Editor
-                  onInit={(evt, editor) => (editorRef.current = editor)}
+                  onInit={(evt, editor) => {
+                    editorRef.current = editor;
+                    setEditorLoading(false);
+                  }}
                   key={[darkMode]}
                   id="tinymce-editor"
                   onEditorChange={handleUpdate}
                   initialValue={allPages[currentPageIndex].content}
                   apiKey="9jz5ulzyll0jkomjnscn6f2rm725w3kuuu6eoay5e974vhm7"
                   init={{
-                    // readonly: readOnly,
-                    // skin: darkMode ? "oxide-dark" : "oxide",
                     skin_url: darkMode ? "/oxide-dark" : "/oxide",
                     content_css: darkMode
                       ? "/dark-mode-content.css"
                       : "./light-mode-content.css",
                     height: "100%",
-                    // resize: true,
                     menubar: false,
                     resize: false,
                     plugins: [
