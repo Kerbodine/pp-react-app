@@ -22,6 +22,7 @@ export default function Reminders({
   setReminderData,
   darkMode,
   remindersListIndex,
+  setReminderListIndex,
 }) {
   const [allLists, setAllLists] = useState(remindersData);
   const [currentListIndex, setCurrentListIndex] = useState(remindersListIndex);
@@ -301,6 +302,10 @@ export default function Reminders({
   useEffect(() => {
     setReminderData(allLists);
   }, [allLists]);
+
+  useEffect(() => {
+    setReminderListIndex(currentListIndex);
+  }, [currentListIndex]);
 
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">

@@ -15,9 +15,14 @@ import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ReminderColorPicker from "../ui/ColorPicker";
 
-export default function ReadingList({ readingListData, setReadingListData }) {
+export default function ReadingList({
+  readingListData,
+  setReadingListData,
+  readingListIndex,
+  setReadingListIndex,
+}) {
   const [allLists, setAllLists] = useState(readingListData);
-  const [currentListIndex, setCurrentListIndex] = useState(4);
+  const [currentListIndex, setCurrentListIndex] = useState(readingListIndex);
   const [colorDropdown, setColorDropdown] = useState(false);
   const [showColorSelector, setShowColorSelector] = useState(true);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -265,6 +270,10 @@ export default function ReadingList({ readingListData, setReadingListData }) {
   useEffect(() => {
     setReadingListData(allLists);
   });
+
+  useEffect(() => {
+    setReadingListIndex(currentListIndex);
+  }, [currentListIndex]);
 
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">

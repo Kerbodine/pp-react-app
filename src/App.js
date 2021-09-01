@@ -256,14 +256,22 @@ function App() {
   }
 
   let remindersListIndex = 0;
-  if (localStorage.getItem("remindersListIndex") !== null) {
-    darkModeValue = JSON.parse(localStorage.getItem("remindersListIndex"));
+  if (localStorage.getItem("reminderIndex") !== null) {
+    remindersListIndex = JSON.parse(localStorage.getItem("reminderIndex"));
   }
+  const setReminderListIndex = (index) => {
+    remindersListIndex = index;
+    localStorage.setItem("reminderIndex", remindersListIndex);
+  };
 
   let readingListIndex = 0;
-  if (localStorage.getItem("readingListIndex") !== null) {
-    darkModeValue = JSON.parse(localStorage.getItem("readingListIndex"));
+  if (localStorage.getItem("readingIndex") !== null) {
+    readingListIndex = JSON.parse(localStorage.getItem("readingIndex"));
   }
+  const setReadingListIndex = (index) => {
+    readingListIndex = index;
+    localStorage.setItem("readingIndex", readingListIndex);
+  };
 
   const [darkMode, setDarkMode] = useState(darkModeValue);
   const [loading, setLoading] = useState(false);
@@ -315,6 +323,7 @@ function App() {
                       darkMode={darkMode}
                       setReminderData={setReminderData}
                       remindersListIndex={remindersListIndex}
+                      setReminderListIndex={setReminderListIndex}
                     />
                   )}
                 />
@@ -330,6 +339,8 @@ function App() {
                       key={readingListData}
                       readingListData={readingListData}
                       setReadingListData={setReadingListData}
+                      readingListIndex={readingListIndex}
+                      setReadingListIndex={setReadingListIndex}
                     />
                   )}
                 />
