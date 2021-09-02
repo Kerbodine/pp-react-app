@@ -261,7 +261,7 @@ function App() {
   }
   const setReminderListIndex = (index) => {
     remindersListIndex = index;
-    localStorage.setItem("reminderIndex", remindersListIndex);
+    // localStorage.setItem("reminderIndex", remindersListIndex);
   };
 
   let notesListIndex = 0;
@@ -270,7 +270,7 @@ function App() {
   }
   const setNotesListIndex = (index) => {
     notesListIndex = index;
-    localStorage.setItem("notesIndex", notesListIndex);
+    // localStorage.setItem("notesIndex", notesListIndex);
   };
 
   let readingListIndex = 0;
@@ -279,7 +279,7 @@ function App() {
   }
   const setReadingListIndex = (index) => {
     readingListIndex = index;
-    localStorage.setItem("readingIndex", readingListIndex);
+    // localStorage.setItem("readingIndex", readingListIndex);
   };
 
   const [darkMode, setDarkMode] = useState(darkModeValue);
