@@ -27,6 +27,7 @@ import {
   BiCheckCircle,
   BiBookContent,
 } from "react-icons/bi";
+import { UserProvider } from "./UserContext";
 
 function App() {
   const reminderCategories = [
@@ -305,7 +306,7 @@ function App() {
   };
 
   const userData = {
-    username: "Michael",
+    username: "Username",
   };
 
   const settingsContextData = {
@@ -336,71 +337,73 @@ function App() {
           <HashLoader color={"#3B82F6"} loading={loading} size={75} />
         </div>
       ) : (
-        <SettingsProvider settings={settingsContextData} user={userData}>
-          <Router>
-            {/* <Login /> */}
-            <div className="flex">
-              <Navbar />
-              <div className="w-full relative">
-                <PomodoroAlert timerComplete={timerComplete} />
-                <Switch>
-                  <Route path="/" exact component={Dashboard} />
-                  <Route
-                    path="/reminders"
-                    render={(props) => (
-                      <Reminders
-                        {...props}
-                        // key={reminderData}
-                        remindersData={reminderData}
-                        darkMode={darkMode}
-                        setReminderData={setReminderData}
-                        remindersListIndex={remindersListIndex}
-                        setReminderListIndex={setReminderListIndex}
-                      />
-                    )}
+        <UserProvider value={userData}>
+          <SettingsProvider value={settingsContextData}>
+            <Router>
+              {/* <Login /> */}
+              <div className="flex">
+                <Navbar />
+                <div className="w-full relative">
+                  <PomodoroAlert timerComplete={timerComplete} />
+                  <Switch>
+                    <Route path="/" exact component={Dashboard} />
+                    <Route
+                      path="/reminders"
+                      render={(props) => (
+                        <Reminders
+                          {...props}
+                          // key={reminderData}
+                          remindersData={reminderData}
+                          darkMode={darkMode}
+                          setReminderData={setReminderData}
+                          remindersListIndex={remindersListIndex}
+                          setReminderListIndex={setReminderListIndex}
+                        />
+                      )}
+                    />
+                    <Route
+                      path="/notes"
+                      render={(props) => (
+                        <Notes
+                          {...props}
+                          darkMode={darkMode}
+                          notesListIndex={notesListIndex}
+                          setNotesListIndex={setNotesListIndex}
+                        />
+                      )}
+                    />
+                    <Route
+                      path="/reading-list"
+                      render={(props) => (
+                        <ReadingList
+                          {...props}
+                          key={readingListData}
+                          readingListData={readingListData}
+                          setReadingListData={setReadingListData}
+                          readingListIndex={readingListIndex}
+                          setReadingListIndex={setReadingListIndex}
+                        />
+                      )}
+                    />
+                    <Route path="/extensions" component={Extras} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/settings" component={SettingsPage} />
+                  </Switch>
+                </div>
+                <div className="w-0 lg:w-72">
+                  <SidePanel
+                    onClick={toggleThemeHandler}
+                    credits={credits}
+                    setCredits={setCredits}
+                    setTimerComplete={setTimerComplete}
+                    reminderData={reminderData}
+                    setReminderData={setReminderData}
                   />
-                  <Route
-                    path="/notes"
-                    render={(props) => (
-                      <Notes
-                        {...props}
-                        darkMode={darkMode}
-                        notesListIndex={notesListIndex}
-                        setNotesListIndex={setNotesListIndex}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/reading-list"
-                    render={(props) => (
-                      <ReadingList
-                        {...props}
-                        key={readingListData}
-                        readingListData={readingListData}
-                        setReadingListData={setReadingListData}
-                        readingListIndex={readingListIndex}
-                        setReadingListIndex={setReadingListIndex}
-                      />
-                    )}
-                  />
-                  <Route path="/extensions" component={Extras} />
-                  <Route path="/profile" component={Profile} />
-                  <Route path="/settings" component={SettingsPage} />
-                </Switch>
+                </div>
               </div>
-              <div className="w-0 lg:w-72">
-                <SidePanel
-                  onClick={toggleThemeHandler}
-                  credits={credits}
-                  setCredits={setCredits}
-                  setTimerComplete={setTimerComplete}
-                  reminderData={reminderData}
-                  setReminderData={setReminderData}
-                />
-              </div>
-            </div>
-          </Router>
-        </SettingsProvider>
+            </Router>
+          </SettingsProvider>
+        </UserProvider>
       )}
     </div>
   );
