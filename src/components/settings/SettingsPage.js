@@ -34,6 +34,25 @@ export default function SettingsPage() {
               <SettingsLine caption="Pomodoro timer notifications" />
               <SettingsLine caption="Event notifications" />
             </div>
+            <div>
+              <h2 className="font-semibold text-xl mb-1">
+                Reminders Categories
+              </h2>
+              <SettingsLine caption="Show today category" />
+              <SettingsLine caption="Show important category" />
+              <SettingsLine caption="Show starred category" />
+              <SettingsLine caption="Show all tasks category" />
+            </div>
+            <div>
+              <h2 className="font-semibold text-xl mb-1">
+                Reading list Categories
+              </h2>
+              <SettingsLine caption="Show in progress category" />
+              <SettingsLine caption="Show completed category" />
+              <SettingsLine caption="Show book type category" />
+              <SettingsLine caption="Show favorites tasks category" />
+              <SettingsLine caption="Show favorites all books category" />
+            </div>
           </div>
         </div>
       </div>

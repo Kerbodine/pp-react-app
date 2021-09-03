@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import Navbar from "./components/navbar/Navbar";
-
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import Reminders from "./components/reminders/Reminders";
@@ -11,14 +11,12 @@ import ReadingList from "./components/readingList/ReadingList";
 import Extras from "./components/Extras";
 import SettingsPage from "./components/settings/SettingsPage";
 import SidePanel from "./components/sidebar/SidePanel";
-
-// import Login from "./components/Login";
-
 import HashLoader from "react-spinners/HashLoader";
-
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import PomodoroAlert from "./components/ui/PomodoroAlert";
+// import Login from "./components/Login";
+import { SettingsProvider } from "./components/settings/SettingsContext";
 
-import { v4 as uuidv4 } from "uuid";
 import {
   BiListUl,
   BiSun,
@@ -29,7 +27,6 @@ import {
   BiCheckCircle,
   BiBookContent,
 } from "react-icons/bi";
-import PomodoroAlert from "./components/ui/PomodoroAlert";
 
 function App() {
   const reminderCategories = [
@@ -307,6 +304,31 @@ function App() {
     setDarkMode(!darkMode);
   };
 
+  const userData = {
+    username: "Michael",
+  };
+
+  const settingsContextData = {
+    darkMode: true,
+    sidebarGreeting: true,
+    sidebarCalendar: true,
+    sidebarPomodoro: true,
+    sidebarTasks: true,
+    sidebarNotes: true,
+    notificationTasks: true,
+    notificationPomodoro: true,
+    notificationEvent: true,
+    reminderToday: true,
+    reminderImportant: true,
+    reminderStarred: true,
+    reminderAll: true,
+    readingProgress: true,
+    readingComplete: true,
+    readingType: true,
+    readingFavorite: true,
+    readingAll: true,
+  };
+
   return (
     <div className={`${darkMode ? "dark" : ""} App overflow-hidden`}>
       {loading ? (
@@ -314,69 +336,71 @@ function App() {
           <HashLoader color={"#3B82F6"} loading={loading} size={75} />
         </div>
       ) : (
-        <Router>
-          {/* <Login /> */}
-          <div className="flex">
-            <Navbar />
-            <div className="w-full relative">
-              <PomodoroAlert timerComplete={timerComplete} />
-              <Switch>
-                <Route path="/" exact component={Dashboard} />
-                <Route
-                  path="/reminders"
-                  render={(props) => (
-                    <Reminders
-                      {...props}
-                      // key={reminderData}
-                      remindersData={reminderData}
-                      darkMode={darkMode}
-                      setReminderData={setReminderData}
-                      remindersListIndex={remindersListIndex}
-                      setReminderListIndex={setReminderListIndex}
-                    />
-                  )}
+        <SettingsProvider settings={settingsContextData} user={userData}>
+          <Router>
+            {/* <Login /> */}
+            <div className="flex">
+              <Navbar />
+              <div className="w-full relative">
+                <PomodoroAlert timerComplete={timerComplete} />
+                <Switch>
+                  <Route path="/" exact component={Dashboard} />
+                  <Route
+                    path="/reminders"
+                    render={(props) => (
+                      <Reminders
+                        {...props}
+                        // key={reminderData}
+                        remindersData={reminderData}
+                        darkMode={darkMode}
+                        setReminderData={setReminderData}
+                        remindersListIndex={remindersListIndex}
+                        setReminderListIndex={setReminderListIndex}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/notes"
+                    render={(props) => (
+                      <Notes
+                        {...props}
+                        darkMode={darkMode}
+                        notesListIndex={notesListIndex}
+                        setNotesListIndex={setNotesListIndex}
+                      />
+                    )}
+                  />
+                  <Route
+                    path="/reading-list"
+                    render={(props) => (
+                      <ReadingList
+                        {...props}
+                        key={readingListData}
+                        readingListData={readingListData}
+                        setReadingListData={setReadingListData}
+                        readingListIndex={readingListIndex}
+                        setReadingListIndex={setReadingListIndex}
+                      />
+                    )}
+                  />
+                  <Route path="/extensions" component={Extras} />
+                  <Route path="/profile" component={Profile} />
+                  <Route path="/settings" component={SettingsPage} />
+                </Switch>
+              </div>
+              <div className="w-0 lg:w-72">
+                <SidePanel
+                  onClick={toggleThemeHandler}
+                  credits={credits}
+                  setCredits={setCredits}
+                  setTimerComplete={setTimerComplete}
+                  reminderData={reminderData}
+                  setReminderData={setReminderData}
                 />
-                <Route
-                  path="/notes"
-                  render={(props) => (
-                    <Notes
-                      {...props}
-                      darkMode={darkMode}
-                      notesListIndex={notesListIndex}
-                      setNotesListIndex={setNotesListIndex}
-                    />
-                  )}
-                />
-                <Route
-                  path="/reading-list"
-                  render={(props) => (
-                    <ReadingList
-                      {...props}
-                      key={readingListData}
-                      readingListData={readingListData}
-                      setReadingListData={setReadingListData}
-                      readingListIndex={readingListIndex}
-                      setReadingListIndex={setReadingListIndex}
-                    />
-                  )}
-                />
-                <Route path="/extensions" component={Extras} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/settings" component={SettingsPage} />
-              </Switch>
+              </div>
             </div>
-            <div className="w-0 lg:w-72">
-              <SidePanel
-                onClick={toggleThemeHandler}
-                credits={credits}
-                setCredits={setCredits}
-                setTimerComplete={setTimerComplete}
-                reminderData={reminderData}
-                setReminderData={setReminderData}
-              />
-            </div>
-          </div>
-        </Router>
+          </Router>
+        </SettingsProvider>
       )}
     </div>
   );
