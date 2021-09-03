@@ -310,7 +310,8 @@ function App() {
   };
 
   const settingsContextData = {
-    darkMode: true,
+    darkMode: darkMode,
+    setDarkMode: toggleThemeHandler,
     sidebarGreeting: true,
     sidebarCalendar: true,
     sidebarPomodoro: true,

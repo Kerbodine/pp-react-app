@@ -1,24 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { SettingsConsumer } from "./SettingsContext";
 import SettingsLine from "./SettingsLine";
+import settingsContext from "./SettingsContext";
 
 export default function SettingsPage() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { setDarkMode } = useContext(settingsContext);
 
   return (
     <div className="h-screen w-full bg-primary dark:bg-primary-900 flex pr-4 py-4 lg:pr-0">
       <div className="bg-primary-100 dark:bg-primary-800 rounded-2xl w-full h-full flex flex-col items-center overflow-hidden text-black dark:text-white">
+        <div className={`w-full h-12 bg-primary-200 dark:bg-primary-700`}></div>
         <div className="p-8 max-w-[1024px] w-full">
           <h1 className="text-4xl font-bold">Settings</h1>
           <div className="mt-4 flex flex-col gap-4">
             <div>
               <h2 className="font-semibold text-xl mb-1">Theme</h2>
-              <SettingsLine
-                caption="Use dark mode as default"
-                onClick={() => {
-                  setDarkMode(!darkMode);
+              <SettingsConsumer>
+                {(settings) => {
+                  return (
+                    <SettingsLine
+                      caption="Use dark mode as default"
+                      onClick={setDarkMode}
+                      condition={!settings.darkMode}
+                    />
+                  );
                 }}
-                condition={darkMode}
-              />
+              </SettingsConsumer>
             </div>
             <div>
               <h2 className="font-semibold text-xl mb-1">Sidebar</h2>
