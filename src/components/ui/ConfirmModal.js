@@ -33,7 +33,7 @@ export default function ConfirmModal({
               Cancel
             </button>
             <button
-              className="w-24 h-10 p-2 bg-red-400 active:bg-red-500 text-white rounded-md"
+              className="w-24 h-10 p-2 bg-red-400 text-white rounded-md"
               onClick={deleteListHandler}
             >
               Delete

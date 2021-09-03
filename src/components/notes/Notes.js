@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import TagList from "./TagList";
 import PageSidebar from "./PageSidebar";
 import { Editor } from "@tinymce/tinymce-react";
-import ReminderColorPicker from "../ui/ColorPicker";
+import ColorPicker from "../ui/ColorPicker";
 import ConfirmModal from "../ui/ConfirmModal";
 import {
   BiPencil,
@@ -193,10 +193,10 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
                   <div
                     className={`${
                       colorDropdown ? "visible" : "hidden"
-                    } absolute top-10 w-[6.5rem] h-auto z-20 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
+                    } absolute top-10 w-[6.5rem] h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
                   >
                     {allColors.map((color) => (
-                      <ReminderColorPicker
+                      <ColorPicker
                         color={color}
                         listColorHandler={listColorHandler}
                       />
@@ -279,7 +279,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
               <div className="w-full h-[calc(100%-222px)] rounded-2xl overflow-hidden">
                 {editorLoading ? (
                   <div className="w-full h-full flex items-center justify-center">
-                    <BiLoaderAlt className="text-4xl text-white animate-spin" />
+                    <BiLoaderAlt className="text-4xl text-black dark:text-white animate-spin" />
                   </div>
                 ) : null}
                 <Editor

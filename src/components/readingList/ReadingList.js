@@ -13,7 +13,7 @@ import {
 } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import ReminderColorPicker from "../ui/ColorPicker";
+import ColorPicker from "../ui/ColorPicker";
 
 export default function ReadingList({
   readingListData,
@@ -318,10 +318,10 @@ export default function ReadingList({
                   <div
                     className={`${
                       colorDropdown ? "visible" : "hidden"
-                    } absolute top-10 w-[6.5rem] h-auto z-20 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
+                    } absolute top-10 w-[6.5rem] h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
                   >
                     {allColors.map((color) => (
-                      <ReminderColorPicker
+                      <ColorPicker
                         color={color}
                         listColorHandler={listColorHandler}
                       />
