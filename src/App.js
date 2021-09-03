@@ -16,6 +16,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 import PomodoroAlert from "./components/ui/PomodoroAlert";
 // import Login from "./components/Login";
 import { SettingsProvider } from "./components/settings/SettingsContext";
+import { UserProvider } from "./UserContext";
 
 import {
   BiListUl,
@@ -27,7 +28,6 @@ import {
   BiCheckCircle,
   BiBookContent,
 } from "react-icons/bi";
-import { UserProvider } from "./UserContext";
 
 function App() {
   const reminderCategories = [
@@ -248,11 +248,6 @@ function App() {
     },
   ];
 
-  let darkModeValue = false;
-  if (localStorage.getItem("darkMode") !== null) {
-    darkModeValue = JSON.parse(localStorage.getItem("darkMode"));
-  }
-
   let remindersListIndex = 0;
   if (localStorage.getItem("reminderIndex") !== null) {
     remindersListIndex = JSON.parse(localStorage.getItem("reminderIndex"));
@@ -280,7 +275,50 @@ function App() {
     // localStorage.setItem("readingIndex", readingListIndex);
   };
 
-  const [darkMode, setDarkMode] = useState(darkModeValue);
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode")
+      ? JSON.parse(localStorage.getItem("darkMode"))
+      : false
+  );
+
+  const toggleThemeHandler = () => {
+    localStorage.setItem("darkMode", !darkMode);
+    setDarkMode(!darkMode);
+  };
+
+  const [sidebarGreeting, setSidebarGreeting] = useState(
+    localStorage.getItem("sidebarGreeting")
+      ? JSON.parse(localStorage.getItem("sidebarGreeting"))
+      : true
+  );
+
+  const toggleGreetingHandler = () => {
+    localStorage.setItem("sidebarGreeting", !sidebarGreeting);
+    setSidebarGreeting(!sidebarGreeting);
+  };
+
+  const [sidebarCalendar, setSidebarCalendar] = useState(
+    localStorage.getItem("sidebarCalendar")
+      ? JSON.parse(localStorage.getItem("sidebarCalendar"))
+      : true
+  );
+
+  const toggleCalendarHandler = () => {
+    localStorage.setItem("sidebarCalendar", !sidebarCalendar);
+    setSidebarCalendar(!sidebarCalendar);
+  };
+
+  const [sidebarPomodoro, setSidebarPomodoro] = useState(
+    localStorage.getItem("sidebarPomodoro")
+      ? JSON.parse(localStorage.getItem("sidebarPomodoro"))
+      : true
+  );
+
+  const togglePomodoroHandler = () => {
+    localStorage.setItem("sidebarPomodoro", !sidebarPomodoro);
+    setSidebarPomodoro(!sidebarPomodoro);
+  };
+
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
   const [reminderData, setReminderData] = useState([
@@ -300,11 +338,6 @@ function App() {
     }, 1000);
   }, []);
 
-  const toggleThemeHandler = () => {
-    localStorage.setItem("darkMode", !darkMode);
-    setDarkMode(!darkMode);
-  };
-
   const userData = {
     username: "Username",
   };
@@ -312,9 +345,12 @@ function App() {
   const settingsContextData = {
     darkMode: darkMode,
     setDarkMode: toggleThemeHandler,
-    sidebarGreeting: true,
-    sidebarCalendar: true,
-    sidebarPomodoro: true,
+    sidebarGreeting: sidebarGreeting,
+    setSidebarGreeting: toggleGreetingHandler,
+    sidebarCalendar: sidebarCalendar,
+    setSidebarCalendar: toggleCalendarHandler,
+    sidebarPomodoro: sidebarPomodoro,
+    setSidebarPomodoro: togglePomodoroHandler,
     sidebarTasks: true,
     sidebarNotes: true,
     notificationTasks: true,

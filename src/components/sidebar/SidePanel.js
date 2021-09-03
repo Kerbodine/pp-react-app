@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import Calendar from "react-calendar";
 import SideWidget from "./SideWidget";
 import SideStickie from "./SideStickie";
 import SideTask from "./SideTask";
@@ -12,6 +11,7 @@ import "./calendar.css";
 import { BiAdjust, BiInfoCircle } from "react-icons/bi";
 import SidePomodoro from "./SidePomodoro";
 import SideGreeting from "./SideGreeting";
+import SideCalendar from "./SideCalendar";
 
 export default function SidePanel({
   onClick,
@@ -94,12 +94,8 @@ export default function SidePanel({
         </div>
         <div className="h-[calc(100%-5rem)] bg-primary dark:bg-primary-900 overflow-y-auto overflow-hidden no-scrollbar px-4 flex flex-col gap-4 text-black dark:text-white">
           <SideGreeting />
-          <div className="p-2 bg-primary-100 dark:bg-primary-800 rounded-2xl">
-            <Calendar calendarType="US" view="month" />
-          </div>
-          <div>
-            <SidePomodoro />
-          </div>
+          <SideCalendar />
+          <SidePomodoro />
           <div className="w-full p-4 flex flex-col bg-primary-100 dark:bg-primary-800 rounded-2xl">
             <h3 className="text-lg font-bold mb-2">Pinned tasks</h3>
             <div className="flex flex-col gap-2">
