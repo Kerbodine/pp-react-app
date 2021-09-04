@@ -14,6 +14,11 @@ export default function SettingsPage() {
     setSidebarPomodoro,
     setSidebarTasks,
     setSidebarNotes,
+    setRemindersToday,
+    setRemindersImportant,
+    setRemindersStarred,
+    setRemindersPinned,
+    setRemindersAll,
   } = useContext(settingsContext);
 
   const [settingsPage, setSettingsPage] = useState(0);
@@ -110,10 +115,31 @@ export default function SettingsPage() {
                           <h2 className="font-semibold text-xl mb-1">
                             Categories
                           </h2>
-                          <SettingsLine caption="Show today category" />
-                          <SettingsLine caption="Show important category" />
-                          <SettingsLine caption="Show starred category" />
-                          <SettingsLine caption="Show all tasks category" />
+                          <SettingsLine
+                            caption="Show today category"
+                            onClick={setRemindersToday}
+                            condition={settings.remindersToday}
+                          />
+                          <SettingsLine
+                            caption="Show priority category"
+                            onClick={setRemindersImportant}
+                            condition={settings.remindersImportant}
+                          />
+                          <SettingsLine
+                            caption="Show starred category"
+                            onClick={setRemindersStarred}
+                            condition={settings.remindersStarred}
+                          />
+                          <SettingsLine
+                            caption="Show pinned tasks category"
+                            onClick={setRemindersPinned}
+                            condition={settings.remindersPinned}
+                          />
+                          <SettingsLine
+                            caption="Show all tasks category"
+                            onClick={setRemindersAll}
+                            condition={settings.remindersAll}
+                          />
                         </div>
                       ) : null}
                       {settingsPage === 4 ? (

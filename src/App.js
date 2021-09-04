@@ -294,7 +294,7 @@ function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(
     localStorage.getItem("sidebarCollapsed")
       ? JSON.parse(localStorage.getItem("sidebarCollapsed"))
-      : true
+      : false
   );
 
   const toggleSidebarCollapsed = () => {
@@ -362,6 +362,61 @@ function App() {
     setSidebarNotes(!sidebarNotes);
   };
 
+  const [remindersToday, setRemindersToday] = useState(
+    localStorage.getItem("remindersToday")
+      ? JSON.parse(localStorage.getItem("remindersToday"))
+      : true
+  );
+
+  const toggleRemindersToday = () => {
+    localStorage.setItem("remindersToday", !remindersToday);
+    setRemindersToday(!remindersToday);
+  };
+
+  const [remindersImportant, setRemindersImportant] = useState(
+    localStorage.getItem("remindersImportant")
+      ? JSON.parse(localStorage.getItem("remindersImportant"))
+      : true
+  );
+
+  const toggleRemindersImportant = () => {
+    localStorage.setItem("remindersImportant", !remindersImportant);
+    setRemindersImportant(!remindersImportant);
+  };
+
+  const [remindersStarred, setRemindersStarred] = useState(
+    localStorage.getItem("remindersStarred")
+      ? JSON.parse(localStorage.getItem("remindersStarred"))
+      : true
+  );
+
+  const toggleRemindersStarred = () => {
+    localStorage.setItem("remindersStarred", !remindersStarred);
+    setRemindersStarred(!remindersStarred);
+  };
+
+  const [remindersPinned, setRemindersPinned] = useState(
+    localStorage.getItem("remindersPinned")
+      ? JSON.parse(localStorage.getItem("remindersPinned"))
+      : false
+  );
+
+  const toggleRemindersPinned = () => {
+    localStorage.setItem("remindersPinned", !remindersPinned);
+    setRemindersPinned(!remindersPinned);
+  };
+
+  const [remindersAll, setRemindersAll] = useState(
+    localStorage.getItem("remindersAll")
+      ? JSON.parse(localStorage.getItem("remindersAll"))
+      : false
+  );
+
+  const toggleRemindersAll = () => {
+    localStorage.setItem("remindersAll", !remindersAll);
+    setRemindersAll(!remindersAll);
+  };
+
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
   const [reminderData, setReminderData] = useState([
@@ -403,10 +458,16 @@ function App() {
     notificationTasks: true,
     notificationPomodoro: true,
     notificationEvent: true,
-    reminderToday: true,
-    reminderImportant: true,
-    reminderStarred: true,
-    reminderAll: true,
+    remindersToday: remindersToday,
+    setRemindersToday: toggleRemindersToday,
+    remindersImportant: remindersImportant,
+    setRemindersImportant: toggleRemindersImportant,
+    remindersStarred: remindersStarred,
+    setRemindersStarred: toggleRemindersStarred,
+    remindersPinned: remindersPinned,
+    setRemindersPinned: toggleRemindersPinned,
+    remindersAll: remindersAll,
+    setRemindersAll: toggleRemindersAll,
     readingProgress: true,
     readingComplete: true,
     readingType: true,
