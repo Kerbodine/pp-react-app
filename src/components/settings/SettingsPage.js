@@ -153,8 +153,8 @@ export default function SettingsPage() {
                           <SettingsLine caption="Show in progress category" />
                           <SettingsLine caption="Show completed category" />
                           <SettingsLine caption="Show book type category" />
-                          <SettingsLine caption="Show favorites tasks category" />
-                          <SettingsLine caption="Show favorites all books category" />
+                          <SettingsLine caption="Show favorites category" />
+                          <SettingsLine caption="Show all books category" />
                         </div>
                       ) : null}
                     </>

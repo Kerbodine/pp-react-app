@@ -193,7 +193,7 @@ export default function TaskItem({
             placeholder="Add a description..."
             value={taskDescription}
             onChange={descriptionChangeHandler}
-            className="text-sm bg-transparent flex-auto h-auto outline-none mr-2 resize-y text-primary-600 dark:text-primary-400 max-h-[12rem]"
+            className="text-sm h-[32px] bg-transparent flex-auto outline-none mr-2 resize-y text-primary-600 dark:text-primary-400 max-h-[12rem]"
           ></textarea>
           <div className="flex">
             <button
