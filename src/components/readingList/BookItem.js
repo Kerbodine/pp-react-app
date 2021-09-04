@@ -101,7 +101,7 @@ export default function BookItem({
         setProgressColor("amber");
         break;
       case "Complete":
-        setProgressColor("green");
+        setProgressColor("emerald");
         break;
       default:
         setProgressColor("red");

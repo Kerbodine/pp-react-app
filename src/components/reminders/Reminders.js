@@ -102,7 +102,7 @@ export default function Reminders({
 
   // Function to change list title
   const titleChangeHandler = (e) => {
-    if (currentListIndex >= 4) {
+    if (currentListIndex >= 5) {
       let temp = allLists;
       temp[currentListIndex].title = e.target.value;
       setAllLists([...temp]);
@@ -226,6 +226,7 @@ export default function Reminders({
     const todayFilter = (task) => task.today === true;
     const importantFilter = (task) => task.important === true;
     const starredFilter = (task) => task.starred === true;
+    const pinnedFilter = (task) => task.pinned === true;
     const allTaskFilter = (task) => task;
 
     let taskFilter;
@@ -243,6 +244,9 @@ export default function Reminders({
         taskFilter = starredFilter;
         break;
       case 3:
+        taskFilter = pinnedFilter;
+        break;
+      case 4:
         taskFilter = allTaskFilter;
         break;
       default:
@@ -261,7 +265,7 @@ export default function Reminders({
               key={task.id}
               draggableId={task.id}
               index={index}
-              isDragDisabled={currentListIndex < 4}
+              isDragDisabled={currentListIndex < 5}
             >
               {(provided, snapshot) => (
                 <div
@@ -284,7 +288,7 @@ export default function Reminders({
                     deleteTask={deleteTaskHandler}
                     isDragging={snapshot.isDragging}
                     completeTaskHandler={completeTaskHandler}
-                    dragEnabled={currentListIndex > 3 ? true : false}
+                    dragEnabled={currentListIndex < 5 ? false : true}
                   />
                 </div>
               )}
@@ -336,7 +340,7 @@ export default function Reminders({
                 ></input>
                 <div
                   className={`${
-                    currentListIndex < 4 ? "hidden" : "visible"
+                    currentListIndex < 5 ? "hidden" : "visible"
                   } relative w-8 h-8 rounded-full bg-${
                     allLists[currentListIndex].color
                       ? `${allLists[currentListIndex].color}-400 text-white`
@@ -362,7 +366,7 @@ export default function Reminders({
                 </div>
                 <div
                   className={`${
-                    currentListIndex < 4 ? "hidden" : "visible"
+                    currentListIndex < 5 ? "hidden" : "visible"
                   } relative w-8 h-8 rounded-full bg-primary-200 hover:bg-red-400 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl ml-2 flex items-center justify-center`}
                   onClick={toggleDeleteConfirmation}
                 >
@@ -378,7 +382,7 @@ export default function Reminders({
               </div>
               <div
                 className={`mx-8 flex gap-2 ${
-                  currentListIndex < 4 ? "hidden" : "visible"
+                  currentListIndex < 5 ? "hidden" : "visible"
                 } text-black dark:text-white`}
               >
                 <div className="w-full h-6 bg-primary-200 text-sm dark:bg-primary-700 rounded-md flex items-center px-2">{`${
@@ -480,7 +484,7 @@ export default function Reminders({
                   )}
                   <div
                     className={`${
-                      currentListIndex > 3 ? "visible" : "hidden"
+                      currentListIndex < 5 ? "hidden" : "visible"
                     } mx-8 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-primary-200 transition-all dark:hover:bg-primary-700`}
                     onClick={newTaskHandler}
                   >

@@ -27,6 +27,7 @@ import {
   BiTime,
   BiCheckCircle,
   BiBookContent,
+  BiPin,
 } from "react-icons/bi";
 
 function App() {
@@ -54,6 +55,15 @@ function App() {
       title: "Starred",
       color: "amber",
       icon: <BiStar />,
+      tasks: [],
+      completed: [],
+      showCompleted: false,
+    },
+    {
+      id: uuidv4(),
+      title: "Pinned",
+      color: "indigo",
+      icon: <BiPin />,
       tasks: [],
       completed: [],
       showCompleted: false,
@@ -186,7 +196,7 @@ function App() {
     {
       id: uuidv4(),
       title: "Finished",
-      color: "green",
+      color: "emerald",
       icon: <BiCheckCircle />,
       books: [],
     },

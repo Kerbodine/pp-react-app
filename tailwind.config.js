@@ -22,7 +22,7 @@ module.exports = {
       "bg-pink-400",
       "bg-rose-400",
       "border-red-400",
-      "border-green-400",
+      "border-emerald-400",
       "border-amber-400",
     ],
   },
