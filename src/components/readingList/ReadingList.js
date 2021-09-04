@@ -277,7 +277,7 @@ export default function ReadingList({
 
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
-      <div className="my-4 mr-4 lg:mr-0 w-full">
+      <div className="my-4 w-full">
         <div className="h-full rounded-2xl flex overflow-hidden">
           <div className="h-full">
             <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">

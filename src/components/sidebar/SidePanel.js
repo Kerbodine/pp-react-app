@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import SideWidget from "./SideWidget";
 import SideStickie from "./SideStickie";
 import SideTask from "./SideTask";
 
@@ -8,10 +7,11 @@ import SettingsContextProvider from "./SettingsContext";
 
 import "./calendar.css";
 
-import { BiAdjust, BiInfoCircle } from "react-icons/bi";
+import { BiAdjust } from "react-icons/bi";
 import SidePomodoro from "./SidePomodoro";
 import SideGreeting from "./SideGreeting";
 import SideCalendar from "./SideCalendar";
+import SideTaskList from "./SideTaskList";
 
 export default function SidePanel({
   onClick,
@@ -79,44 +79,24 @@ export default function SidePanel({
 
   return (
     <SettingsContextProvider setTimerComplete={setTimerComplete}>
-      <div className="w-72 h-screen">
-        <div className="flex gap-4 h-20 bg-primary dark:bg-primary-900 p-4">
-          <div className="w-32 flex gap-2 items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl px-3 justify-center text-black dark:text-white"></div>
-          <button className="w-12 h-12 bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"></button>
+      <div className="w-20 lg:w-72 h-screen bg-primary dark:bg-primary-900">
+        <div className="flex flex-col lg:flex-row gap-4 h-20 p-4">
+          {/* <div className="w-32 flex gap-2 items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl px-3 justify-center text-black dark:text-white"></div> */}
           <button
             onClick={onClick}
-            className="w-12 h-12 bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"
+            className="min-w-[3rem] min-h-[3rem] bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"
           >
             <div className="dark:rotate-180 duration-500 transition-transform">
               <BiAdjust />
             </div>
           </button>
+          <button className="min-w-[3rem] min-h-[3rem] bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"></button>
         </div>
-        <div className="h-[calc(100%-5rem)] bg-primary dark:bg-primary-900 overflow-y-auto overflow-hidden no-scrollbar px-4 flex flex-col gap-4 text-black dark:text-white">
+        <div className="h-[calc(100%-5rem)] hidden overflow-y-auto overflow-hidden no-scrollbar px-4 lg:flex lg:flex-col gap-4 text-black dark:text-white">
           <SideGreeting />
           <SideCalendar />
           <SidePomodoro />
-          <div className="w-full p-4 flex flex-col bg-primary-100 dark:bg-primary-800 rounded-2xl">
-            <h3 className="text-lg font-bold mb-2">Pinned tasks</h3>
-            <div className="flex flex-col gap-2">
-              {taskList.length > 0 ? (
-                taskList
-              ) : (
-                <div className="flex items-center">
-                  <BiInfoCircle />
-                  <p className="ml-1 text-sm">No pinned tasks</p>
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="flex gap-4">
-            <SideWidget eventName="Test event" countdown="6" timeUnit="days" />
-            <SideWidget
-              eventName="Test event 2"
-              countdown="11"
-              timeUnit="days"
-            />
-          </div>
+          <SideTaskList taskList={taskList} />
           <SideStickie />
         </div>
       </div>

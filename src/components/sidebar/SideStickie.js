@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import settingsContext from "../settings/SettingsContext";
 
 export default function SideStickie({ title, content }) {
+  const { sidebarNotes } = useContext(settingsContext);
+
   return (
-    <div className="w-full mb-4 h-auto p-4 bg-primary-100 dark:bg-primary-800 rounded-2xl text-black dark:text-white">
+    <div
+      className={`${
+        sidebarNotes ? "visible" : "hidden"
+      } w-full mb-4 h-auto p-4 bg-primary-100 dark:bg-primary-800 rounded-2xl text-black dark:text-white`}
+    >
       <h3 className="text-xl font-bold">{title}Title</h3>
       <p className="text-sm">
         {content}Consequat fugiat occaecat dolore tempor. Anim id qui ea mollit

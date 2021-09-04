@@ -1,7 +1,7 @@
 import React from "react";
 import {
   BiCheckSquare,
-  BiBook,
+  BiBookBookmark,
   BiNotification,
   BiSidebar,
   BiWorld,
@@ -52,7 +52,7 @@ export default function SettingsSidebar({ setSettingsPage, settingsPage }) {
         <SettingsItem
           index={4}
           title="Reading list"
-          icon={<BiBook />}
+          icon={<BiBookBookmark />}
           selectList={selectList}
           settingsPage={settingsPage}
         />

@@ -152,7 +152,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
 
   return (
     <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
-      <div className="w-full h-auto mr-4 mt-4 mb-4 lg:mr-0">
+      <div className="w-full h-auto my-4">
         <div className="h-full rounded-2xl overflow-hidden transition-width flex flex-row ">
           <div className="h-full">
             <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">

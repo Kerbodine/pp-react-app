@@ -11,7 +11,7 @@ import ReadingList from "./components/readingList/ReadingList";
 import Extras from "./components/Extras";
 import SettingsPage from "./components/settings/SettingsPage";
 import SidePanel from "./components/sidebar/SidePanel";
-import HashLoader from "react-spinners/HashLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import PomodoroAlert from "./components/ui/PomodoroAlert";
 // import Login from "./components/Login";
@@ -319,6 +319,28 @@ function App() {
     setSidebarPomodoro(!sidebarPomodoro);
   };
 
+  const [sidebarTasks, setSidebarTasks] = useState(
+    localStorage.getItem("sidebarTasks")
+      ? JSON.parse(localStorage.getItem("sidebarTasks"))
+      : true
+  );
+
+  const toggleSidebarTasks = () => {
+    localStorage.setItem("sidebarTasks", !sidebarTasks);
+    setSidebarTasks(!sidebarTasks);
+  };
+
+  const [sidebarNotes, setSidebarNotes] = useState(
+    localStorage.getItem("sidebarNotes")
+      ? JSON.parse(localStorage.getItem("sidebarNotes"))
+      : true
+  );
+
+  const toggleSidebarNotes = () => {
+    localStorage.setItem("sidebarTasks", !sidebarNotes);
+    setSidebarNotes(!sidebarNotes);
+  };
+
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
   const [reminderData, setReminderData] = useState([
@@ -351,8 +373,10 @@ function App() {
     setSidebarCalendar: toggleCalendarHandler,
     sidebarPomodoro: sidebarPomodoro,
     setSidebarPomodoro: togglePomodoroHandler,
-    sidebarTasks: true,
-    sidebarNotes: true,
+    sidebarTasks: sidebarTasks,
+    setSidebarTasks: toggleSidebarTasks,
+    sidebarNotes: sidebarNotes,
+    setSidebarNotes: toggleSidebarNotes,
     notificationTasks: true,
     notificationPomodoro: true,
     notificationEvent: true,
@@ -370,8 +394,13 @@ function App() {
   return (
     <div className={`${darkMode ? "dark" : ""} App overflow-hidden`}>
       {loading ? (
-        <div className="text-center justify-center items-center flex w-screen h-screen">
-          <HashLoader color={"#3B82F6"} loading={loading} size={75} />
+        <div className="text-center justify-center bg-white dark:bg-primary-900 items-center flex w-screen h-screen">
+          <PulseLoader
+            color={"#3B82F6"}
+            loading={loading}
+            size={20}
+            margin={4}
+          />
         </div>
       ) : (
         <UserProvider value={userData}>
@@ -427,16 +456,14 @@ function App() {
                     <Route path="/settings" component={SettingsPage} />
                   </Switch>
                 </div>
-                <div className="w-0 lg:w-72">
-                  <SidePanel
-                    onClick={toggleThemeHandler}
-                    credits={credits}
-                    setCredits={setCredits}
-                    setTimerComplete={setTimerComplete}
-                    reminderData={reminderData}
-                    setReminderData={setReminderData}
-                  />
-                </div>
+                <SidePanel
+                  onClick={toggleThemeHandler}
+                  credits={credits}
+                  setCredits={setCredits}
+                  setTimerComplete={setTimerComplete}
+                  reminderData={reminderData}
+                  setReminderData={setReminderData}
+                />
               </div>
             </Router>
           </SettingsProvider>

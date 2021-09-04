@@ -11,6 +11,8 @@ export default function SettingsPage() {
     setSidebarGreeting,
     setSidebarCalendar,
     setSidebarPomodoro,
+    setSidebarTasks,
+    setSidebarNotes,
   } = useContext(settingsContext);
 
   const [settingsPage, setSettingsPage] = useState(0);
@@ -18,8 +20,8 @@ export default function SettingsPage() {
   console.log(settingsPage);
 
   return (
-    <div className="h-screen w-full bg-primary dark:bg-primary-900 flex pr-4 py-4 lg:pr-0">
-      <div className="overflow-hidden rounded-2xl flex w-full">
+    <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
+      <div className="overflow-hidden rounded-2xl flex w-full my-4">
         <div className="h-full">
           <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">
             <SettingsSidebar
@@ -70,8 +72,16 @@ export default function SettingsPage() {
                             onClick={setSidebarPomodoro}
                             condition={settings.sidebarPomodoro}
                           />
-                          <SettingsLine caption="Show pinned tasks" />
-                          <SettingsLine caption="Show pinned sticky notes" />
+                          <SettingsLine
+                            caption="Show pinned tasks"
+                            onClick={setSidebarTasks}
+                            condition={settings.sidebarTasks}
+                          />
+                          <SettingsLine
+                            caption="Show pinned sticky notes"
+                            onClick={setSidebarNotes}
+                            condition={settings.sidebarNotes}
+                          />
                         </div>
                       ) : null}
                       {settingsPage === 2 ? (
