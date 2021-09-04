@@ -281,6 +281,17 @@ function App() {
       : false
   );
 
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(
+    localStorage.getItem("sidebarCollapsed")
+      ? JSON.parse(localStorage.getItem("sidebarCollapsed"))
+      : true
+  );
+
+  const toggleSidebarCollapsed = () => {
+    localStorage.setItem("sidebarCollapsed", !sidebarCollapsed);
+    setSidebarCollapsed(!sidebarCollapsed);
+  };
+
   const toggleThemeHandler = () => {
     localStorage.setItem("darkMode", !darkMode);
     setDarkMode(!darkMode);
@@ -367,6 +378,8 @@ function App() {
   const settingsContextData = {
     darkMode: darkMode,
     setDarkMode: toggleThemeHandler,
+    sidebarCollapsed: sidebarCollapsed,
+    setSidebarCollapsed: toggleSidebarCollapsed,
     sidebarGreeting: sidebarGreeting,
     setSidebarGreeting: toggleGreetingHandler,
     sidebarCalendar: sidebarCalendar,
@@ -418,7 +431,6 @@ function App() {
                       render={(props) => (
                         <Reminders
                           {...props}
-                          // key={reminderData}
                           remindersData={reminderData}
                           darkMode={darkMode}
                           setReminderData={setReminderData}
@@ -443,7 +455,6 @@ function App() {
                       render={(props) => (
                         <ReadingList
                           {...props}
-                          key={readingListData}
                           readingListData={readingListData}
                           setReadingListData={setReadingListData}
                           readingListIndex={readingListIndex}

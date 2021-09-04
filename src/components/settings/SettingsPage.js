@@ -8,6 +8,7 @@ import { useState } from "react";
 export default function SettingsPage() {
   const {
     setDarkMode,
+    setSidebarCollapsed,
     setSidebarGreeting,
     setSidebarCalendar,
     setSidebarPomodoro,
@@ -53,8 +54,16 @@ export default function SettingsPage() {
                       ) : null}
                       {settingsPage === 1 ? (
                         <div>
-                          <h1 className="text-4xl font-bold mb-4">Sidebar</h1>
-                          <h2 className="font-semibold text-xl mb-1">
+                          <h1 className="text-4xl font-bold mb-2">Sidebar</h1>
+                          <h2 className="font-semibold text-xl mt-4 mb-1">
+                            View
+                          </h2>
+                          <SettingsLine
+                            caption="Collapse sidebar"
+                            onClick={setSidebarCollapsed}
+                            condition={settings.sidebarCollapsed}
+                          />
+                          <h2 className="font-semibold text-xl mt-4 mb-1">
                             Widgets
                           </h2>
                           <SettingsLine
