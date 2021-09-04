@@ -195,7 +195,7 @@ function App() {
     },
     {
       id: uuidv4(),
-      title: "Finished",
+      title: "Completed",
       color: "emerald",
       icon: <BiCheckCircle />,
       books: [],
@@ -417,6 +417,61 @@ function App() {
     setRemindersAll(!remindersAll);
   };
 
+  const [readingProgress, setReadingProgress] = useState(
+    localStorage.getItem("readingProgress")
+      ? JSON.parse(localStorage.getItem("readingProgress"))
+      : true
+  );
+
+  const toggleReadingProgress = () => {
+    localStorage.setItem("readingProgress", !readingProgress);
+    setReadingProgress(!readingProgress);
+  };
+
+  const [readingComplete, setReadingComplete] = useState(
+    localStorage.getItem("readingComplete")
+      ? JSON.parse(localStorage.getItem("readingComplete"))
+      : false
+  );
+
+  const toggleReadingComplete = () => {
+    localStorage.setItem("readingComplete", !readingComplete);
+    setReadingComplete(!readingComplete);
+  };
+
+  const [readingType, setReadingType] = useState(
+    localStorage.getItem("readingType")
+      ? JSON.parse(localStorage.getItem("readingType"))
+      : true
+  );
+
+  const toggleReadingType = () => {
+    localStorage.setItem("readingType", !readingType);
+    setReadingType(!readingType);
+  };
+
+  const [readingFavorite, setReadingFavorite] = useState(
+    localStorage.getItem("readingFavorite")
+      ? JSON.parse(localStorage.getItem("readingFavorite"))
+      : true
+  );
+
+  const toggleReadingFavorite = () => {
+    localStorage.setItem("readingFavorite", !readingFavorite);
+    setReadingFavorite(!readingFavorite);
+  };
+
+  const [readingAll, setReadingAll] = useState(
+    localStorage.getItem("readingAll")
+      ? JSON.parse(localStorage.getItem("readingAll"))
+      : true
+  );
+
+  const toggleReadingAll = () => {
+    localStorage.setItem("readingAll", !readingAll);
+    setReadingAll(!readingAll);
+  };
+
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
   const [reminderData, setReminderData] = useState([
@@ -468,11 +523,16 @@ function App() {
     setRemindersPinned: toggleRemindersPinned,
     remindersAll: remindersAll,
     setRemindersAll: toggleRemindersAll,
-    readingProgress: true,
-    readingComplete: true,
-    readingType: true,
-    readingFavorite: true,
-    readingAll: true,
+    readingProgress: readingProgress,
+    setReadingProgress: toggleReadingProgress,
+    readingComplete: readingComplete,
+    setReadingComplete: toggleReadingComplete,
+    readingType: readingType,
+    setReadingType: toggleReadingType,
+    readingFavorite: readingFavorite,
+    setReadingFavorite: toggleReadingFavorite,
+    readingAll: readingAll,
+    setReadingAll: toggleReadingAll,
   };
 
   return (

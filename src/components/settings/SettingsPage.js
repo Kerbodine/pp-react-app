@@ -19,6 +19,11 @@ export default function SettingsPage() {
     setRemindersStarred,
     setRemindersPinned,
     setRemindersAll,
+    setReadingProgress,
+    setReadingComplete,
+    setReadingType,
+    setReadingFavorite,
+    setReadingAll,
   } = useContext(settingsContext);
 
   const [settingsPage, setSettingsPage] = useState(0);
@@ -150,11 +155,31 @@ export default function SettingsPage() {
                           <h2 className="font-semibold text-xl mb-1">
                             Categories
                           </h2>
-                          <SettingsLine caption="Show in progress category" />
-                          <SettingsLine caption="Show completed category" />
-                          <SettingsLine caption="Show book type category" />
-                          <SettingsLine caption="Show favorites category" />
-                          <SettingsLine caption="Show all books category" />
+                          <SettingsLine
+                            caption="Show in progress category"
+                            onClick={setReadingProgress}
+                            condition={settings.readingProgress}
+                          />
+                          <SettingsLine
+                            caption="Show completed category"
+                            onClick={setReadingComplete}
+                            condition={settings.readingComplete}
+                          />
+                          <SettingsLine
+                            caption="Show book type category"
+                            onClick={setReadingType}
+                            condition={settings.readingType}
+                          />
+                          <SettingsLine
+                            caption="Show favorites category"
+                            onClick={setReadingFavorite}
+                            condition={settings.readingFavorite}
+                          />
+                          <SettingsLine
+                            caption="Show all books category"
+                            onClick={setReadingAll}
+                            condition={settings.readingAll}
+                          />
                         </div>
                       ) : null}
                     </>
