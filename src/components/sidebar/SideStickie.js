@@ -8,7 +8,7 @@ export default function SideStickie({ title, content }) {
     <div
       className={`${
         sidebarNotes ? "visible" : "hidden"
-      } w-full mb-4 h-auto p-4 bg-primary-100 dark:bg-primary-800 rounded-2xl text-black dark:text-white`}
+      } w-64 mb-4 h-auto p-4 bg-primary-100 dark:bg-primary-800 rounded-2xl text-black dark:text-white`}
     >
       <h3 className="text-xl font-bold">{title}Title</h3>
       <p className="text-sm">

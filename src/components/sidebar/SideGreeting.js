@@ -11,7 +11,7 @@ export default function SideGreeting() {
             {(settings) => {
               return (
                 <div
-                  className={`w-full h-auto bg-primary-100 dark:bg-primary-800 rounded-2xl flex ${
+                  className={`w-64 h-auto bg-primary-100 dark:bg-primary-800 rounded-2xl flex ${
                     settings.sidebarGreeting ? "visible" : "hidden"
                   }`}
                 >

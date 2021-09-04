@@ -29,8 +29,12 @@ export default function SidePomodoro() {
     <SettingsConsumer>
       {(settings) => {
         return (
-          <div className={`${settings.sidebarPomodoro ? "visible" : "hidden"}`}>
-            <div className="w-full h-[17.5rem] bg-primary-100 dark:bg-primary-800 rounded-2xl p-4">
+          <div
+            className={`${
+              settings.sidebarPomodoro ? "visible w-full" : "hidden"
+            }`}
+          >
+            <div className="w-64 h-[17.5rem] bg-primary-100 dark:bg-primary-800 rounded-2xl p-4">
               <div>
                 {pomodoro !== 0 ? (
                   <div className="flex flex-col">

@@ -8,7 +8,7 @@ export default function SideCalendar() {
       {(settings) => {
         return (
           <div
-            className={`p-2 bg-primary-100 dark:bg-primary-800 rounded-2xl ${
+            className={`p-2 w-64 flex justify-center bg-primary-100 dark:bg-primary-800 rounded-2xl ${
               settings.sidebarCalendar ? "visible" : "hidden"
             }`}
           >

@@ -9,7 +9,7 @@ export default function SideTaskList({ taskList }) {
     <div
       className={`${
         sidebarTasks ? "visible" : "hidden"
-      } w-full p-4 flex flex-col bg-primary-100 dark:bg-primary-800 rounded-2xl`}
+      } w-64 p-4 flex flex-col bg-primary-100 dark:bg-primary-800 rounded-2xl`}
     >
       <h3 className="text-lg font-bold mb-2">Pinned tasks</h3>
       <div className="flex flex-col gap-2">
