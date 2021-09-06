@@ -4,6 +4,7 @@ import SettingsLine from "./SettingsLine";
 import settingsContext from "./SettingsContext";
 import SettingsSidebar from "./SettingsSidebar";
 import { useState } from "react";
+import { BiBadge } from "react-icons/bi";
 
 export default function SettingsPage() {
   const {
@@ -52,6 +53,45 @@ export default function SettingsPage() {
                   return (
                     <>
                       {settingsPage === 0 ? (
+                        <div class="flex items-center justify-center mb-8">
+                          <div class="w-full relative flex flex-col">
+                            <img
+                              class="h-32 object-cover w-full rounded-t-xl"
+                              src="https://images.unsplash.com/photo-1630511431106-105062e4fb8a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                            />
+                            <div class="bg-primary-200 dark:bg-primary-700 px-6 rounded-b-xl">
+                              <div class="flex justify-between items-center">
+                                <img
+                                  class="-mt-10 rounded-full h-20 w-20 bg-accent-400 p-1"
+                                  src="https://images.unsplash.com/photo-1620505155135-6d5cc5b4efd6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=5&w=800&h=800&q=80"
+                                  alt=""
+                                />
+                                <BiBadge className="mt-2 text-2xl text-black dark:text-white" />
+                              </div>
+                              <div class="py-3 border-b-2 border-black dark:border-white">
+                                <h1 class="text-black dark:text-white font-bold text-xl">
+                                  Username
+                                  <span class="ml-2 text-primary-500 dark:text-primary-400">
+                                    #0000
+                                  </span>
+                                </h1>
+                              </div>
+                              <div class="py-2 mb-4">
+                                <h2 class="uppercase text-primary-500 dark:text-primary-400 font-bold text-sm">
+                                  About me:
+                                </h2>
+                                <p class="text-primary-500 dark:text-primary-400 leading-4 pt-2">
+                                  Lorem ipsum dolor sit, amet consectetur
+                                  adipisicing elit. Vel saepe quisquam
+                                  perspiciatis id illum. Explicabo mollitia
+                                  atque et magnam nulla!
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
+                      {settingsPage === 1 ? (
                         <div>
                           <h1 className="text-4xl font-bold mb-4">General</h1>
                           <h2 className="font-semibold text-xl mb-1">Theme</h2>
@@ -62,7 +102,7 @@ export default function SettingsPage() {
                           />
                         </div>
                       ) : null}
-                      {settingsPage === 1 ? (
+                      {settingsPage === 2 ? (
                         <div>
                           <h1 className="text-4xl font-bold mb-2">Sidebar</h1>
                           <h2 className="font-semibold text-xl mt-4 mb-1">
@@ -103,7 +143,7 @@ export default function SettingsPage() {
                           />
                         </div>
                       ) : null}
-                      {settingsPage === 2 ? (
+                      {settingsPage === 3 ? (
                         <div>
                           <h1 className="text-4xl font-bold mb-4">
                             Notifications
@@ -114,7 +154,7 @@ export default function SettingsPage() {
                           <SettingsLine caption="Event notifications" />
                         </div>
                       ) : null}
-                      {settingsPage === 3 ? (
+                      {settingsPage === 4 ? (
                         <div>
                           <h1 className="text-4xl font-bold mb-4">Reminders</h1>
                           <h2 className="font-semibold text-xl mb-1">
@@ -147,7 +187,7 @@ export default function SettingsPage() {
                           />
                         </div>
                       ) : null}
-                      {settingsPage === 4 ? (
+                      {settingsPage === 5 ? (
                         <div>
                           <h1 className="text-4xl font-bold mb-4">
                             Reading List

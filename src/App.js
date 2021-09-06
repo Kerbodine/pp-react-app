@@ -14,9 +14,10 @@ import SidePanel from "./components/sidebar/SidePanel";
 import PulseLoader from "react-spinners/PulseLoader";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import PomodoroAlert from "./components/ui/PomodoroAlert";
-// import Login from "./components/Login";
 import { SettingsProvider } from "./components/settings/SettingsContext";
 import { UserProvider } from "./UserContext";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 import {
   BiListUl,
@@ -536,7 +537,7 @@ function App() {
   };
 
   return (
-    <div className={`${darkMode ? "dark" : ""} App overflow-hidden`}>
+    <div className={`${darkMode ? "dark" : ""} App`}>
       {loading ? (
         <div className="text-center justify-center bg-white dark:bg-primary-900 items-center flex w-screen h-screen">
           <PulseLoader
@@ -551,6 +552,7 @@ function App() {
           <SettingsProvider value={settingsContextData}>
             <Router>
               {/* <Login /> */}
+              {/* <Signup /> */}
               <div className="flex">
                 <Navbar />
                 <div className="w-full relative">

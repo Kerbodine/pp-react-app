@@ -5,6 +5,7 @@ import {
   BiNotification,
   BiSidebar,
   BiWorld,
+  BiUserCircle,
 } from "react-icons/bi";
 import SettingsItem from "./SettingsItem";
 
@@ -23,34 +24,41 @@ export default function SettingsSidebar({ setSettingsPage, settingsPage }) {
       <div className="mt-4">
         <SettingsItem
           index={0}
+          title="Account"
+          icon={<BiUserCircle />}
+          selectList={selectList}
+          settingsPage={settingsPage}
+        />
+        <SettingsItem
+          index={1}
           title="General"
           icon={<BiWorld />}
           selectList={selectList}
           settingsPage={settingsPage}
         />
         <SettingsItem
-          index={1}
+          index={2}
           title="Sidebar"
           icon={<BiSidebar />}
           selectList={selectList}
           settingsPage={settingsPage}
         />
         <SettingsItem
-          index={2}
+          index={3}
           title="Notifications"
           icon={<BiNotification />}
           selectList={selectList}
           settingsPage={settingsPage}
         />
         <SettingsItem
-          index={3}
+          index={4}
           title="Reminders"
           icon={<BiCheckSquare />}
           selectList={selectList}
           settingsPage={settingsPage}
         />
         <SettingsItem
-          index={4}
+          index={5}
           title="Reading list"
           icon={<BiBookBookmark />}
           selectList={selectList}
