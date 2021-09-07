@@ -9,30 +9,24 @@ export default function ReminderItem({
   amount,
   selectList,
 }) {
-  const {
-    remindersToday,
-    remindersImportant,
-    remindersStarred,
-    remindersPinned,
-    remindersAll,
-  } = useContext(settingsContext);
+  const { data } = useContext(settingsContext);
   let show;
 
   switch (index) {
     case 0:
-      remindersToday ? (show = true) : (show = false);
+      data.remindersToday ? (show = true) : (show = false);
       break;
     case 1:
-      remindersImportant ? (show = true) : (show = false);
+      data.remindersImportant ? (show = true) : (show = false);
       break;
     case 2:
-      remindersStarred ? (show = true) : (show = false);
+      data.remindersStarred ? (show = true) : (show = false);
       break;
     case 3:
-      remindersPinned ? (show = true) : (show = false);
+      data.remindersPinned ? (show = true) : (show = false);
       break;
     case 4:
-      remindersAll ? (show = true) : (show = false);
+      data.remindersAll ? (show = true) : (show = false);
       break;
     default:
       show = true;

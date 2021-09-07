@@ -2,15 +2,13 @@ import React, { useContext, useState } from "react";
 import GeneralSettings from "./GeneralSettings";
 import AccountSettings from "./AccountSettings";
 import SidebarSettings from "./SidebarSettings";
+import NotificationSettings from "./NotificationSettings";
+import ReminderSettings from "./ReminderSettings";
+import ReadingListSettings from "./ReadingListSettings";
 
 import settingsContext from "./SettingsContext";
 import SettingsSidebar from "./SettingsSidebar";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useRouteMatch,
-} from "react-router-dom";
+import { Route, useRouteMatch } from "react-router-dom";
 
 export default function SettingsPage() {
   const { userSettings } = useContext(settingsContext);
@@ -49,6 +47,15 @@ export default function SettingsPage() {
               </Route>
               <Route path={`${url}/sidebar`} exact>
                 <SidebarSettings />
+              </Route>
+              <Route path={`${url}/notifications`} exact>
+                <NotificationSettings />
+              </Route>
+              <Route path={`${url}/reminders`} exact>
+                <ReminderSettings />
+              </Route>
+              <Route path={`${url}/reading-list`} exact>
+                <ReadingListSettings />
               </Route>
             </div>
           </div>

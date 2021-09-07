@@ -19,7 +19,7 @@ export default function AccountSettings() {
             {(user) => {
               return (
                 <div
-                  className={`h-24 w-full rounded-t-xl bg-${user.data.profileColor}-400`}
+                  className={`h-24 w-full rounded-t-xl bg-${user.userData.profileColor}-400`}
                 ></div>
               );
             }}
@@ -64,7 +64,7 @@ export default function AccountSettings() {
             {(user) => {
               return (
                 <div
-                  className={`ml-auto relative w-8 h-8 rounded-full bg-${user.data.profileColor}-400 text-2xl text-white flex items-center justify-center cursor-pointer hover:bg-opacity-80`}
+                  className={`ml-auto relative w-8 h-8 rounded-full bg-${user.userData.profileColor}-400 text-2xl text-white flex items-center justify-center cursor-pointer hover:bg-opacity-80`}
                   onClick={handleColorDropdown}
                 >
                   <BiChevronDown />
@@ -73,12 +73,12 @@ export default function AccountSettings() {
                       colorDropdown ? "visible" : "hidden"
                     } absolute top-10 -right-1 w-[6.5rem] h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
                   >
-                    {user.data.allColors.map((color) => (
+                    {user.userData.allColors.map((color) => (
                       <ColorPicker
                         color={color}
                         listColorHandler={(color) => {
                           user.setData({
-                            ...user.data,
+                            ...user.userData,
                             profileColor: color,
                           });
                         }}

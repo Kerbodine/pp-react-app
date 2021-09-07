@@ -9,30 +9,24 @@ export default function ReadingListItem({
   amount,
   selectList,
 }) {
-  const {
-    readingProgress,
-    readingComplete,
-    readingType,
-    readingFavorite,
-    readingAll,
-  } = useContext(settingsContext);
+  const { data } = useContext(settingsContext);
   let show;
 
   switch (index) {
     case 0:
-      readingProgress ? (show = true) : (show = false);
+      data.readingProgress ? (show = true) : (show = false);
       break;
     case 1:
-      readingComplete ? (show = true) : (show = false);
+      data.readingComplete ? (show = true) : (show = false);
       break;
     case 2:
-      readingType ? (show = true) : (show = false);
+      data.readingType ? (show = true) : (show = false);
       break;
     case 3:
-      readingFavorite ? (show = true) : (show = false);
+      data.readingFavorite ? (show = true) : (show = false);
       break;
     case 4:
-      readingAll ? (show = true) : (show = false);
+      data.readingAll ? (show = true) : (show = false);
       break;
     default:
       show = true;

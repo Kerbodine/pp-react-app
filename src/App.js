@@ -370,9 +370,13 @@ function App() {
       : userSettingsTemplate
   );
 
+  useEffect(() => {
+    localStorage.setItem("userSettings", JSON.stringify(userSettings));
+  }, [userSettings]);
+
   return (
     <div className="App">
-      <UserProvider value={{ data: userData, setData: setUserData }}>
+      <UserProvider value={{ userData: userData, setData: setUserData }}>
         <SettingsProvider
           value={{
             data: userSettings,
@@ -404,6 +408,7 @@ function App() {
                             <Route path="/" exact component={Dashboard} />
                             <Route
                               path="/reminders"
+                              exact
                               render={(props) => (
                                 <Reminders
                                   {...props}
@@ -417,6 +422,7 @@ function App() {
                             />
                             <Route
                               path="/notes"
+                              exact
                               render={(props) => (
                                 <Notes
                                   {...props}
@@ -428,6 +434,7 @@ function App() {
                             />
                             <Route
                               path="/reading-list"
+                              exact
                               render={(props) => (
                                 <ReadingList
                                   {...props}

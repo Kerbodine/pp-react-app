@@ -31,7 +31,7 @@ export default function Reminders({
   const [colorDropdown, setColorDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
-  const { allColors } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   const updateTaskHandler = (
     id,
@@ -341,7 +341,7 @@ export default function Reminders({
                       colorDropdown ? "visible" : "hidden"
                     } absolute top-10 w-[6.5rem] h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
                   >
-                    {allColors.map((color) => (
+                    {userData.allColors.map((color) => (
                       <ColorPicker
                         color={color}
                         listColorHandler={listColorHandler}

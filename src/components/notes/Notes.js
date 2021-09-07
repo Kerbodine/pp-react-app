@@ -18,7 +18,7 @@ import {
 import UserContext from "../../UserContext";
 
 export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
-  const data = [
+  const pageData = [
     {
       id: uuidv4(),
       icon: <BiFile />,
@@ -54,7 +54,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
 
   const [readOnly, setReadOnly] = useState(false);
   const [viewModeDropdown, setViewModeDropdown] = useState(false);
-  const [allPages, setAllPages] = useState(data);
+  const [allPages, setAllPages] = useState(pageData);
   const [currentPageIndex, setCurrentPageIndex] = useState(notesListIndex);
   const [editorLoading, setEditorLoading] = useState(true);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
