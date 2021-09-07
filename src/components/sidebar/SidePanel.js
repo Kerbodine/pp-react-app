@@ -7,7 +7,6 @@ import SettingsContextProvider from "./SettingsContext";
 
 import "./calendar.css";
 
-import { BiAdjust } from "react-icons/bi";
 import SidePomodoro from "./SidePomodoro";
 import SideGreeting from "./SideGreeting";
 import SideCalendar from "./SideCalendar";
@@ -15,7 +14,6 @@ import SideTaskList from "./SideTaskList";
 import settingsContext from "../settings/SettingsContext";
 
 export default function SidePanel({
-  onClick,
   setTimerComplete,
   reminderData,
   setReminderData,
@@ -87,24 +85,8 @@ export default function SidePanel({
       >
         <div
           className={`${
-            data.sidebarCollapsed ? "!flex-col" : null
-          } flex flex-col lg:flex-row gap-4 h-20 p-4`}
-        >
-          {/* <div className="w-32 flex gap-2 items-center h-12 bg-primary-100 dark:bg-primary-800 rounded-2xl px-3 justify-center text-black dark:text-white"></div> */}
-          <button
-            onClick={onClick}
-            className="min-w-[3rem] min-h-[3rem] bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"
-          >
-            <div className="dark:rotate-180 duration-500 transition-transform">
-              <BiAdjust />
-            </div>
-          </button>
-          <button className="min-w-[3rem] min-h-[3rem] bg-primary-100 dark:bg-primary-800 dark:hover:bg-accent-400 hover:bg-accent-400 rounded-2xl flex items-center justify-center text-2xl hover:text-white dark:text-white"></button>
-        </div>
-        <div
-          className={`${
             data.sidebarCollapsed ? "!hidden" : null
-          } h-[calc(100%-5rem)] hidden overflow-y-auto overflow-hidden no-scrollbar px-4 lg:flex lg:flex-col gap-4 text-black dark:text-white`}
+          } h-screen hidden overflow-y-auto overflow-hidden no-scrollbar p-4 lg:flex lg:flex-col gap-4 text-black dark:text-white`}
         >
           <SideGreeting />
           <SideCalendar />

@@ -451,12 +451,6 @@ function App() {
                           </Switch>
                         </div>
                         <SidePanel
-                          onClick={() => {
-                            settings.setData({
-                              ...settings.data,
-                              darkMode: !settings.data.darkMode,
-                            });
-                          }}
                           credits={credits}
                           setCredits={setCredits}
                           setTimerComplete={setTimerComplete}
