@@ -23,7 +23,7 @@ export default function SettingsPage() {
   const { url } = useRouteMatch();
 
   return (
-    <div className="h-screen w-full bg-primary dark:bg-primary-900 flex">
+    <div className="h-screen w-full flex">
       <div className="overflow-hidden rounded-2xl flex w-full my-4">
         <div className="h-full">
           <div className="w-0 md:w-48 bg-primary-200 dark:bg-primary-700 h-full">
@@ -37,7 +37,7 @@ export default function SettingsPage() {
           <div
             className={`w-full h-12 bg-primary-200 dark:bg-primary-700`}
           ></div>
-          <div className="p-8 justify-center w-full overflow-y-auto h-[calc(100vh-4rem)]">
+          <div className="p-8 flex justify-center w-full overflow-y-auto h-[calc(100vh-4rem)]">
             <div className="max-w-[768px] w-full">
               <Route path={`${url}/`} exact>
                 <GeneralSettings />

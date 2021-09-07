@@ -402,7 +402,11 @@ function App() {
                       {/* <Signup /> */}
                       <div className="flex">
                         <Navbar />
-                        <div className="w-full relative">
+                        <div
+                          className={`w-full relative bg-white dark:bg-primary-900 pr-4 lg:pr-0 ${
+                            settings.data.sidebarCollapsed ? "!pr-4" : ""
+                          }`}
+                        >
                           <PomodoroAlert timerComplete={timerComplete} />
                           <Switch>
                             <Route path="/" exact component={Dashboard} />

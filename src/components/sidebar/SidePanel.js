@@ -14,6 +14,7 @@ import SideTaskList from "./SideTaskList";
 import settingsContext from "../settings/SettingsContext";
 
 export default function SidePanel({
+  onClick,
   setTimerComplete,
   reminderData,
   setReminderData,
@@ -80,8 +81,8 @@ export default function SidePanel({
     <SettingsContextProvider setTimerComplete={setTimerComplete}>
       <div
         className={`${
-          data.sidebarCollapsed ? "!w-20" : null
-        } w-20 lg:w-72 h-screen bg-primary dark:bg-primary-900`}
+          data.sidebarCollapsed ? "!hidden" : null
+        } invisible lg:w-72 lg:visible h-screen bg-primary dark:bg-primary-900`}
       >
         <div
           className={`${
