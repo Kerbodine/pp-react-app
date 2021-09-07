@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReadingListSidebar from "./ReadingListSidebar";
 import BookItem from "./BookItem";
 import { v4 as uuidv4 } from "uuid";
@@ -14,6 +14,7 @@ import {
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ColorPicker from "../ui/ColorPicker";
+import UserContext from "../../UserContext";
 
 export default function ReadingList({
   readingListData,
@@ -39,23 +40,7 @@ export default function ReadingList({
     setTypeDropdown(false);
   };
 
-  const allColors = [
-    "red",
-    "orange",
-    "amber",
-    "green",
-    "emerald",
-    "teal",
-    "cyan",
-    "sky",
-    "blue",
-    "indigo",
-    "violet",
-    "purple",
-    "fuchsia",
-    "pink",
-    "rose",
-  ];
+  const { allColors } = useContext(UserContext);
 
   const updateBookHandler = (
     id,

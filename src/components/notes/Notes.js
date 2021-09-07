@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import TagList from "./TagList";
 import PageSidebar from "./PageSidebar";
@@ -15,6 +15,7 @@ import {
   BiChevronDown,
   BiTrash,
 } from "react-icons/bi";
+import UserContext from "../../UserContext";
 
 export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
   const data = [
@@ -47,23 +48,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
     },
   ];
 
-  const allColors = [
-    "red",
-    "orange",
-    "amber",
-    "green",
-    "emerald",
-    "teal",
-    "cyan",
-    "sky",
-    "blue",
-    "indigo",
-    "violet",
-    "purple",
-    "fuchsia",
-    "pink",
-    "rose",
-  ];
+  const { userData } = useContext(UserContext);
 
   const editorRef = useRef(null);
 
@@ -195,7 +180,7 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
                       colorDropdown ? "visible" : "hidden"
                     } absolute top-10 w-[6.5rem] h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
                   >
-                    {allColors.map((color) => (
+                    {userData.allColors.map((color) => (
                       <ColorPicker
                         color={color}
                         listColorHandler={listColorHandler}

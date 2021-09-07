@@ -492,9 +492,29 @@ function App() {
     }, 1000);
   }, []);
 
-  const userData = {
+  const userProfileData = {
     username: "Username",
+    profileColor: "red",
+    allColors: [
+      "red",
+      "orange",
+      "amber",
+      "green",
+      "emerald",
+      "teal",
+      "cyan",
+      "sky",
+      "blue",
+      "indigo",
+      "violet",
+      "purple",
+      "fuchsia",
+      "pink",
+      "rose",
+    ],
   };
+
+  const [userData, setUserData] = useState(userProfileData);
 
   const settingsContextData = {
     darkMode: darkMode,
@@ -548,7 +568,7 @@ function App() {
           />
         </div>
       ) : (
-        <UserProvider value={userData}>
+        <UserProvider value={{ userData: userData, setUserData: setUserData }}>
           <SettingsProvider value={settingsContextData}>
             <Router>
               {/* <Login /> */}

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReminderSidebar from "./ReminderSidebar";
 import TaskItem from "./TaskItem";
 import { v4 as uuidv4 } from "uuid";
@@ -16,6 +16,7 @@ import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ColorPicker from "../ui/ColorPicker";
 import ReactTooltip from "react-tooltip";
+import UserContext from "../../UserContext";
 
 export default function Reminders({
   remindersData,
@@ -30,23 +31,7 @@ export default function Reminders({
   const [colorDropdown, setColorDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
-  const allColors = [
-    "red",
-    "orange",
-    "amber",
-    "green",
-    "emerald",
-    "teal",
-    "cyan",
-    "sky",
-    "blue",
-    "indigo",
-    "violet",
-    "purple",
-    "fuchsia",
-    "pink",
-    "rose",
-  ];
+  const { allColors } = useContext(UserContext);
 
   const updateTaskHandler = (
     id,
