@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import Navbar from "./components/navbar/Navbar";
@@ -14,7 +14,10 @@ import SidePanel from "./components/sidebar/SidePanel";
 import PulseLoader from "react-spinners/PulseLoader";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import PomodoroAlert from "./components/ui/PomodoroAlert";
-import { SettingsProvider } from "./components/settings/SettingsContext";
+import settingsContext, {
+  SettingsConsumer,
+  SettingsProvider,
+} from "./components/settings/SettingsContext";
 import { UserProvider } from "./UserContext";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
@@ -286,193 +289,6 @@ function App() {
     // localStorage.setItem("readingIndex", readingListIndex);
   };
 
-  const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode")
-      ? JSON.parse(localStorage.getItem("darkMode"))
-      : false
-  );
-
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(
-    localStorage.getItem("sidebarCollapsed")
-      ? JSON.parse(localStorage.getItem("sidebarCollapsed"))
-      : false
-  );
-
-  const toggleSidebarCollapsed = () => {
-    localStorage.setItem("sidebarCollapsed", !sidebarCollapsed);
-    setSidebarCollapsed(!sidebarCollapsed);
-  };
-
-  const toggleThemeHandler = () => {
-    localStorage.setItem("darkMode", !darkMode);
-    setDarkMode(!darkMode);
-  };
-
-  const [sidebarGreeting, setSidebarGreeting] = useState(
-    localStorage.getItem("sidebarGreeting")
-      ? JSON.parse(localStorage.getItem("sidebarGreeting"))
-      : true
-  );
-
-  const toggleGreetingHandler = () => {
-    localStorage.setItem("sidebarGreeting", !sidebarGreeting);
-    setSidebarGreeting(!sidebarGreeting);
-  };
-
-  const [sidebarCalendar, setSidebarCalendar] = useState(
-    localStorage.getItem("sidebarCalendar")
-      ? JSON.parse(localStorage.getItem("sidebarCalendar"))
-      : true
-  );
-
-  const toggleCalendarHandler = () => {
-    localStorage.setItem("sidebarCalendar", !sidebarCalendar);
-    setSidebarCalendar(!sidebarCalendar);
-  };
-
-  const [sidebarPomodoro, setSidebarPomodoro] = useState(
-    localStorage.getItem("sidebarPomodoro")
-      ? JSON.parse(localStorage.getItem("sidebarPomodoro"))
-      : true
-  );
-
-  const togglePomodoroHandler = () => {
-    localStorage.setItem("sidebarPomodoro", !sidebarPomodoro);
-    setSidebarPomodoro(!sidebarPomodoro);
-  };
-
-  const [sidebarTasks, setSidebarTasks] = useState(
-    localStorage.getItem("sidebarTasks")
-      ? JSON.parse(localStorage.getItem("sidebarTasks"))
-      : true
-  );
-
-  const toggleSidebarTasks = () => {
-    localStorage.setItem("sidebarTasks", !sidebarTasks);
-    setSidebarTasks(!sidebarTasks);
-  };
-
-  const [sidebarNotes, setSidebarNotes] = useState(
-    localStorage.getItem("sidebarNotes")
-      ? JSON.parse(localStorage.getItem("sidebarNotes"))
-      : true
-  );
-
-  const toggleSidebarNotes = () => {
-    localStorage.setItem("sidebarTasks", !sidebarNotes);
-    setSidebarNotes(!sidebarNotes);
-  };
-
-  const [remindersToday, setRemindersToday] = useState(
-    localStorage.getItem("remindersToday")
-      ? JSON.parse(localStorage.getItem("remindersToday"))
-      : true
-  );
-
-  const toggleRemindersToday = () => {
-    localStorage.setItem("remindersToday", !remindersToday);
-    setRemindersToday(!remindersToday);
-  };
-
-  const [remindersImportant, setRemindersImportant] = useState(
-    localStorage.getItem("remindersImportant")
-      ? JSON.parse(localStorage.getItem("remindersImportant"))
-      : true
-  );
-
-  const toggleRemindersImportant = () => {
-    localStorage.setItem("remindersImportant", !remindersImportant);
-    setRemindersImportant(!remindersImportant);
-  };
-
-  const [remindersStarred, setRemindersStarred] = useState(
-    localStorage.getItem("remindersStarred")
-      ? JSON.parse(localStorage.getItem("remindersStarred"))
-      : true
-  );
-
-  const toggleRemindersStarred = () => {
-    localStorage.setItem("remindersStarred", !remindersStarred);
-    setRemindersStarred(!remindersStarred);
-  };
-
-  const [remindersPinned, setRemindersPinned] = useState(
-    localStorage.getItem("remindersPinned")
-      ? JSON.parse(localStorage.getItem("remindersPinned"))
-      : false
-  );
-
-  const toggleRemindersPinned = () => {
-    localStorage.setItem("remindersPinned", !remindersPinned);
-    setRemindersPinned(!remindersPinned);
-  };
-
-  const [remindersAll, setRemindersAll] = useState(
-    localStorage.getItem("remindersAll")
-      ? JSON.parse(localStorage.getItem("remindersAll"))
-      : false
-  );
-
-  const toggleRemindersAll = () => {
-    localStorage.setItem("remindersAll", !remindersAll);
-    setRemindersAll(!remindersAll);
-  };
-
-  const [readingProgress, setReadingProgress] = useState(
-    localStorage.getItem("readingProgress")
-      ? JSON.parse(localStorage.getItem("readingProgress"))
-      : true
-  );
-
-  const toggleReadingProgress = () => {
-    localStorage.setItem("readingProgress", !readingProgress);
-    setReadingProgress(!readingProgress);
-  };
-
-  const [readingComplete, setReadingComplete] = useState(
-    localStorage.getItem("readingComplete")
-      ? JSON.parse(localStorage.getItem("readingComplete"))
-      : false
-  );
-
-  const toggleReadingComplete = () => {
-    localStorage.setItem("readingComplete", !readingComplete);
-    setReadingComplete(!readingComplete);
-  };
-
-  const [readingType, setReadingType] = useState(
-    localStorage.getItem("readingType")
-      ? JSON.parse(localStorage.getItem("readingType"))
-      : true
-  );
-
-  const toggleReadingType = () => {
-    localStorage.setItem("readingType", !readingType);
-    setReadingType(!readingType);
-  };
-
-  const [readingFavorite, setReadingFavorite] = useState(
-    localStorage.getItem("readingFavorite")
-      ? JSON.parse(localStorage.getItem("readingFavorite"))
-      : true
-  );
-
-  const toggleReadingFavorite = () => {
-    localStorage.setItem("readingFavorite", !readingFavorite);
-    setReadingFavorite(!readingFavorite);
-  };
-
-  const [readingAll, setReadingAll] = useState(
-    localStorage.getItem("readingAll")
-      ? JSON.parse(localStorage.getItem("readingAll"))
-      : true
-  );
-
-  const toggleReadingAll = () => {
-    localStorage.setItem("readingAll", !readingAll);
-    setReadingAll(!readingAll);
-  };
-
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
   const [reminderData, setReminderData] = useState([
@@ -492,7 +308,8 @@ function App() {
     }, 1000);
   }, []);
 
-  const userProfileData = {
+  // User data context value
+  const userDataTemplate = {
     username: "Username",
     profileColor: "red",
     allColors: [
@@ -514,125 +331,140 @@ function App() {
     ],
   };
 
-  const [userData, setUserData] = useState(userProfileData);
+  const [userData, setUserData] = useState(
+    localStorage.getItem("userData")
+      ? JSON.parse(localStorage.getItem("userData"))
+      : userDataTemplate
+  );
 
-  const settingsContextData = {
-    darkMode: darkMode,
-    setDarkMode: toggleThemeHandler,
-    sidebarCollapsed: sidebarCollapsed,
-    setSidebarCollapsed: toggleSidebarCollapsed,
-    sidebarGreeting: sidebarGreeting,
-    setSidebarGreeting: toggleGreetingHandler,
-    sidebarCalendar: sidebarCalendar,
-    setSidebarCalendar: toggleCalendarHandler,
-    sidebarPomodoro: sidebarPomodoro,
-    setSidebarPomodoro: togglePomodoroHandler,
-    sidebarTasks: sidebarTasks,
-    setSidebarTasks: toggleSidebarTasks,
-    sidebarNotes: sidebarNotes,
-    setSidebarNotes: toggleSidebarNotes,
+  useEffect(() => {
+    localStorage.setItem("userData", JSON.stringify(userData));
+  }, [userData]);
+
+  const userSettingsTemplate = {
+    darkMode: false,
+    sidebarCollapsed: false,
+    sidebarGreeting: true,
+    sidebarCalendar: true,
+    sidebarPomodoro: true,
+    sidebarTasks: true,
+    sidebarNotes: true,
     notificationTasks: true,
     notificationPomodoro: true,
     notificationEvent: true,
-    remindersToday: remindersToday,
-    setRemindersToday: toggleRemindersToday,
-    remindersImportant: remindersImportant,
-    setRemindersImportant: toggleRemindersImportant,
-    remindersStarred: remindersStarred,
-    setRemindersStarred: toggleRemindersStarred,
-    remindersPinned: remindersPinned,
-    setRemindersPinned: toggleRemindersPinned,
-    remindersAll: remindersAll,
-    setRemindersAll: toggleRemindersAll,
-    readingProgress: readingProgress,
-    setReadingProgress: toggleReadingProgress,
-    readingComplete: readingComplete,
-    setReadingComplete: toggleReadingComplete,
-    readingType: readingType,
-    setReadingType: toggleReadingType,
-    readingFavorite: readingFavorite,
-    setReadingFavorite: toggleReadingFavorite,
-    readingAll: readingAll,
-    setReadingAll: toggleReadingAll,
+    remindersToday: true,
+    remindersImportant: true,
+    remindersStarred: true,
+    remindersPinned: true,
+    remindersAll: true,
+    readingProgress: true,
+    readingComplete: true,
+    readingType: true,
+    readingFavorite: true,
+    readingAll: true,
   };
 
+  const [userSettings, setUserSettings] = useState(
+    localStorage.getItem("userSettings")
+      ? JSON.parse(localStorage.getItem("userSettings"))
+      : userSettingsTemplate
+  );
+
   return (
-    <div className={`${darkMode ? "dark" : ""} App`}>
-      {loading ? (
-        <div className="text-center justify-center bg-white dark:bg-primary-900 items-center flex w-screen h-screen">
-          <PulseLoader
-            color={"#3B82F6"}
-            loading={loading}
-            size={20}
-            margin={4}
-          />
-        </div>
-      ) : (
-        <UserProvider value={{ userData: userData, setUserData: setUserData }}>
-          <SettingsProvider value={settingsContextData}>
-            <Router>
-              {/* <Login /> */}
-              {/* <Signup /> */}
-              <div className="flex">
-                <Navbar />
-                <div className="w-full relative">
-                  <PomodoroAlert timerComplete={timerComplete} />
-                  <Switch>
-                    <Route path="/" exact component={Dashboard} />
-                    <Route
-                      path="/reminders"
-                      render={(props) => (
-                        <Reminders
-                          {...props}
-                          remindersData={reminderData}
-                          darkMode={darkMode}
+    <div className="App">
+      <UserProvider value={{ data: userData, setData: setUserData }}>
+        <SettingsProvider
+          value={{
+            data: userSettings,
+            setData: setUserSettings,
+          }}
+        >
+          <SettingsConsumer>
+            {(settings) => {
+              return (
+                <div className={`${settings.data.darkMode ? "dark" : ""}`}>
+                  {loading ? (
+                    <div className="text-center justify-center bg-white dark:bg-primary-900 items-center flex w-screen h-screen">
+                      <PulseLoader
+                        color={"#3B82F6"}
+                        loading={loading}
+                        size={20}
+                        margin={4}
+                      />
+                    </div>
+                  ) : (
+                    <Router>
+                      {/* <Login /> */}
+                      {/* <Signup /> */}
+                      <div className="flex">
+                        <Navbar />
+                        <div className="w-full relative">
+                          <PomodoroAlert timerComplete={timerComplete} />
+                          <Switch>
+                            <Route path="/" exact component={Dashboard} />
+                            <Route
+                              path="/reminders"
+                              render={(props) => (
+                                <Reminders
+                                  {...props}
+                                  remindersData={reminderData}
+                                  darkMode={settings.data.darkMode}
+                                  setReminderData={setReminderData}
+                                  remindersListIndex={remindersListIndex}
+                                  setReminderListIndex={setReminderListIndex}
+                                />
+                              )}
+                            />
+                            <Route
+                              path="/notes"
+                              render={(props) => (
+                                <Notes
+                                  {...props}
+                                  darkMode={settings.data.darkMode}
+                                  notesListIndex={notesListIndex}
+                                  setNotesListIndex={setNotesListIndex}
+                                />
+                              )}
+                            />
+                            <Route
+                              path="/reading-list"
+                              render={(props) => (
+                                <ReadingList
+                                  {...props}
+                                  readingListData={readingListData}
+                                  setReadingListData={setReadingListData}
+                                  readingListIndex={readingListIndex}
+                                  setReadingListIndex={setReadingListIndex}
+                                />
+                              )}
+                            />
+                            <Route path="/extensions" component={Extras} />
+                            <Route path="/profile" component={Profile} />
+                            <Route path="/settings" component={SettingsPage} />
+                          </Switch>
+                        </div>
+                        <SidePanel
+                          onClick={() => {
+                            settings.setData({
+                              ...settings.data,
+                              darkMode: !settings.data.darkMode,
+                            });
+                          }}
+                          credits={credits}
+                          setCredits={setCredits}
+                          setTimerComplete={setTimerComplete}
+                          reminderData={reminderData}
                           setReminderData={setReminderData}
-                          remindersListIndex={remindersListIndex}
-                          setReminderListIndex={setReminderListIndex}
                         />
-                      )}
-                    />
-                    <Route
-                      path="/notes"
-                      render={(props) => (
-                        <Notes
-                          {...props}
-                          darkMode={darkMode}
-                          notesListIndex={notesListIndex}
-                          setNotesListIndex={setNotesListIndex}
-                        />
-                      )}
-                    />
-                    <Route
-                      path="/reading-list"
-                      render={(props) => (
-                        <ReadingList
-                          {...props}
-                          readingListData={readingListData}
-                          setReadingListData={setReadingListData}
-                          readingListIndex={readingListIndex}
-                          setReadingListIndex={setReadingListIndex}
-                        />
-                      )}
-                    />
-                    <Route path="/extensions" component={Extras} />
-                    <Route path="/profile" component={Profile} />
-                    <Route path="/settings" component={SettingsPage} />
-                  </Switch>
+                      </div>
+                    </Router>
+                  )}
                 </div>
-                <SidePanel
-                  onClick={toggleThemeHandler}
-                  credits={credits}
-                  setCredits={setCredits}
-                  setTimerComplete={setTimerComplete}
-                  reminderData={reminderData}
-                  setReminderData={setReminderData}
-                />
-              </div>
-            </Router>
-          </SettingsProvider>
-        </UserProvider>
-      )}
+              );
+            }}
+          </SettingsConsumer>
+        </SettingsProvider>
+      </UserProvider>
     </div>
   );
 }

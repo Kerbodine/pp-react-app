@@ -3,9 +3,9 @@ import { useLocation } from "react-router-dom";
 
 export default function NavbarItem({ icon, path }) {
   const location = useLocation();
-  let active = false;
 
-  if (location.pathname === path) {
+  let active = false;
+  if ("/" + location.pathname.split("/")[1] === path) {
     active = true;
   } else {
     active = false;

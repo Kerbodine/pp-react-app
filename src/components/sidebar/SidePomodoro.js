@@ -31,7 +31,7 @@ export default function SidePomodoro() {
         return (
           <div
             className={`${
-              settings.sidebarPomodoro ? "visible w-full" : "hidden"
+              settings.data.sidebarPomodoro ? "visible w-full" : "hidden"
             }`}
           >
             <div className="w-64 h-[17.5rem] bg-primary-100 dark:bg-primary-800 rounded-2xl p-4">
