@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiBadge, BiChevronDown } from "react-icons/bi";
 import { UserConsumer } from "../../UserContext";
 import ColorPicker from "../ui/ColorPicker";
+import ProfileModal from "./ProfileModal";
+import settingsContext from "./SettingsContext";
 
 export default function AccountSettings() {
   const [colorDropdown, setColorDropdown] = useState(false);
 
+  const [editProfile, setEditProfile] = useState(false);
+
   const handleColorDropdown = () => {
     setColorDropdown(!colorDropdown);
   };
+
+  const toggleEditProfile = () => {
+    setEditProfile(!editProfile);
+  };
+
+  const { data } = useContext(settingsContext);
 
   return (
     <div>
@@ -33,13 +43,28 @@ export default function AccountSettings() {
               />
               <BiBadge className="mt-2 text-2xl text-black dark:text-white" />
             </div>
-            <div class="py-3 border-b-2 border-black dark:border-white">
+            <div class="py-2 border-b-2 flex items-center border-black dark:border-white">
               <h1 class="text-black dark:text-white font-bold text-xl">
                 Username
                 <span class="ml-2 text-primary-500 dark:text-primary-400">
                   #0000
                 </span>
               </h1>
+              <button
+                className="ml-2 px-2 py-1 text-sm text-primary-500 dark:text-primary-400 bg-primary-300 dark:bg-primary-600 rounded-md"
+                onClick={toggleEditProfile}
+              >
+                Edit profile
+              </button>
+              {editProfile ? (
+                <ProfileModal
+                  darkMode={data.darkMode}
+                  message={`"a"`}
+                  deleteConfirmation={editProfile}
+                  toggleDeleteConfirmation={toggleEditProfile}
+                  // deleteListHandler={deleteListHandler}
+                />
+              ) : null}
             </div>
             <div class="py-2 mb-4">
               <h2 class="uppercase text-primary-500 dark:text-primary-400 font-bold text-sm">

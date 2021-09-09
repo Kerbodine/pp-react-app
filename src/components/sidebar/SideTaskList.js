@@ -3,8 +3,6 @@ import { BiInfoCircle } from "react-icons/bi";
 import settingsContext, { SettingsConsumer } from "../settings/SettingsContext";
 
 export default function SideTaskList({ taskList }) {
-  const { sidebarTasks } = useContext(settingsContext);
-
   return (
     <SettingsConsumer>
       {(settings) => {
