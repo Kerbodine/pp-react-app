@@ -16,7 +16,7 @@ export default function ConfirmModal({
           darkMode ? "dark" : ""
         } absolute top-0 bg-black/50 w-screen h-screen flex items-center justify-center z-10`}
       >
-        <div className="w-96 rounded-2xl bg-white dark:bg-primary-700 shadow-md flex flex-col justify-center items-center p-4 gap-2 z-20 text-black dark:text-white">
+        <div className="w-96 rounded-2xl bg-white dark:bg-primary-700 shadow-md flex flex-col justify-center items-center p-8 gap-2 z-20 text-black dark:text-white">
           <div className="w-16 h-16 text-4xl rounded-full bg-red-400 text-white flex items-center justify-center">
             <AiOutlineExclamation />
           </div>

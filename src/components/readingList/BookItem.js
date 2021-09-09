@@ -123,7 +123,7 @@ export default function BookItem({
     >
       <i
         className={`-ml-2 -mr-1 text-2xl my-1 text-primary-400 dark:text-primary-500 cursor-move ${
-          dragEnabled && hover ? "visible" : "invisible mr-4"
+          dragEnabled && hover ? "visible" : "invisible"
         }`}
       >
         <BiGridVertical />

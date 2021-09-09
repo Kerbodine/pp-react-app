@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { BiBadge, BiChevronDown } from "react-icons/bi";
-import { UserConsumer } from "../../UserContext";
+import UserContext, { UserConsumer } from "../../UserContext";
 import ColorPicker from "../ui/ColorPicker";
 import ProfileModal from "./ProfileModal";
 import settingsContext from "./SettingsContext";
@@ -19,6 +19,12 @@ export default function AccountSettings() {
   };
 
   const { data } = useContext(settingsContext);
+  const { userData, setData } = useContext(UserContext);
+
+  const changeUsername = (name) => {
+    setData({ ...userData, username: name });
+    setEditProfile(false);
+  };
 
   return (
     <div>
@@ -44,14 +50,11 @@ export default function AccountSettings() {
               <BiBadge className="mt-2 text-2xl text-black dark:text-white" />
             </div>
             <div class="py-2 border-b-2 flex items-center border-black dark:border-white">
-              <h1 class="text-black dark:text-white font-bold text-xl">
-                Username
-                <span class="ml-2 text-primary-500 dark:text-primary-400">
-                  #0000
-                </span>
+              <h1 class="text-black dark:text-white font-bold text-2xl">
+                {userData.username}
               </h1>
               <button
-                className="ml-2 px-2 py-1 text-sm text-primary-500 dark:text-primary-400 bg-primary-300 dark:bg-primary-600 rounded-md"
+                className="ml-4 px-2 py-1 text-sm text-black dark:text-white hover:bg-accent-400 dark:hover:bg-accent-400 bg-primary-300 dark:bg-primary-600 hover:text-white rounded-md"
                 onClick={toggleEditProfile}
               >
                 Edit profile
@@ -59,10 +62,9 @@ export default function AccountSettings() {
               {editProfile ? (
                 <ProfileModal
                   darkMode={data.darkMode}
-                  message={`"a"`}
                   deleteConfirmation={editProfile}
                   toggleDeleteConfirmation={toggleEditProfile}
-                  // deleteListHandler={deleteListHandler}
+                  changeUsername={changeUsername}
                 />
               ) : null}
             </div>
@@ -70,7 +72,7 @@ export default function AccountSettings() {
               <h2 class="uppercase text-primary-500 dark:text-primary-400 font-bold text-sm">
                 About me:
               </h2>
-              <p class="text-primary-500 dark:text-primary-400 leading-4 pt-2">
+              <p class="text-primary-500 dark:text-primary-400 leading-5 pt-2">
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel
                 saepe quisquam perspiciatis id illum. Explicabo mollitia atque
                 et magnam nulla!
