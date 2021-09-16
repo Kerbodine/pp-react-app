@@ -108,6 +108,7 @@ function App() {
     sidebarPomodoro: true,
     sidebarTasks: true,
     sidebarNotes: true,
+    notificationShow: true,
     notificationTasks: true,
     notificationPomodoro: true,
     notificationEvent: true,
@@ -132,6 +133,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem("userSettings", JSON.stringify(userSettings));
   }, [userSettings]);
+
+  if (!window.Notification) {
+    console.log("Browser does not support notifications.");
+  } else {
+    console.log("Supports desktop notifications");
+  }
 
   return (
     <div className="App">
