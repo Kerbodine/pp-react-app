@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 import Navbar from "./components/navbar/Navbar";
 import Dashboard from "./components/Dashboard";
-import Profile from "./components/Profile";
 import Reminders from "./components/reminders/Reminders";
 import Notes from "./components/notes/Notes";
 import ReadingList from "./components/readingList/ReadingList";
@@ -210,7 +209,6 @@ function App() {
                               )}
                             />
                             <Route path="/extensions" component={Extras} />
-                            <Route path="/profile" component={Profile} />
                             <Route path="/settings" component={SettingsPage} />
                           </Switch>
                         </div>

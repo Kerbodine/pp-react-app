@@ -38,9 +38,6 @@ export default function Navbar() {
           <Link to="/extensions" aria-label="extensions">
             <NavbarItem icon={<BiExtension />} path="/extensions" />
           </Link>
-          <Link to="/profile" aria-label="profile">
-            <NavbarItem icon={<BiUserCircle />} path="/profile" />
-          </Link>
           <Link to="/settings" aria-label="settings">
             <NavbarItem icon={<BiCog />} path="/settings" />
           </Link>
