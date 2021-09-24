@@ -27,6 +27,7 @@ import {
   BiBasket,
   BiBasketball,
   BiBell,
+  BiBook,
   BiBookmarks,
   BiBulb,
   BiCalendar,
@@ -113,7 +114,7 @@ function App() {
     ],
     allIcons: [
       <BiAlarmExclamation />,
-      <BiArchive />,
+      <BiBook />,
       <BiBadgeCheck />,
       <BiBasket />,
       <BiBasketball />,

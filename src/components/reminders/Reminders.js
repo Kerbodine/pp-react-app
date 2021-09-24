@@ -32,7 +32,7 @@ export default function Reminders({
   const [allLists, setAllLists] = useState(remindersData);
   const [currentListIndex, setCurrentListIndex] = useState(remindersListIndex);
   const [taskList, setTaskList] = useState([]);
-  const [colorDropdown, setColorDropdown] = useState(false);
+  const [settingsDropdown, setSettingsDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
 
   const { userData } = useContext(UserContext);
@@ -78,7 +78,7 @@ export default function Reminders({
 
   // Manage color dropdown state
   const handleColorDropdown = () => {
-    setColorDropdown(!colorDropdown);
+    setSettingsDropdown(!settingsDropdown);
   };
 
   // Function to update color for current list
@@ -86,7 +86,14 @@ export default function Reminders({
     let temp = allLists;
     temp[currentListIndex].color = newColor;
     setAllLists([...temp]);
-    setColorDropdown(false);
+    setSettingsDropdown(false);
+  };
+
+  const listIconHandler = (newIcon) => {
+    let temp = allLists;
+    temp[currentListIndex].icon = newIcon;
+    setAllLists([...temp]);
+    setSettingsDropdown(false);
   };
 
   // Function to change list title
@@ -330,13 +337,13 @@ export default function Reminders({
                 <div
                   className={`${
                     currentListIndex < 5 ? "hidden" : "visible"
-                  } relative w-8 h-8 rounded-full ml-auto bg-primary-200 dark:bg-primary-700 text-2xl flex items-center justify-center text-black dark:text-white hover:bg-accent-400 dark:hover:bg-accent-400`}
+                  } group relative w-8 h-8 rounded-full ml-auto bg-primary-200 dark:bg-primary-700 text-2xl flex items-center justify-center text-black dark:text-white hover:bg-accent-400 dark:hover:bg-accent-400`}
                   onClick={handleColorDropdown}
                 >
-                  <BiDotsVerticalRounded />
+                  <BiDotsVerticalRounded className="group-hover:text-white" />
                   <div
                     className={`${
-                      colorDropdown ? "visible" : "hidden"
+                      settingsDropdown ? "visible" : "hidden"
                     } absolute top-10 w-[204px] right-0 h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md p-4 text-base`}
                   >
                     <p>Color:</p>
@@ -353,7 +360,10 @@ export default function Reminders({
                     <hr className="h-0.5 bg-primary-300 dark:bg-primary-400 border-none mb-2" />
                     <div className="flex flex-wrap gap-2 mb-4">
                       {userData.allIcons.map((icon) => (
-                        <IconPicker icon={icon}></IconPicker>
+                        <IconPicker
+                          icon={icon}
+                          listIconHandler={listIconHandler}
+                        ></IconPicker>
                       ))}
                     </div>
                     <p>Options:</p>
