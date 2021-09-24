@@ -335,7 +335,7 @@ export default function ReadingList({
                       <div
                         className={`${
                           currentListIndex < 5 ? "hidden" : "visible"
-                        } w-7 h-7 rounded-md bg-primary-200 hover:bg-red-400 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl ml-auto flex items-center justify-center`}
+                        } w-7 h-7 rounded-md bg-primary-200 hover:bg-red-400 text-primary-600 dark:text-primary-200 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white dark:hover:text-white text-2xl ml-auto flex items-center justify-center`}
                         onClick={toggleDeleteConfirmation}
                       >
                         <BiTrash />
