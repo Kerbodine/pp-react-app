@@ -5,11 +5,9 @@ export default function NavbarItem({ icon, path }) {
   const location = useLocation();
 
   let active = false;
-  if ("/" + location.pathname.split("/")[1] === path) {
-    active = true;
-  } else {
-    active = false;
-  }
+  "/" + location.pathname.split("/")[1] === path
+    ? (active = true)
+    : (active = false);
 
   return (
     <div

@@ -13,12 +13,21 @@ import SideCalendar from "./SideCalendar";
 import SideTaskList from "./SideTaskList";
 import settingsContext from "../settings/SettingsContext";
 
+import { useLocation } from "react-router-dom";
+
 export default function SidePanel({
   onClick,
   setTimerComplete,
   reminderData,
   setReminderData,
 }) {
+  const location = useLocation();
+
+  let active = false;
+  location.pathname.split("/")[1] !== "login"
+    ? (active = true)
+    : (active = false);
+
   const { data } = useContext(settingsContext);
 
   const [allReminders, setAllReminders] = useState(reminderData);
@@ -78,24 +87,26 @@ export default function SidePanel({
   }, [allReminders]);
 
   return (
-    <SettingsContextProvider setTimerComplete={setTimerComplete}>
-      <div
-        className={`${
-          data.sidebarCollapsed ? "!hidden" : null
-        } invisible lg:w-72 lg:visible h-screen bg-primary dark:bg-primary-900`}
-      >
+    <div className={`${active ? "visible" : "hidden"}`}>
+      <SettingsContextProvider setTimerComplete={setTimerComplete}>
         <div
           className={`${
             data.sidebarCollapsed ? "!hidden" : null
-          } h-screen hidden overflow-y-auto overflow-hidden no-scrollbar p-4 lg:flex lg:flex-col gap-4 text-black dark:text-white`}
+          } invisible lg:w-72 lg:visible h-screen bg-primary dark:bg-primary-900`}
         >
-          <SideGreeting />
-          <SideCalendar />
-          <SidePomodoro />
-          <SideTaskList taskList={taskList} />
-          <SideStickie />
+          <div
+            className={`${
+              data.sidebarCollapsed ? "!hidden" : null
+            } h-screen hidden overflow-y-auto overflow-hidden no-scrollbar p-4 lg:flex lg:flex-col gap-4 text-black dark:text-white`}
+          >
+            <SideGreeting />
+            <SideCalendar />
+            <SidePomodoro />
+            <SideTaskList taskList={taskList} />
+            <SideStickie />
+          </div>
         </div>
-      </div>
-    </SettingsContextProvider>
+      </SettingsContextProvider>
+    </div>
   );
 }

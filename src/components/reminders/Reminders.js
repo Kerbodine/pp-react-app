@@ -11,7 +11,11 @@ import {
   BiShow,
   BiHide,
   BiInfoCircle,
+  BiChevronRight,
+  BiDotsHorizontalRounded,
+  BiDotsVerticalRounded,
 } from "react-icons/bi";
+import IconPicker from "../ui/IconPicker";
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ColorPicker from "../ui/ColorPicker";
@@ -316,7 +320,7 @@ export default function Reminders({
               ></div>
               <div className="h-12 mx-8 mt-8 flex flex-row items-center">
                 <input
-                  className="flex-auto bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
+                  className="bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
                   autoComplete="off"
                   value={allLists[currentListIndex].title}
                   onChange={titleChangeHandler}
@@ -326,37 +330,48 @@ export default function Reminders({
                 <div
                   className={`${
                     currentListIndex < 5 ? "hidden" : "visible"
-                  } relative w-8 h-8 rounded-full bg-${
-                    allLists[currentListIndex].color
-                      ? `${allLists[currentListIndex].color}-400 text-white`
-                      : "primary-200 text-black"
-                  } text-2xl flex items-center justify-center hover:bg-${
-                    allLists[currentListIndex].color
-                  }-400/80`}
+                  } relative w-8 h-8 rounded-full ml-auto bg-primary-200 dark:bg-primary-700 text-2xl flex items-center justify-center text-black dark:text-white hover:bg-accent-400 dark:hover:bg-accent-400`}
                   onClick={handleColorDropdown}
                 >
-                  <BiChevronDown />
+                  <BiDotsVerticalRounded />
                   <div
                     className={`${
                       colorDropdown ? "visible" : "hidden"
-                    } absolute top-10 w-[6.5rem] h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
+                    } absolute top-10 w-[204px] right-0 h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md p-4 text-base`}
                   >
-                    {userData.allColors.map((color) => (
-                      <ColorPicker
-                        color={color}
-                        listColorHandler={listColorHandler}
-                      />
-                    ))}
+                    <p>Color:</p>
+                    <hr className="h-0.5 bg-primary-300 dark:bg-primary-400 border-none mb-2" />
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {userData.allColors.map((color) => (
+                        <ColorPicker
+                          color={color}
+                          listColorHandler={listColorHandler}
+                        />
+                      ))}
+                    </div>
+                    <p>Icon:</p>
+                    <hr className="h-0.5 bg-primary-300 dark:bg-primary-400 border-none mb-2" />
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {userData.allIcons.map((icon) => (
+                        <IconPicker icon={icon}></IconPicker>
+                      ))}
+                    </div>
+                    <p>Options:</p>
+                    <hr className="h-0.5 bg-primary-300 dark:bg-primary-400 border-none mb-2" />
+                    <div className="flex">
+                      <p>Delete list</p>
+                      <div
+                        className={`${
+                          currentListIndex < 5 ? "hidden" : "visible"
+                        } w-7 h-7 rounded-md bg-primary-200 hover:bg-red-400 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl ml-auto flex items-center justify-center`}
+                        onClick={toggleDeleteConfirmation}
+                      >
+                        <BiTrash />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div
-                  className={`${
-                    currentListIndex < 5 ? "hidden" : "visible"
-                  } relative w-8 h-8 rounded-full bg-primary-200 hover:bg-red-400 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl ml-2 flex items-center justify-center`}
-                  onClick={toggleDeleteConfirmation}
-                >
-                  <BiTrash />
-                </div>
+
                 <ConfirmModal
                   darkMode={darkMode}
                   message={`"${allLists[currentListIndex].title}"`}

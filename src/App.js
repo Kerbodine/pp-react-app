@@ -20,8 +20,31 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { reminderCategories, remindersInfo } from "./RemindersData";
 import { readingListCategories, readingListInfo } from "./ReadingListData";
+import {
+  BiAlarmExclamation,
+  BiArchive,
+  BiBadgeCheck,
+  BiBasket,
+  BiBasketball,
+  BiBell,
+  BiBookmarks,
+  BiBulb,
+  BiCalendar,
+  BiCamera,
+  BiCheckCircle,
+  BiCommentDetail,
+  BiEnvelopeOpen,
+  BiHome,
+  BiInfoCircle,
+  BiJoystick,
+  BiListUl,
+  BiPaste,
+  BiVideo,
+  BiWorld,
+} from "react-icons/bi";
 
 function App() {
+  localStorage.clear();
   let remindersListIndex = 0;
   if (localStorage.getItem("reminderIndex") !== null) {
     remindersListIndex = JSON.parse(localStorage.getItem("reminderIndex"));
@@ -88,6 +111,28 @@ function App() {
       "pink",
       "rose",
     ],
+    allIcons: [
+      <BiAlarmExclamation />,
+      <BiArchive />,
+      <BiBadgeCheck />,
+      <BiBasket />,
+      <BiBasketball />,
+      <BiBell />,
+      <BiBookmarks />,
+      <BiCalendar />,
+      <BiBulb />,
+      <BiCamera />,
+      <BiCheckCircle />,
+      <BiPaste />,
+      <BiCommentDetail />,
+      <BiEnvelopeOpen />,
+      <BiHome />,
+      <BiInfoCircle />,
+      <BiJoystick />,
+      <BiVideo />,
+      <BiWorld />,
+      <BiListUl />,
+    ],
   };
 
   const [userData, setUserData] = useState(
@@ -96,9 +141,9 @@ function App() {
       : userDataTemplate
   );
 
-  useEffect(() => {
-    localStorage.setItem("userData", JSON.stringify(userData));
-  }, [userData]);
+  // useEffect(() => {
+  //   localStorage.setItem("userData", JSON.stringifny(userData));
+  // }, [userData]);
 
   const userSettingsTemplate = {
     darkMode: false,
@@ -164,7 +209,6 @@ function App() {
                     </div>
                   ) : (
                     <Router>
-                      {/* <Login /> */}
                       {/* <Signup /> */}
                       <div className="flex">
                         <Navbar />
@@ -175,6 +219,7 @@ function App() {
                         >
                           <PomodoroAlert timerComplete={timerComplete} />
                           <Switch>
+                            <Route path="/login" component={Login} />
                             <Route path="/" exact component={Dashboard} />
                             <Route
                               path="/reminders"

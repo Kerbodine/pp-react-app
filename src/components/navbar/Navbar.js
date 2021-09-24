@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavbarItem from "./NavbarItem";
 import NavbarLogo from "./NavbarLogo";
+import { useLocation } from "react-router-dom";
 import {
   BiAtom,
   BiGridAlt,
@@ -9,14 +10,23 @@ import {
   BiNotepad,
   BiBookBookmark,
   BiExtension,
-  BiUserCircle,
   BiCog,
-  BiExit,
 } from "react-icons/bi";
 
 export default function Navbar() {
+  const location = useLocation();
+
+  let active = false;
+  location.pathname.split("/")[1] !== "login"
+    ? (active = true)
+    : (active = false);
+
   return (
-    <div className="h-screen flex flex-col bg-primary dark:bg-primary-900 text-black dark:text-white">
+    <div
+      className={`${
+        active ? "visible" : "hidden"
+      } h-screen flex flex-col bg-primary dark:bg-primary-900 text-black dark:text-white`}
+    >
       <div className="w-20 mt-4">
         <div className="absolute top-4 w-20 z-10">
           <NavbarLogo icon={<BiAtom />} accent={true} />
@@ -40,9 +50,6 @@ export default function Navbar() {
           </Link>
           <Link to="/settings" aria-label="settings">
             <NavbarItem icon={<BiCog />} path="/settings" />
-          </Link>
-          <Link to="/logout" aria-label="logout">
-            <NavbarItem icon={<BiExit />} path="/logout" />
           </Link>
         </div>
       </div>
