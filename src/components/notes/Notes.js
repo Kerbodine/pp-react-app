@@ -3,70 +3,26 @@ import { v4 as uuidv4 } from "uuid";
 import TagList from "./TagList";
 import PageSidebar from "./PageSidebar";
 import { Editor } from "@tinymce/tinymce-react";
-import ColorPicker from "../ui/ColorPicker";
 import ConfirmModal from "../ui/ConfirmModal";
-import {
-  BiPencil,
-  BiCaretDownCircle,
-  BiCaretUpCircle,
-  BiLoaderAlt,
-  BiFile,
-  BiShow,
-  BiChevronDown,
-  BiTrash,
-} from "react-icons/bi";
+import { BiLoaderAlt, BiFile } from "react-icons/bi";
 import UserContext from "../../UserContext";
+import ListOptionsPanel from "../ui/ListOptionsPanel";
 
-export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
-  const pageData = [
-    {
-      id: uuidv4(),
-      icon: <BiFile />,
-      title: "Note 1",
-      color: "red",
-      content: "",
-      tags: [],
-      readOnly: false,
-    },
-    {
-      id: uuidv4(),
-      icon: <BiFile />,
-      title: "Note 2",
-      color: "amber",
-      content: "",
-      tags: [],
-      readOnly: false,
-    },
-    {
-      id: uuidv4(),
-      icon: <BiFile />,
-      title: "Note 3",
-      color: "blue",
-      content: "",
-      tags: [],
-      readOnly: false,
-    },
-  ];
-
+export default function Notes({
+  darkMode,
+  notesListIndex,
+  setNotesListIndex,
+  pageData,
+}) {
   const { userData } = useContext(UserContext);
 
   const editorRef = useRef(null);
 
-  const [readOnly, setReadOnly] = useState(false);
-  const [viewModeDropdown, setViewModeDropdown] = useState(false);
   const [allPages, setAllPages] = useState(pageData);
   const [currentPageIndex, setCurrentPageIndex] = useState(notesListIndex);
   const [editorLoading, setEditorLoading] = useState(true);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-  const [colorDropdown, setColorDropdown] = useState(false);
-
-  const readOnlyHandler = () => {
-    setReadOnly(!readOnly);
-  };
-
-  const viewModeDropdownHandler = () => {
-    setViewModeDropdown(!viewModeDropdown);
-  };
+  const [settingsDropdown, setSettingsDropdown] = useState(false);
 
   const selectPageHandler = (index) => {
     setCurrentPageIndex(index);
@@ -92,14 +48,11 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
     setCurrentPageIndex(allPages.length);
   };
 
-  useEffect(() => {
-    setReadOnly(allPages[currentPageIndex].readOnly);
-  }, [currentPageIndex]);
-
   const handleUpdate = (value, editor) => {
     let temp = allPages;
     temp[currentPageIndex].content = value;
     setAllPages(temp);
+    console.log(allPages);
   };
 
   const updateTagHandler = (tagList) => {
@@ -120,8 +73,8 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
     setCurrentPageIndex(allPages.length - 1);
   };
 
-  const handleColorDropdown = () => {
-    setColorDropdown(!colorDropdown);
+  const handleSettingsDropdown = () => {
+    setSettingsDropdown(!settingsDropdown);
   };
 
   const toggleDeleteConfirmation = () => {
@@ -132,7 +85,14 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
     let temp = allPages;
     temp[currentPageIndex].color = newColor;
     setAllPages([...temp]);
-    setColorDropdown(false);
+    setSettingsDropdown(false);
+  };
+
+  const listIconHandler = (newIcon) => {
+    let temp = allPages;
+    temp[currentPageIndex].icon = newIcon;
+    setAllPages([...temp]);
+    setSettingsDropdown(false);
   };
 
   return (
@@ -152,48 +112,28 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
             <div
               className={`w-full h-12 bg-${allPages[currentPageIndex].color}-400`}
             ></div>
-            <div className="px-8 pt-8 bg-primary-100 dark:bg-primary-800 flex flex-col">
-              <div className="flex flex-row items-center">
+            <div className="px-8 pt-8 bg-primary-100 dark:bg-primary-800">
+              <div className="h-12 flex items-center">
                 <input
                   id="document-title"
                   autoComplete="off"
                   placeholder="Untitled document"
                   value={allPages[currentPageIndex].title}
                   onChange={titleChangeHandler}
-                  className="h-12 flex-auto truncate bg-transparent text-black dark:text-white font-bold outline-none text-4xl mb-4"
+                  className="bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
                   type="text"
                   aria-label="document title"
                 ></input>
-                <div
-                  className={`relative w-8 h-8 rounded-full bg-${
-                    allPages[currentPageIndex].color
-                      ? `${allPages[currentPageIndex].color}-400 text-white`
-                      : "primary-200 text-black"
-                  } text-2xl flex items-center justify-center hover:bg-${
-                    allPages[currentPageIndex].color
-                  }-400/80`}
-                  onClick={handleColorDropdown}
-                >
-                  <BiChevronDown />
-                  <div
-                    className={`${
-                      colorDropdown ? "visible" : "hidden"
-                    } absolute top-10 w-[6.5rem] h-auto z-10 bg-white dark:bg-primary-600 rounded-md shadow-md flex flex-wrap gap-2 p-2`}
-                  >
-                    {userData.allColors.map((color) => (
-                      <ColorPicker
-                        color={color}
-                        listColorHandler={listColorHandler}
-                      />
-                    ))}
-                  </div>
-                </div>
-                <div
-                  className={`relative w-8 h-8 rounded-full bg-primary-200 hover:bg-red-400 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white text-2xl ml-2 flex items-center justify-center`}
-                  onClick={toggleDeleteConfirmation}
-                >
-                  <BiTrash />
-                </div>
+                <ListOptionsPanel
+                  currentListIndex={currentPageIndex}
+                  settingsDropdown={settingsDropdown}
+                  handleSettingsDropdown={handleSettingsDropdown}
+                  userData={userData}
+                  listIconHandler={listIconHandler}
+                  toggleDeleteConfirmation={toggleDeleteConfirmation}
+                  listColorHandler={listColorHandler}
+                  startNum={0}
+                />
                 <ConfirmModal
                   darkMode={darkMode}
                   message={`"${allPages[currentPageIndex].title}"`}
@@ -210,53 +150,6 @@ export default function Notes({ darkMode, notesListIndex, setNotesListIndex }) {
                     key={currentPageIndex}
                   />
                 </div>
-                <button
-                  className="w-20 h-8 bg-primary-200 dark:bg-primary-700 text-black dark:text-white rounded-full relative flex items-center"
-                  onClick={viewModeDropdownHandler}
-                >
-                  <i className="text-2xl px-2">
-                    {readOnly ? <BiShow /> : <BiPencil />}
-                  </i>
-                  <div className="text-2xl px-2">
-                    {viewModeDropdown ? (
-                      <BiCaretDownCircle />
-                    ) : (
-                      <BiCaretUpCircle />
-                    )}
-                  </div>
-                  <div
-                    className={`${
-                      viewModeDropdown ? "visible" : "hidden"
-                    } absolute top-10 right-0 w-30 h-16 rounded-md bg-white dark:bg-primary-700 shadow-md overflow-hidden z-10`}
-                  >
-                    <div
-                      className={`w-full h-8 flex items-center px-2 cursor-pointer ${
-                        readOnly
-                          ? "bg-primary-200 dark:bg-primary-900"
-                          : "hover:bg-primary-100 dark:hover:bg-primary-800"
-                      }`}
-                      onClick={readOnlyHandler}
-                    >
-                      <i className="text-2xl">
-                        <BiShow />
-                      </i>
-                      <h4 className="mx-1.5 whitespace-nowrap">Viewing</h4>
-                    </div>
-                    <div
-                      className={`w-full h-8 flex items-center px-2 cursor-pointer ${
-                        readOnly
-                          ? "hover:bg-primary-100 dark:hover:bg-primary-800"
-                          : "bg-primary-200 dark:bg-primary-900"
-                      }`}
-                      onClick={readOnlyHandler}
-                    >
-                      <i className="text-2xl">
-                        <BiPencil />
-                      </i>
-                      <h4 className="mx-1.5 whitespace-nowrap">Editing</h4>
-                    </div>
-                  </div>
-                </button>
               </div>
               <div className="w-full h-4 bg-primary-100 dark:bg-primary-800"></div>
             </div>

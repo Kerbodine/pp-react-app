@@ -326,7 +326,7 @@ export default function Reminders({
               <div
                 className={`w-full h-12 bg-${allLists[currentListIndex].color}-400`}
               ></div>
-              <div className="h-12 mx-8 mt-8 flex flex-row items-center">
+              <div className="h-12 mx-8 mt-8 flex items-center">
                 <input
                   className="bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
                   autoComplete="off"

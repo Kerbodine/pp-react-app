@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { userDataTemplate } from "./UserData";
 import { userSettingsTemplate } from "./UserSettings";
+import { notesData } from "./NotesData";
 import Navbar from "./components/navbar/Navbar";
 import Dashboard from "./components/Dashboard";
 import Reminders from "./components/reminders/Reminders";
@@ -155,6 +156,7 @@ function App() {
                                   darkMode={settings.data.darkMode}
                                   notesListIndex={notesListIndex}
                                   setNotesListIndex={setNotesListIndex}
+                                  pageData={notesData}
                                 />
                               )}
                             />
