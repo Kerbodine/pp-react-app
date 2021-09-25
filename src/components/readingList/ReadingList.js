@@ -2,20 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import ReadingListSidebar from "./ReadingListSidebar";
 import BookItem from "./BookItem";
 import { v4 as uuidv4 } from "uuid";
-import IconPicker from "../ui/IconPicker";
 import {
-  BiChevronDown,
-  BiListUl,
-  BiTrash,
   BiPlus,
   BiCaretDownCircle,
   BiCaretUpCircle,
   BiInfoCircle,
-  BiDotsVerticalRounded,
+  BiBook,
 } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import ColorPicker from "../ui/ColorPicker";
 import UserContext from "../../UserContext";
 import ListOptionsPanel from "../ui/ListOptionsPanel";
 
@@ -147,7 +142,7 @@ export default function ReadingList({
       id: uuidv4(),
       title: "Untitled list",
       color: "gray",
-      icon: <BiListUl />,
+      icon: <BiBook />,
       books: [],
     };
     setAllLists([...allLists, newList]);

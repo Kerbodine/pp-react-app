@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import { userDataTemplate } from "./UserData";
+import { userSettingsTemplate } from "./UserSettings";
 import Navbar from "./components/navbar/Navbar";
 import Dashboard from "./components/Dashboard";
 import Reminders from "./components/reminders/Reminders";
@@ -20,29 +21,6 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { reminderCategories, remindersInfo } from "./RemindersData";
 import { readingListCategories, readingListInfo } from "./ReadingListData";
-import {
-  BiAlarmExclamation,
-  BiArchive,
-  BiBadgeCheck,
-  BiBasket,
-  BiBasketball,
-  BiBell,
-  BiBook,
-  BiBookmarks,
-  BiBulb,
-  BiCalendar,
-  BiCamera,
-  BiCheckCircle,
-  BiCommentDetail,
-  BiEnvelopeOpen,
-  BiHome,
-  BiInfoCircle,
-  BiJoystick,
-  BiListUl,
-  BiPaste,
-  BiVideo,
-  BiWorld,
-} from "react-icons/bi";
 
 function App() {
   localStorage.clear();
@@ -92,50 +70,6 @@ function App() {
     }, 1000);
   }, []);
 
-  const userDataTemplate = {
-    username: "Username",
-    profileColor: "red",
-    allColors: [
-      "red",
-      "orange",
-      "amber",
-      "green",
-      "emerald",
-      "teal",
-      "cyan",
-      "sky",
-      "blue",
-      "indigo",
-      "violet",
-      "purple",
-      "fuchsia",
-      "pink",
-      "rose",
-    ],
-    allIcons: [
-      <BiAlarmExclamation />,
-      <BiBook />,
-      <BiBadgeCheck />,
-      <BiBasket />,
-      <BiBasketball />,
-      <BiBell />,
-      <BiBookmarks />,
-      <BiCalendar />,
-      <BiBulb />,
-      <BiCamera />,
-      <BiCheckCircle />,
-      <BiPaste />,
-      <BiCommentDetail />,
-      <BiEnvelopeOpen />,
-      <BiHome />,
-      <BiInfoCircle />,
-      <BiJoystick />,
-      <BiVideo />,
-      <BiWorld />,
-      <BiListUl />,
-    ],
-  };
-
   const [userData, setUserData] = useState(
     localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData"))
@@ -145,30 +79,6 @@ function App() {
   // useEffect(() => {
   //   localStorage.setItem("userData", JSON.stringifny(userData));
   // }, [userData]);
-
-  const userSettingsTemplate = {
-    darkMode: false,
-    sidebarCollapsed: false,
-    sidebarGreeting: true,
-    sidebarCalendar: true,
-    sidebarPomodoro: true,
-    sidebarTasks: true,
-    sidebarNotes: true,
-    notificationShow: true,
-    notificationTasks: true,
-    notificationPomodoro: true,
-    notificationEvent: true,
-    remindersToday: true,
-    remindersImportant: true,
-    remindersStarred: true,
-    remindersPinned: true,
-    remindersAll: true,
-    readingProgress: true,
-    readingComplete: true,
-    readingType: true,
-    readingFavorite: true,
-    readingAll: true,
-  };
 
   const [userSettings, setUserSettings] = useState(
     localStorage.getItem("userSettings")
