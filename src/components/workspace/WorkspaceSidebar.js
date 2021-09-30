@@ -142,7 +142,7 @@ export default function WorkspaceSidebar({
         onClick={toggleNewPageMenu}
       >
         <BiPlus className="text-2xl ml-4 mr-2" />
-        <h3>New Item</h3>
+        <h3>New Block</h3>
       </button>
     </div>
   );

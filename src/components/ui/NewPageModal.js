@@ -39,7 +39,7 @@ export default function NewPageModal({
           </h2>
           <div className="flex gap-8 mt-4">
             <div
-              className="w-36 h-36 bg-primary-200 dark:bg-primary-700 hover:border-4 hover:border-primary-400 dark:hover:border-4 dark:hover:border-primary-500 rounded-2xl flex flex-col gap-4 items-center justify-center cursor-pointer"
+              className="w-28 h-28 bg-primary-200 dark:bg-primary-700 hover:border-4 hover:border-primary-400 dark:hover:border-4 dark:hover:border-primary-500 rounded-2xl flex flex-col gap-4 items-center justify-center cursor-pointer"
               data-tip
               data-for="reminders-list"
               onClick={() => {
@@ -47,16 +47,16 @@ export default function NewPageModal({
               }}
             >
               <div className="flex">
-                <span className="w-3 h-3 rounded-full bg-primary-400 dark:bg-primary-500 mr-2"></span>
-                <span className="w-16 h-3 rounded-full bg-primary-400 dark:bg-primary-500"></span>
+                <span className="w-2 h-2 rounded-full bg-primary-400 dark:bg-primary-500 mr-2"></span>
+                <span className="w-12 h-2 rounded-full bg-primary-400 dark:bg-primary-500"></span>
               </div>
               <div className="flex">
-                <span className="w-3 h-3 rounded-full bg-primary-400 dark:bg-primary-500 mr-2"></span>
-                <span className="w-16 h-3 rounded-full bg-primary-400 dark:bg-primary-500"></span>
+                <span className="w-2 h-2 rounded-full bg-primary-400 dark:bg-primary-500 mr-2"></span>
+                <span className="w-12 h-2 rounded-full bg-primary-400 dark:bg-primary-500"></span>
               </div>
               <div className="flex">
-                <span className="w-3 h-3 rounded-full bg-primary-400 dark:bg-primary-500 mr-2"></span>
-                <span className="w-16 h-3 rounded-full bg-primary-400 dark:bg-primary-500"></span>
+                <span className="w-2 h-2 rounded-full bg-primary-400 dark:bg-primary-500 mr-2"></span>
+                <span className="w-12 h-2 rounded-full bg-primary-400 dark:bg-primary-500"></span>
               </div>
             </div>
             <ReactTooltip
@@ -68,7 +68,7 @@ export default function NewPageModal({
               Add new reminders list
             </ReactTooltip>
             <div
-              className="w-36 h-36 bg-primary-200 dark:bg-primary-700 hover:border-4 hover:border-primary-400 dark:hover:border-4 dark:hover:border-primary-500 rounded-2xl flex flex-col gap-4 items-center justify-center cursor-pointer"
+              className="w-28 h-28 bg-primary-200 dark:bg-primary-700 hover:border-4 hover:border-primary-400 dark:hover:border-4 dark:hover:border-primary-500 rounded-2xl flex flex-col gap-4 items-center justify-center cursor-pointer"
               data-tip
               data-for="notepad"
               onClick={() => {
@@ -76,13 +76,13 @@ export default function NewPageModal({
               }}
             >
               <div className="flex">
-                <span className="w-20 h-3 rounded-full bg-primary-400 dark:bg-primary-500"></span>
+                <span className="w-16 h-2 rounded-full bg-primary-400 dark:bg-primary-500"></span>
               </div>
               <div className="flex">
-                <span className="w-20 h-3 rounded-full bg-primary-400 dark:bg-primary-500"></span>
+                <span className="w-16 h-2 rounded-full bg-primary-400 dark:bg-primary-500"></span>
               </div>
               <div className="flex">
-                <span className="w-12 h-3 rounded-full bg-primary-400 dark:bg-primary-500 mr-8"></span>
+                <span className="w-8 h-2 rounded-full bg-primary-400 dark:bg-primary-500 mr-8"></span>
               </div>
             </div>
             <ReactTooltip
