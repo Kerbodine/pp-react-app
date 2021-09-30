@@ -17,8 +17,8 @@ import WorkspaceItem from "./WorkspaceItem";
 export default function WorkspaceSidebar({
   allLists,
   selectItemHandler,
-  newItemHandler,
   currentListIndex,
+  toggleNewPageMenu,
 }) {
   const [showCategories, setShowCategories] = useState(true);
   const [showLists, setShowLists] = useState(true);
@@ -138,8 +138,8 @@ export default function WorkspaceSidebar({
       ></div>
       <hr className="border-none h-0.5 bg-gray-300 dark:bg-primary-600" />
       <button
-        className="h-12 flex-shrink-0 hover:bg-primary-300 dark:bg-primary-700 dark:hover:bg-primary-600 flex items-center text-lg"
-        // onClick={newItemHandler}
+        className="h-12 flex-shrink-0 hover:bg-primary-300 dark:bg-primary-700 dark:hover:bg-primary-600 flex items-center text-lg outline-none"
+        onClick={toggleNewPageMenu}
       >
         <BiPlus className="text-2xl ml-4 mr-2" />
         <h3>New Item</h3>

@@ -8,7 +8,7 @@ import UserContext from "../../UserContext";
 import ListOptionsPanel from "../ui/ListOptionsPanel";
 import WorkspaceReminder from "./WorkspaceReminder";
 import WorkspaceNotes from "./WorkspaceNotes";
-import { SettingsContext } from "../sidebar/SettingsContext";
+import NewPageModal from "../ui/NewPageModal";
 
 export default function Workspace({ darkMode, allData }) {
   const [allLists, setAllLists] = useState(allData);
@@ -221,6 +221,16 @@ export default function Workspace({ darkMode, allData }) {
     setAllLists(temp);
   };
 
+  const [newPageMenu, setNewPageMenu] = useState(false);
+
+  const toggleNewPageMenu = () => {
+    setNewPageMenu(!newPageMenu);
+  };
+
+  useEffect(() => {
+    setSettingsDropdown(false);
+  }, [currentListIndex]);
+
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
       <div className="my-4 w-full">
@@ -234,6 +244,7 @@ export default function Workspace({ darkMode, allData }) {
                 }}
                 newItemHandler={newListHandler}
                 currentListIndex={currentListIndex}
+                toggleNewPageMenu={toggleNewPageMenu}
               />
             </div>
           </div>
@@ -254,10 +265,11 @@ export default function Workspace({ darkMode, allData }) {
                 <ListOptionsPanel
                   currentListIndex={currentListIndex}
                   settingsDropdown={settingsDropdown}
-                  handleSettingsDropdown={handleSettingsDropdown}
+                  setSettingsDropdown={setSettingsDropdown}
                   userData={userData}
                   listIconHandler={listIconHandler}
-                  toggleDeleteConfirmation={toggleDeleteConfirmation}
+                  deleteConfirmation={deleteConfirmation}
+                  setDeleteConfirmation={setDeleteConfirmation}
                   listColorHandler={listColorHandler}
                   startNum={0}
                 />
@@ -267,6 +279,12 @@ export default function Workspace({ darkMode, allData }) {
                   deleteConfirmation={deleteConfirmation}
                   toggleDeleteConfirmation={toggleDeleteConfirmation}
                   deleteListHandler={deleteListHandler}
+                />
+                <NewPageModal
+                  darkMode={darkMode}
+                  newPageMenu={newPageMenu}
+                  setNewPageMenu={setNewPageMenu}
+                  newPageHandler={() => {}}
                 />
               </div>
               {}

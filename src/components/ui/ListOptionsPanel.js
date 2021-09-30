@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BiDotsVerticalRounded, BiTrash } from "react-icons/bi";
 import ColorPicker from "./ColorPicker";
 import IconPicker from "./IconPicker";
@@ -6,17 +6,34 @@ import IconPicker from "./IconPicker";
 export default function ListOptionsPanel({
   currentListIndex,
   settingsDropdown,
-  handleSettingsDropdown,
+  setSettingsDropdown,
   userData,
   listIconHandler,
-  toggleDeleteConfirmation,
+  deleteConfirmation,
+  setDeleteConfirmation,
   listColorHandler,
 }) {
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.keyCode === 27) {
+        setDeleteConfirmation(false);
+        setSettingsDropdown(false);
+      }
+    };
+    window.addEventListener("keydown", handleEsc);
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
   return (
     <div className="ml-auto relative">
       <div
         className={`relative w-8 h-8 rounded-full bg-primary-200 dark:bg-primary-700 text-2xl flex items-center justify-center text-black dark:text-white hover:bg-accent-400 dark:hover:bg-accent-400 hover:text-white`}
-        onClick={handleSettingsDropdown}
+        onClick={() => {
+          setSettingsDropdown(!settingsDropdown);
+        }}
       >
         <BiDotsVerticalRounded />
       </div>
@@ -48,7 +65,9 @@ export default function ListOptionsPanel({
           <p className="text-primary-500 dark:text-primary-400">Delete list</p>
           <div
             className={`w-7 h-7 rounded-md bg-primary-200 hover:bg-red-400 text-primary-600 dark:text-primary-200 dark:bg-primary-700 dark:text-white dark:hover:bg-red-400 text-black hover:text-white dark:hover:text-white text-2xl ml-auto flex items-center justify-center`}
-            onClick={toggleDeleteConfirmation}
+            onClick={() => {
+              setDeleteConfirmation(!deleteConfirmation);
+            }}
           >
             <BiTrash />
           </div>
