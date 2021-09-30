@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { userDataTemplate } from "./UserData";
 import { userSettingsTemplate } from "./UserSettings";
 import { notesData } from "./NotesData";
+import { allData } from "./AllData";
 import Navbar from "./components/navbar/Navbar";
 import Dashboard from "./components/Dashboard";
 import Reminders from "./components/reminders/Reminders";
@@ -22,6 +23,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { reminderCategories, remindersInfo } from "./RemindersData";
 import { readingListCategories, readingListInfo } from "./ReadingListData";
+import Workspace from "./components/workspace/Workspace";
 
 function App() {
   localStorage.clear();
@@ -91,11 +93,11 @@ function App() {
     localStorage.setItem("userSettings", JSON.stringify(userSettings));
   }, [userSettings]);
 
-  if (!window.Notification) {
-    console.log("Browser does not support notifications.");
-  } else {
-    console.log("Supports desktop notifications");
-  }
+  // if (!window.Notification) {
+  //   console.log("Browser does not support notifications.");
+  // } else {
+  //   console.log("Supports desktop notifications");
+  // }
 
   return (
     <div className="App">
@@ -132,7 +134,22 @@ function App() {
                           <PomodoroAlert timerComplete={timerComplete} />
                           <Switch>
                             <Route path="/login" component={Login} />
-                            <Route path="/" exact component={Dashboard} />
+                            {/* <Route path="/" exact component={Dashboard} /> */}
+                            <Route
+                              path="/"
+                              exact
+                              render={(props) => (
+                                <Workspace
+                                  {...props}
+                                  remindersData={reminderData}
+                                  darkMode={settings.data.darkMode}
+                                  setReminderData={setReminderData}
+                                  remindersListIndex={remindersListIndex}
+                                  setReminderListIndex={setReminderListIndex}
+                                  allData={allData}
+                                />
+                              )}
+                            />
                             <Route
                               path="/reminders"
                               exact
@@ -144,6 +161,7 @@ function App() {
                                   setReminderData={setReminderData}
                                   remindersListIndex={remindersListIndex}
                                   setReminderListIndex={setReminderListIndex}
+                                  allData={allData}
                                 />
                               )}
                             />

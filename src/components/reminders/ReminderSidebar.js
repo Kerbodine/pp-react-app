@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import ReminderItem from "./ReminderItem";
 import { BiListPlus, BiChevronDown, BiChevronUp } from "react-icons/bi";
+import PageItem from "../notes/PageItem";
 
 export default function ReminderSidebar({
   allLists,
   newListHandler,
   selectList,
+  allData,
 }) {
   const [showCategories, setShowCategories] = useState(true);
   const [showLists, setShowLists] = useState(true);
@@ -64,16 +66,26 @@ export default function ReminderSidebar({
       <hr className="border-none h-0.5 bg-gray-300 dark:bg-primary-600 mx-4 my-2" />
       <div className={`flex-auto min-h-0 ${showLists ? "visible" : "hidden"}`}>
         <div className="overflow-hidden overflow-y-auto h-full">
-          {allLists.slice(5).map((list, listIndex) => (
+          {allData.map((list, listIndex) => (
             <div key={list.id}>
-              <ReminderItem
-                index={listIndex + 5}
-                title={list.title}
-                amount={Object.keys(list.tasks).length}
-                color={list.color}
-                icon={list.icon}
-                selectList={selectList}
-              />
+              {list.type === "reminders" ? (
+                <ReminderItem
+                  index={listIndex + 5}
+                  title={list.title}
+                  amount={Object.keys(list.tasks).length}
+                  color={list.color}
+                  icon={list.icon}
+                  selectList={selectList}
+                />
+              ) : (
+                <PageItem
+                  index={listIndex + 5}
+                  icon={list.icon}
+                  title={list.title}
+                  color={list.color}
+                  selectPage={selectList}
+                />
+              )}
             </div>
           ))}
         </div>

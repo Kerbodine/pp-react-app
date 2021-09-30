@@ -52,7 +52,6 @@ export default function Notes({
     let temp = allPages;
     temp[currentPageIndex].content = value;
     setAllPages(temp);
-    console.log(allPages);
   };
 
   const updateTagHandler = (tagList) => {
