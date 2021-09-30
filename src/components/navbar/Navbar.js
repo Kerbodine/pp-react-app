@@ -28,22 +28,13 @@ export default function Navbar() {
       } h-screen flex flex-col bg-primary dark:bg-primary-900 text-black dark:text-white`}
     >
       <div className="w-20 mt-4">
-        <div className="absolute top-4 w-20 z-10">
+        <div className="w-20">
           <NavbarLogo icon={<BiAtom />} accent={true} />
         </div>
-        <div className="overflow-hidden overflow-y-auto no-scrollbar h-[calc(100vh-4rem)] flex flex-col gap-4 sticky mt-8">
-          <div className="mt-4"></div>
+        <hr className="border-none h-0.5 my-4 bg-primary-300 dark:bg-primary-600 mx-6" />
+        <div className="flex flex-col gap-4">
           <Link to="/" aria-label="home">
             <NavbarItem icon={<BiGridAlt />} path="/" />
-          </Link>
-          <Link to="/reminders" aria-label="reminders">
-            <NavbarItem icon={<BiCheckSquare />} path="/reminders" />
-          </Link>
-          <Link to="/notes" aria-label="notes">
-            <NavbarItem icon={<BiNotepad />} path="/notes" />
-          </Link>
-          <Link to="/reading-list" aria-label="reading list">
-            <NavbarItem icon={<BiBookBookmark />} path="/reading-list" />
           </Link>
           <Link to="/extensions" aria-label="extensions">
             <NavbarItem icon={<BiExtension />} path="/extensions" />

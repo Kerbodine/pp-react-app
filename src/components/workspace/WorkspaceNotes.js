@@ -7,7 +7,7 @@ import {
   BiSun,
 } from "react-icons/bi";
 import ReactTooltip from "react-tooltip";
-import TagList from "../notes/TagList";
+import TagList from "./TagList";
 import settingsContext from "../settings/SettingsContext";
 
 export default function WorkspaceNotes({

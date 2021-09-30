@@ -87,11 +87,9 @@ export default function Workspace({ darkMode, allData }) {
 
   // Function to change list title
   const titleChangeHandler = (e) => {
-    if (currentListIndex >= 5) {
-      let temp = allLists;
-      temp[currentListIndex].title = e.target.value;
-      setAllLists([...temp]);
-    }
+    let temp = allLists;
+    temp[currentListIndex].title = e.target.value;
+    setAllLists([...temp]);
   };
 
   // Deleting tasks based on their index in currentList.tasks
@@ -290,7 +288,7 @@ export default function Workspace({ darkMode, allData }) {
               ></div>
               <div className="h-12 mx-8 mt-8 mb-4 flex items-center">
                 <input
-                  className="bg-transparent truncate text-black dark:text-white font-semibold outline-none text-4xl"
+                  className="bg-transparent flex-auto mr-4 truncate text-black dark:text-white font-semibold outline-none text-4xl"
                   autoComplete="off"
                   value={allLists[currentListIndex].title}
                   onChange={titleChangeHandler}
