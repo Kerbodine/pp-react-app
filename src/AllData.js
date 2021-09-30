@@ -108,9 +108,9 @@ export const allData = [
     creationDate: Date.now(),
     content: "<h3>Notepad 1 default value</h3>",
     tags: [],
-    today: false,
-    important: false,
-    starred: false,
+    today: true,
+    important: true,
+    starred: true,
     pinned: false,
   },
   {

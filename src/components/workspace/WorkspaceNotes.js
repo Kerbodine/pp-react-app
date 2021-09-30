@@ -1,6 +1,12 @@
 import { Editor } from "@tinymce/tinymce-react";
-import React, { useContext, useState } from "react";
-import { BiLoaderAlt } from "react-icons/bi";
+import React, { useContext, useEffect, useState } from "react";
+import {
+  BiCalendarExclamation,
+  BiLoaderAlt,
+  BiStar,
+  BiSun,
+} from "react-icons/bi";
+import ReactTooltip from "react-tooltip";
 import TagList from "../notes/TagList";
 import settingsContext from "../settings/SettingsContext";
 
@@ -11,20 +17,104 @@ export default function WorkspaceNotes({
   handleUpdate,
   editorLoading,
   setEditorLoading,
+  updateComponent,
 }) {
   const { data } = useContext(settingsContext);
 
   let darkMode = data.darkMode;
 
+  const [today, setToday] = useState(currentItem.today);
+  const [important, setImportant] = useState(currentItem.important);
+  const [starred, setStarred] = useState(currentItem.starred);
+  const [pinned, setPinned] = useState(currentItem.pinned);
+
+  useEffect(() => {
+    updateComponent({
+      type: "notes",
+      id: currentItem.id,
+      icon: currentItem.icon,
+      title: currentItem.title,
+      color: currentItem.color,
+      creationDate: currentItem.creationDate,
+      content: currentItem.content,
+      tags: currentItem.tags,
+      today: today,
+      important: important,
+      starred: starred,
+      pinned: pinned,
+    });
+  }, [today, important, starred, pinned]);
+
   return (
     <div className="w-full h-full px-8">
       <div className="flex">
-        <div className="flex-auto">
-          <TagList
-            tags={currentItem.tags}
-            updateTagHandler={updateTagHandler}
-            key={currentItem}
-          />
+        <TagList
+          tags={currentItem.tags}
+          updateTagHandler={updateTagHandler}
+          key={currentItem}
+        />
+        <div className="flex">
+          <button
+            className={`w-8 h-8 flex items-center justify-center rounded-l-md bg-primary-200 dark:bg-primary-700 dark:text-white text-black text-2xl ${
+              today ? "!bg-blue-400 text-white" : ""
+            }`}
+            onClick={() => {
+              setToday(!today);
+            }}
+            data-tip
+            data-for="today"
+          >
+            <BiSun />
+          </button>
+          <ReactTooltip
+            id="today"
+            effect="solid"
+            place="bottom"
+            backgroundColor="#4b5563"
+          >
+            Add to today
+          </ReactTooltip>
+          <button
+            className={`w-8 h-8 flex items-center justify-center bg-primary-200 dark:bg-primary-700 dark:text-white text-black text-2xl ${
+              important ? "!bg-red-400 text-white" : ""
+            }`}
+            onClick={() => {
+              setImportant(!important);
+            }}
+            data-tip
+            data-for="priority"
+          >
+            <BiCalendarExclamation />
+          </button>
+          <ReactTooltip
+            id="priority"
+            effect="solid"
+            place="bottom"
+            backgroundColor="#4b5563"
+          >
+            Add to priority
+          </ReactTooltip>
+          <button
+            className={`w-8 h-8 flex items-center justify-center rounded-r-md bg-primary-200 dark:bg-primary-700 dark:text-white text-black text-2xl ${
+              starred ? "!bg-amber-400 text-white" : ""
+            }`}
+            onClick={() => {
+              setStarred(!starred);
+            }}
+            title="Add to starred"
+            data-tip
+            data-for="starred"
+          >
+            <BiStar />
+          </button>
+          <ReactTooltip
+            id="starred"
+            effect="solid"
+            place="bottom"
+            backgroundColor="#4b5563"
+          >
+            Add to starred
+          </ReactTooltip>
         </div>
       </div>
       <div className="w-full mt-4 h-[calc(100%-206px)] rounded-2xl overflow-hidden">

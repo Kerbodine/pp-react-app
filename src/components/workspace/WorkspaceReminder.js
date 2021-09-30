@@ -10,7 +10,9 @@ export default function WorkspaceReminder({
   newTaskHandler,
   updateTaskHandler,
   deleteTaskHandler,
+  deleteCompletedTaskHandler,
   completeTaskHandler,
+  unCompleteTaskHandler,
 }) {
   const [taskList, setTaskList] = useState([]);
   const [completedList, setCompletedList] = useState([]);
@@ -50,7 +52,7 @@ export default function WorkspaceReminder({
               title={task.title}
               creationDate={task.creationDate}
               dueDate={task.dueDate}
-              completed={false}
+              completed={true}
               description={task.description}
               today={task.today}
               important={task.important}
@@ -58,8 +60,8 @@ export default function WorkspaceReminder({
               expanded={task.expanded}
               pinned={task.pinned}
               updateComponent={updateTaskHandler}
-              deleteTask={deleteTaskHandler}
-              completeTaskHandler={completeTaskHandler}
+              deleteTask={deleteCompletedTaskHandler}
+              unCompleteTaskHandler={unCompleteTaskHandler}
             />
           </div>
         );

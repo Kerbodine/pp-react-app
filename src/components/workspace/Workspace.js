@@ -214,6 +214,13 @@ export default function Workspace({ darkMode, allData }) {
 
   const [editorLoading, setEditorLoading] = useState(true);
 
+  const updateNote = (noteProperties) => {
+    let tempTask = noteProperties;
+    let temp = allLists;
+    temp[currentListIndex] = tempTask;
+    setAllLists(temp);
+  };
+
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
       <div className="my-4 w-full">
@@ -265,23 +272,28 @@ export default function Workspace({ darkMode, allData }) {
               {}
               {allLists[currentListIndex].type === "reminders" ? (
                 <WorkspaceReminder
+                  key={currentListIndex}
                   allLists={allLists}
                   currentItem={allLists[currentListIndex]}
                   toggleShowCompleted={toggleShowCompleted}
                   newTaskHandler={newTaskHandler}
                   updateTaskHandler={updateTaskHandler}
                   deleteTaskHandler={deleteTaskHandler}
+                  deleteCompletedTaskHandler={deleteCompletedTaskHandler}
                   completeTaskHandler={completeTaskHandler}
+                  unCompleteTaskHandler={unCompleteTaskHandler}
                 />
               ) : null}
               {allLists[currentListIndex].type === "notes" ? (
                 <WorkspaceNotes
+                  key={currentListIndex}
                   currentItem={allLists[currentListIndex]}
                   updateTagHandler={updateTagHandler}
                   editorRef={editorRef}
                   handleUpdate={handleUpdate}
                   editorLoading={editorLoading}
                   setEditorLoading={setEditorLoading}
+                  updateComponent={updateNote}
                 />
               ) : null}
             </div>
