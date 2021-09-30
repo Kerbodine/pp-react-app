@@ -5,7 +5,7 @@ import TagList from "../notes/TagList";
 
 export default function WorkspaceNotes({
   allLists,
-  currentListIndex,
+  currentItem,
   updateTagHandler,
   editorLoading,
   editorRef,
@@ -18,9 +18,9 @@ export default function WorkspaceNotes({
       <div className="flex">
         <div className="flex-auto">
           <TagList
-            tags={allLists[currentListIndex].tags}
+            tags={currentItem.tags}
             updateTagHandler={updateTagHandler}
-            key={currentListIndex}
+            key={currentItem}
           />
         </div>
       </div>
@@ -35,10 +35,10 @@ export default function WorkspaceNotes({
             // editorRef.current = editor;
             setEditorLoading(false);
           }}
-          key={[darkMode, currentListIndex]}
+          key={[darkMode, currentItem]}
           id="tinymce-editor"
           onEditorChange={handleUpdate}
-          initialValue={allLists[currentListIndex].content}
+          initialValue={currentItem.content}
           apiKey="9jz5ulzyll0jkomjnscn6f2rm725w3kuuu6eoay5e974vhm7"
           init={{
             skin_url: darkMode ? "/oxide-dark" : "/oxide",

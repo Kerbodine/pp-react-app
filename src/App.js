@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { userDataTemplate } from "./UserData";
 import { userSettingsTemplate } from "./UserSettings";
-import { notesData } from "./NotesData";
 import { allData } from "./AllData";
 import Navbar from "./components/navbar/Navbar";
 import Dashboard from "./components/Dashboard";
@@ -21,8 +20,6 @@ import {
 import { UserProvider } from "./UserContext";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import { reminderCategories, remindersInfo } from "./RemindersData";
-import { readingListCategories, readingListInfo } from "./ReadingListData";
 import Workspace from "./components/workspace/Workspace";
 
 function App() {
@@ -56,14 +53,6 @@ function App() {
 
   const [loading, setLoading] = useState(false);
   const [credits, setCredits] = useState(0);
-  const [reminderData, setReminderData] = useState([
-    ...reminderCategories,
-    ...remindersInfo,
-  ]);
-  const [readingListData, setReadingListData] = useState([
-    ...readingListCategories,
-    ...readingListInfo,
-  ]);
   const [timerComplete, setTimerComplete] = useState(false);
 
   useEffect(() => {
@@ -141,53 +130,10 @@ function App() {
                               render={(props) => (
                                 <Workspace
                                   {...props}
-                                  remindersData={reminderData}
                                   darkMode={settings.data.darkMode}
-                                  setReminderData={setReminderData}
                                   remindersListIndex={remindersListIndex}
                                   setReminderListIndex={setReminderListIndex}
                                   allData={allData}
-                                />
-                              )}
-                            />
-                            <Route
-                              path="/reminders"
-                              exact
-                              render={(props) => (
-                                <Reminders
-                                  {...props}
-                                  remindersData={reminderData}
-                                  darkMode={settings.data.darkMode}
-                                  setReminderData={setReminderData}
-                                  remindersListIndex={remindersListIndex}
-                                  setReminderListIndex={setReminderListIndex}
-                                  allData={allData}
-                                />
-                              )}
-                            />
-                            <Route
-                              path="/notes"
-                              exact
-                              render={(props) => (
-                                <Notes
-                                  {...props}
-                                  darkMode={settings.data.darkMode}
-                                  notesListIndex={notesListIndex}
-                                  setNotesListIndex={setNotesListIndex}
-                                  pageData={notesData}
-                                />
-                              )}
-                            />
-                            <Route
-                              path="/reading-list"
-                              exact
-                              render={(props) => (
-                                <ReadingList
-                                  {...props}
-                                  readingListData={readingListData}
-                                  setReadingListData={setReadingListData}
-                                  readingListIndex={readingListIndex}
-                                  setReadingListIndex={setReadingListIndex}
                                 />
                               )}
                             />
@@ -199,8 +145,8 @@ function App() {
                           credits={credits}
                           setCredits={setCredits}
                           setTimerComplete={setTimerComplete}
-                          reminderData={reminderData}
-                          setReminderData={setReminderData}
+                          reminderData={[]}
+                          setReminderData={() => {}}
                         />
                       </div>
                     </Router>

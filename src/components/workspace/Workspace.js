@@ -1,41 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext, useRef } from "react";
 import WorkspaceSidebar from "./WorkspaceSidebar";
-import TaskItem from "../reminders/TaskItem";
 import { v4 as uuidv4 } from "uuid";
-import {
-  BiTrash,
-  BiListUl,
-  BiChevronDown,
-  BiPlus,
-  BiShow,
-  BiHide,
-  BiInfoCircle,
-  BiChevronRight,
-  BiDotsHorizontalRounded,
-  BiDotsVerticalRounded,
-  BiLoaderAlt,
-} from "react-icons/bi";
-import TagList from "../notes/TagList";
+import { BiListUl } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import ReactTooltip from "react-tooltip";
 import UserContext from "../../UserContext";
 import ListOptionsPanel from "../ui/ListOptionsPanel";
-import { Editor } from "@tinymce/tinymce-react";
-import WorkspaceReminderItem from "./WorkspaceReminderItem";
 import WorkspaceReminder from "./WorkspaceReminder";
+import WorkspaceNotes from "./WorkspaceNotes";
 
-export default function Workspace({
-  setReminderData,
-  darkMode,
-  remindersListIndex,
-  setReminderListIndex,
-  allData,
-}) {
+export default function Workspace({ darkMode, allData }) {
   const [allLists, setAllLists] = useState(allData);
   const [currentListIndex, setCurrentListIndex] = useState(0);
-  const [taskList, setTaskList] = useState({ tasks: [], completed: [] });
   const [settingsDropdown, setSettingsDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const { userData } = useContext(UserContext);
@@ -92,10 +68,6 @@ export default function Workspace({
   const handleSettingsDropdown = () => {
     setSettingsDropdown(!settingsDropdown);
   };
-
-  //
-
-  //
 
   // Function to update color for current list
   const listColorHandler = (newColor) => {
@@ -217,13 +189,7 @@ export default function Workspace({
     setDeleteConfirmation(!deleteConfirmation);
   };
 
-  useEffect(() => {
-    setReminderData(allLists);
-  }, [allLists]);
-
-  useEffect(() => {
-    setReminderListIndex(currentListIndex);
-  }, [currentListIndex]);
+  const editorRef = useRef(null);
 
   const updateTagHandler = (tagList) => {
     let temp = allLists;
@@ -231,81 +197,19 @@ export default function Workspace({
     setAllLists([...temp]);
   };
 
-  const editorRef = useRef(null);
-  const [editorLoading, setEditorLoading] = useState(true);
+  const handleUpdate = (value, editor) => {
+    let temp = allLists;
+    temp[currentListIndex].content = value;
+    setAllLists(temp);
+  };
 
-  // const handleUpdate = (value, editor) => {
-  //   let temp = allLists;
-  //   temp[currentListIndex].content = value;
-  //   setAllLists(temp);
-  //   console.log(allLists);
-  // };
+  // useEffect(() => {
+  //   setReminderData(allLists);
+  // }, [allLists]);
 
-  useEffect(() => {
-    setTaskList(
-      allLists.slice(currentListIndex, currentListIndex + 1).map((item) => {
-        switch (item.type) {
-          case "reminders":
-            return {
-              tasks: item.tasks
-                .map((task) => {
-                  return (
-                    <div key={task.id}>
-                      <WorkspaceReminderItem
-                        id={task.id}
-                        title={task.title}
-                        creationDate={task.creationDate}
-                        dueDate={task.dueDate}
-                        completed={false}
-                        description={task.description}
-                        today={task.today}
-                        important={task.important}
-                        starred={task.starred}
-                        expanded={task.expanded}
-                        pinned={task.pinned}
-                        updateComponent={updateTaskHandler}
-                        deleteTask={deleteTaskHandler}
-                        completeTaskHandler={completeTaskHandler}
-                      />
-                    </div>
-                  );
-                })
-                .flat(),
-              completed: item.completed
-                .map((task) => {
-                  return (
-                    <div key={task.id}>
-                      <WorkspaceReminderItem
-                        id={task.id}
-                        title={task.title}
-                        creationDate={task.creationDate}
-                        dueDate={task.dueDate}
-                        completed={true}
-                        description={task.description}
-                        today={task.today}
-                        important={task.important}
-                        starred={task.starred}
-                        expanded={task.expanded}
-                        pinned={task.pinned}
-                        updateComponent={updateTaskHandler}
-                        deleteTask={deleteTaskHandler}
-                        unCompleteTaskHandler={unCompleteTaskHandler}
-                      />
-                    </div>
-                  );
-                })
-                .flat(),
-            };
-          case "notes":
-            return <div>a</div>;
-          default:
-            return null;
-        }
-      })[0]
-    );
-  }, [allLists, currentListIndex]);
-
-  console.log(taskList);
+  // useEffect(() => {
+  //   setReminderListIndex(currentListIndex);
+  // }, [currentListIndex]);
 
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
@@ -327,7 +231,7 @@ export default function Workspace({
               <div
                 className={`w-full h-12 bg-${allLists[currentListIndex].color}-400`}
               ></div>
-              <div className="h-12 mx-8 mt-8 flex items-center">
+              <div className="h-12 mx-8 mt-8 mb-4 flex items-center">
                 <input
                   className="bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
                   autoComplete="off"
@@ -344,6 +248,7 @@ export default function Workspace({
                   listIconHandler={listIconHandler}
                   toggleDeleteConfirmation={toggleDeleteConfirmation}
                   listColorHandler={listColorHandler}
+                  startNum={0}
                 />
                 <ConfirmModal
                   darkMode={darkMode}
@@ -353,13 +258,26 @@ export default function Workspace({
                   deleteListHandler={deleteListHandler}
                 />
               </div>
+              {}
               {allLists[currentListIndex].type === "reminders" ? (
                 <WorkspaceReminder
                   allLists={allLists}
-                  currentListIndex={currentListIndex}
+                  currentItem={allLists[currentListIndex]}
                   toggleShowCompleted={toggleShowCompleted}
                   newTaskHandler={newTaskHandler}
-                  taskList={taskList}
+                  updateTaskHandler={updateTaskHandler}
+                  deleteTaskHandler={deleteTaskHandler}
+                  completeTaskHandler={completeTaskHandler}
+                />
+              ) : null}
+              {allLists[currentListIndex].type === "notes" ? (
+                <WorkspaceNotes
+                  allLists={allLists}
+                  currentItem={allLists[currentListIndex]}
+                  darkMode={userData.darkMode}
+                  updateTagHandler={updateTagHandler}
+                  editorRef={editorRef}
+                  handleUpdate={handleUpdate}
                 />
               ) : null}
               {/* {taskList.length > 0 ? (
