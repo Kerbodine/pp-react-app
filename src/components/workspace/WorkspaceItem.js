@@ -19,9 +19,27 @@ export default function WorkspaceItem({
       onClick={() => selectItemHandler(index)}
     >
       <div className={`w-2 h-full bg-${color}-400`}></div>
-      <i className="text-2xl mx-2">{icon}</i>
-      <h3 className="truncate w-24">{title}</h3>
-      <p className="ml-auto mr-4 font-bold">{amount}</p>
+      <i
+        className={`text-2xl mx-2 ${
+          title ? "" : "text-primary-500 dark:text-primary-400"
+        }`}
+      >
+        {icon}
+      </i>
+      <h3
+        className={`truncate w-24 ${
+          title ? "" : "text-primary-500 dark:text-primary-400"
+        }`}
+      >
+        {title ? title : "Untitled"}
+      </h3>
+      <p
+        className={`ml-auto mr-4 font-semibold ${
+          title ? "" : "text-primary-500 dark:text-primary-400"
+        }`}
+      >
+        {amount}
+      </p>
     </div>
   );
 }

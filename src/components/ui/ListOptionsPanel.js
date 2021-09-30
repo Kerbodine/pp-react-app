@@ -45,15 +45,20 @@ export default function ListOptionsPanel({
         <p className="font-semibold">Color:</p>
         <hr className="h-0.5 bg-primary-300 dark:bg-primary-400 border-none mb-2" />
         <div className="flex flex-wrap gap-2 mb-4">
-          {userData.allColors.map((color) => (
-            <ColorPicker color={color} listColorHandler={listColorHandler} />
+          {userData.allColors.map((color, index) => (
+            <ColorPicker
+              key={index}
+              color={color}
+              listColorHandler={listColorHandler}
+            />
           ))}
         </div>
         <p className="font-semibold">Icon:</p>
         <hr className="h-0.5 bg-primary-300 dark:bg-primary-400 border-none mb-2" />
         <div className="flex flex-wrap gap-2 mb-4">
-          {userData.allIcons.map((icon) => (
+          {userData.allIcons.map((icon, index) => (
             <IconPicker
+              key={index}
               icon={icon}
               listIconHandler={listIconHandler}
             ></IconPicker>

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import WorkspaceSidebar from "./WorkspaceSidebar";
 import { v4 as uuidv4 } from "uuid";
-import { BiListUl } from "react-icons/bi";
+import { BiFile, BiListUl } from "react-icons/bi";
 import ConfirmModal from "../ui/ConfirmModal";
 import UserContext from "../../UserContext";
 import ListOptionsPanel from "../ui/ListOptionsPanel";
@@ -231,6 +231,41 @@ export default function Workspace({ darkMode, allData }) {
     setSettingsDropdown(false);
   }, [currentListIndex]);
 
+  const newRemindersHandler = () => {
+    let newRemindersList = {
+      type: "reminders",
+      id: uuidv4(),
+      title: "",
+      color: "gray",
+      icon: <BiListUl />,
+      creationDate: Date.now(),
+      tasks: [],
+      completed: [],
+      showCompleted: false,
+    };
+    setAllLists([...allLists, newRemindersList]);
+    setCurrentListIndex(allLists.length);
+  };
+
+  const newNotesHandler = () => {
+    let newNotepad = {
+      type: "notes",
+      id: uuidv4(),
+      icon: <BiFile />,
+      title: "",
+      color: "gray",
+      creationDate: Date.now(),
+      content: "",
+      tags: [],
+      today: false,
+      important: false,
+      starred: false,
+      pinned: false,
+    };
+    setAllLists([...allLists, newNotepad]);
+    setCurrentListIndex(allLists.length);
+  };
+
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
       <div className="my-4 w-full">
@@ -255,12 +290,13 @@ export default function Workspace({ darkMode, allData }) {
               ></div>
               <div className="h-12 mx-8 mt-8 mb-4 flex items-center">
                 <input
-                  className="bg-transparent truncate text-black dark:text-white font-bold outline-none text-4xl"
+                  className="bg-transparent truncate text-black dark:text-white font-semibold outline-none text-4xl"
                   autoComplete="off"
                   value={allLists[currentListIndex].title}
                   onChange={titleChangeHandler}
                   type="text"
                   aria-label="list title"
+                  placeholder="Untitled"
                 ></input>
                 <ListOptionsPanel
                   currentListIndex={currentListIndex}
@@ -277,14 +313,15 @@ export default function Workspace({ darkMode, allData }) {
                   darkMode={darkMode}
                   message={`"${allLists[currentListIndex].title}"`}
                   deleteConfirmation={deleteConfirmation}
-                  toggleDeleteConfirmation={toggleDeleteConfirmation}
+                  setDeleteConfirmation={setDeleteConfirmation}
                   deleteListHandler={deleteListHandler}
                 />
                 <NewPageModal
                   darkMode={darkMode}
                   newPageMenu={newPageMenu}
                   setNewPageMenu={setNewPageMenu}
-                  newPageHandler={() => {}}
+                  newRemindersHandler={newRemindersHandler}
+                  newNotesHandler={newNotesHandler}
                 />
               </div>
               {}
