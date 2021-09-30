@@ -8,11 +8,14 @@ export default function WorkspaceItem({
   color,
   amount,
   selectItemHandler,
+  currentListIndex,
 }) {
   const { data } = useContext(settingsContext);
   return (
     <div
-      className={`h-10 hover:bg-primary-300 dark:hover:bg-primary-600 text-black dark:text-white flex items-center cursor-pointer`}
+      className={`${
+        currentListIndex === index ? "bg-primary-300 dark:bg-primary-600" : ""
+      } h-10 hover:bg-primary-300 dark:hover:bg-primary-600 text-black dark:text-primary-300 flex items-center cursor-pointer`}
       onClick={() => selectItemHandler(index)}
     >
       <div className={`w-2 h-full bg-${color}-400`}></div>

@@ -8,6 +8,7 @@ import UserContext from "../../UserContext";
 import ListOptionsPanel from "../ui/ListOptionsPanel";
 import WorkspaceReminder from "./WorkspaceReminder";
 import WorkspaceNotes from "./WorkspaceNotes";
+import { SettingsContext } from "../sidebar/SettingsContext";
 
 export default function Workspace({ darkMode, allData }) {
   const [allLists, setAllLists] = useState(allData);
@@ -211,6 +212,8 @@ export default function Workspace({ darkMode, allData }) {
   //   setReminderListIndex(currentListIndex);
   // }, [currentListIndex]);
 
+  const [editorLoading, setEditorLoading] = useState(true);
+
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
       <div className="my-4 w-full">
@@ -223,6 +226,7 @@ export default function Workspace({ darkMode, allData }) {
                   setCurrentListIndex(index);
                 }}
                 newItemHandler={newListHandler}
+                currentListIndex={currentListIndex}
               />
             </div>
           </div>
@@ -272,37 +276,14 @@ export default function Workspace({ darkMode, allData }) {
               ) : null}
               {allLists[currentListIndex].type === "notes" ? (
                 <WorkspaceNotes
-                  allLists={allLists}
                   currentItem={allLists[currentListIndex]}
-                  darkMode={userData.darkMode}
                   updateTagHandler={updateTagHandler}
                   editorRef={editorRef}
                   handleUpdate={handleUpdate}
+                  editorLoading={editorLoading}
+                  setEditorLoading={setEditorLoading}
                 />
               ) : null}
-              {/* {taskList.length > 0 ? (
-                <DragDropContext onDragEnd={handleOnDragEnd}>
-                  <Droppable droppableId="reminders">
-                    {(provided, snapshot) => (
-                      <div
-                        className={`${
-                          snapshot.isDraggingOver ? "ring-2" : "ring-none"
-                        } ring-primary-300 dark:ring-primary-600 mx-4 mb-4 px-4 pt-4 pb-2 rounded-md flex flex-col`}
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                      >
-                        {taskList}
-                        {provided.placeholder}
-                      </div>
-                    )}
-                  </Droppable>
-                </DragDropContext>
-              ) : (
-                <div className="flex items-center ml-8 mb-4 text-black dark:text-white">
-                  <BiInfoCircle />
-                  <p className="ml-1 text-sm">No tasks</p>
-                </div>
-              )} */}
             </div>
           </div>
         </div>

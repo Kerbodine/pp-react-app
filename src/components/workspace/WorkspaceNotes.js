@@ -1,18 +1,21 @@
 import { Editor } from "@tinymce/tinymce-react";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 import TagList from "../notes/TagList";
+import settingsContext from "../settings/SettingsContext";
 
 export default function WorkspaceNotes({
-  allLists,
   currentItem,
   updateTagHandler,
-  editorLoading,
   editorRef,
-  setEditorLoading,
-  darkMode,
   handleUpdate,
+  editorLoading,
+  setEditorLoading,
 }) {
+  const { data } = useContext(settingsContext);
+
+  let darkMode = data.darkMode;
+
   return (
     <div className="w-full h-full px-8">
       <div className="flex">
@@ -32,7 +35,7 @@ export default function WorkspaceNotes({
         ) : null}
         <Editor
           onInit={(evt, editor) => {
-            // editorRef.current = editor;
+            editorRef.current = editor;
             setEditorLoading(false);
           }}
           key={[darkMode, currentItem]}

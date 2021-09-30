@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReminderItem from "../reminders/ReminderItem";
 import {
   BiListPlus,
   BiChevronDown,
@@ -11,7 +10,6 @@ import {
   BiArchive,
   BiPlus,
 } from "react-icons/bi";
-import PageItem from "../notes/PageItem";
 import WorkspaceCategory from "./WorkspaceCategory";
 import { Link } from "react-router-dom";
 import WorkspaceItem from "./WorkspaceItem";
@@ -20,6 +18,7 @@ export default function WorkspaceSidebar({
   allLists,
   selectItemHandler,
   newItemHandler,
+  currentListIndex,
 }) {
   const [showCategories, setShowCategories] = useState(true);
   const [showLists, setShowLists] = useState(true);
@@ -111,6 +110,7 @@ export default function WorkspaceSidebar({
                       color={list.color}
                       icon={list.icon}
                       selectItemHandler={selectItemHandler}
+                      currentListIndex={currentListIndex}
                     />
                   </div>
                 );
@@ -123,6 +123,7 @@ export default function WorkspaceSidebar({
                       title={list.title}
                       color={list.color}
                       selectItemHandler={selectItemHandler}
+                      currentListIndex={currentListIndex}
                     />
                   </div>
                 );
