@@ -264,8 +264,6 @@ export default function Workspace({ darkMode, allData, setAllData }) {
     setAllData(allLists);
   }, [allLists]);
 
-  console.log(allLists);
-
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
       <div className="my-4 w-full">

@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function TagList({ tags, updateTagHandler }) {
   const [allTags, setAllTags] = useState(tags);
-
   const tagRef = useRef();
 
   const addTagHandler = () => {
@@ -37,6 +36,18 @@ export default function TagList({ tags, updateTagHandler }) {
     updateTagHandler(allTags);
   }, [allTags]);
 
+  useEffect(() => {
+    const handleSubmit = (event) => {
+      if (event.keyCode === 13) {
+        addTagHandler();
+      }
+    };
+    window.addEventListener("keydown", handleSubmit);
+    return () => {
+      window.removeEventListener("keydown", handleSubmit);
+    };
+  }, []);
+
   return (
     <div className="w-full h-auto flex flex-wrap gap-2 whitespace-nowrap">
       {allTags.length > 0
@@ -56,7 +67,7 @@ export default function TagList({ tags, updateTagHandler }) {
       >
         <input
           ref={tagRef}
-          className="bg-primary-200 text-sm px-2 my-auto text-base text-black dark:text-white dark:bg-primary-700 h-8 w-20 outline-none"
+          className="bg-primary-200 text-sm px-2 my-auto text-black dark:text-white dark:bg-primary-700 h-8 w-20 outline-none"
           aria-label="add tag"
         ></input>
         <BiPlusCircle
