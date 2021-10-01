@@ -33,6 +33,7 @@ export default function WorkspaceReminderItem({
   completeTaskHandler,
   unCompleteTaskHandler,
   dragEnabled,
+  selected,
 }) {
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDate, setTaskDate] = useState(dueDate);
@@ -106,11 +107,26 @@ export default function WorkspaceReminderItem({
     };
   }, [displayComplete, completed]);
 
+  useEffect(() => {
+    const handleNavigation = (event) => {
+      // increment navigation index [return]
+      if (event.keyCode === 13) {
+        if (selected) {
+          setDisplayComplete(!displayComplete);
+        }
+      }
+    };
+    window.addEventListener("keydown", handleNavigation);
+    return () => {
+      window.removeEventListener("keydown", handleNavigation);
+    };
+  }, [selected]);
+
   return (
     <div
-      className={`w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer mb-2 ${
+      className={`w-full h-auto bg-primary-200 dark:bg-primary-700 flex p-2 rounded-md cursor-pointer mb-4 ${
         isDragging ? "shadow-lg" : ""
-      }`}
+      } ${selected ? "ring-2" : ""}`}
       onMouseEnter={() => {
         setHover(true);
       }}

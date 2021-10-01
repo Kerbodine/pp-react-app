@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BiHide, BiInfoCircle, BiPlus, BiShow } from "react-icons/bi";
 import ReactTooltip from "react-tooltip";
 import WorkspaceReminderItem from "./WorkspaceReminderItem";
@@ -13,13 +13,15 @@ export default function WorkspaceReminder({
   deleteCompletedTaskHandler,
   completeTaskHandler,
   unCompleteTaskHandler,
+  sidebarNavigation,
 }) {
   const [taskList, setTaskList] = useState([]);
   const [completedList, setCompletedList] = useState([]);
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
 
   useEffect(() => {
     setTaskList(
-      currentItem.tasks.map((task) => {
+      currentItem.tasks.map((task, index) => {
         return (
           <div key={task.id}>
             <WorkspaceReminderItem
@@ -37,6 +39,7 @@ export default function WorkspaceReminder({
               updateComponent={updateTaskHandler}
               deleteTask={deleteTaskHandler}
               completeTaskHandler={completeTaskHandler}
+              selected={index === currentItemIndex && !sidebarNavigation}
             />
           </div>
         );
@@ -44,7 +47,7 @@ export default function WorkspaceReminder({
     );
 
     setCompletedList(
-      currentItem.completed.map((task) => {
+      currentItem.completed.map((task, index) => {
         return (
           <div key={task.id}>
             <WorkspaceReminderItem
@@ -62,16 +65,43 @@ export default function WorkspaceReminder({
               updateComponent={updateTaskHandler}
               deleteTask={deleteCompletedTaskHandler}
               unCompleteTaskHandler={unCompleteTaskHandler}
+              index={null}
             />
           </div>
         );
       })
     );
-  }, [allData]);
+  }, [allData, currentItemIndex, sidebarNavigation]);
+
+  useEffect(() => {
+    const handleNavigation = (event) => {
+      // increment navigation index [arrow-down] [j]
+      if (event.keyCode === 40 || event.keyCode === 74) {
+        if (!sidebarNavigation.current) {
+          setCurrentItemIndex((prevIndex) => {
+            return (prevIndex + 1) % currentItem.tasks.length;
+          });
+        }
+        // decrement navigation index [arrow-up] [k]
+      } else if (event.keyCode === 38 || event.keyCode === 75) {
+        if (!sidebarNavigation.current) {
+          setCurrentItemIndex((prevIndex) => {
+            return prevIndex > 0 ? prevIndex - 1 : currentItem.tasks.length - 1;
+          });
+        }
+      }
+    };
+    window.addEventListener("keydown", handleNavigation);
+    return () => {
+      window.removeEventListener("keydown", handleNavigation);
+    };
+  }, []);
+
+  console.log(currentItemIndex);
 
   return (
     <>
-      <div className="w-full">
+      <div className={`w-full`}>
         <div className={`mx-8 flex gap-2 text-black dark:text-white`}>
           <div className="w-full h-6 bg-primary-200 text-sm dark:bg-primary-700 rounded-md flex items-center px-2">{`${
             currentItem.completed ? currentItem.completed.length : "0"
@@ -130,7 +160,7 @@ export default function WorkspaceReminder({
             )}
           </div>
           <div
-            className={`mx-8 mt-4 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-primary-200 transition-all dark:hover:bg-primary-700`}
+            className={`mx-8 border-2 border-primary-400 dark:border-primary-500 rounded-md min-h-[2.5rem] flex items-center justify-center cursor-pointer border-dashed hover:border-solid hover:bg-primary-200 transition-all dark:hover:bg-primary-700`}
             onClick={newTaskHandler}
           >
             <i className="text-2xl text-primary-600 dark:text-primary-400">

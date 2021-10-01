@@ -13,6 +13,7 @@ import NewPageModal from "../ui/NewPageModal";
 export default function Workspace({ darkMode, allData, setAllData }) {
   const [allLists, setAllLists] = useState([...allData]);
   const [currentListIndex, setCurrentListIndex] = useState(0);
+  const [currentItemIndex, setCurrentItemIndex] = useState(0);
   const [settingsDropdown, setSettingsDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const { userData } = useContext(UserContext);
@@ -264,17 +265,40 @@ export default function Workspace({ darkMode, allData, setAllData }) {
     setAllData(allLists);
   }, [allLists]);
 
+  const sidebarNavigation = useRef(true);
+
   useEffect(() => {
     const handleNavigation = (event) => {
-      if (event.keyCode === 75) {
-        console.log(currentListIndex);
-        setCurrentListIndex((prevIndex) => {
-          return (prevIndex + 1) % allLists.length;
+      // increment navigation index [arrow-down] [j]
+      if (event.keyCode === 40 || event.keyCode === 74) {
+        if (sidebarNavigation.current) {
+          setCurrentListIndex((prevIndex) => {
+            return (prevIndex + 1) % allLists.length;
+          });
+        } else {
+          setCurrentItemIndex((prevIndex) => {
+            return (prevIndex + 1) % allLists.length;
+          });
+        }
+        // decrement navigation index [arrow-up] [k]
+      } else if (event.keyCode === 38 || event.keyCode === 75) {
+        if (sidebarNavigation.current) {
+          setCurrentListIndex((prevIndex) => {
+            return prevIndex > 0 ? prevIndex - 1 : allLists.length - 1;
+          });
+        } else {
+          setCurrentItemIndex((prevIndex) => {
+            return prevIndex > 0 ? prevIndex - 1 : allLists.length - 1;
+          });
+        }
+        // toggle options menu [o]
+      } else if (event.keyCode === 79) {
+        setSettingsDropdown((prevSetting) => {
+          return !prevSetting;
         });
-      } else if (event.keyCode === 74) {
-        setCurrentListIndex((prevIndex) => {
-          return prevIndex > 0 ? prevIndex - 1 : allLists.length - 1;
-        });
+        // switch navigation modes [i]
+      } else if (event.keyCode === 73) {
+        sidebarNavigation.current = !sidebarNavigation.current;
       }
     };
     window.addEventListener("keydown", handleNavigation);
@@ -354,6 +378,7 @@ export default function Workspace({ darkMode, allData, setAllData }) {
                   deleteCompletedTaskHandler={deleteCompletedTaskHandler}
                   completeTaskHandler={completeTaskHandler}
                   unCompleteTaskHandler={unCompleteTaskHandler}
+                  sidebarNavigation={sidebarNavigation.current}
                 />
               ) : null}
               {allLists[currentListIndex].type === "notes" ? (
