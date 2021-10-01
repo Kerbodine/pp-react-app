@@ -157,7 +157,9 @@ export default function WorkspaceNotes({
           }}
           key={[darkMode, currentItem]}
           id="tinymce-editor"
-          onEditorChange={handleUpdate}
+          onEditorChange={(value, editor) => {
+            handleUpdate(value, editor);
+          }}
           initialValue={currentItem.content}
           apiKey="9jz5ulzyll0jkomjnscn6f2rm725w3kuuu6eoay5e974vhm7"
           init={{

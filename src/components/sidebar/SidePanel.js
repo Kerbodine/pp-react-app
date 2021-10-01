@@ -76,6 +76,9 @@ export default function SidePanel({
   };
 
   const dueInCalculator = (dueDate) => {
+    if (dueDate === null) {
+      return null;
+    }
     let timeDifference = dueDate - Date.now();
     let dayDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
     if (dayDifference < 0) {
@@ -121,7 +124,7 @@ export default function SidePanel({
                       title={task.title}
                       completed={task.completed}
                       pinned={task.pinned}
-                      description={task.description === "" ? false : true}
+                      description={task.description ? true : false}
                       today={task.today}
                       important={task.important}
                       starred={task.starred}
