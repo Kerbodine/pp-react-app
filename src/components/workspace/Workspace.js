@@ -202,21 +202,17 @@ export default function Workspace({ darkMode, allData, setAllData }) {
     setAllLists(temp);
   };
 
-  // useEffect(() => {
-  //   setReminderData(allLists);
-  // }, [allLists]);
-
-  // useEffect(() => {
-  //   setReminderListIndex(currentListIndex);
-  // }, [currentListIndex]);
-
   const [editorLoading, setEditorLoading] = useState(true);
 
   const updateNote = (noteProperties) => {
-    let tempTask = noteProperties;
-    let temp = allLists;
-    temp[currentListIndex] = tempTask;
-    setAllLists(temp);
+    let tempNote = noteProperties;
+    allLists.forEach((list, i) => {
+      if (list.id === tempNote.id) {
+        let temp = allLists;
+        temp[i] = tempNote;
+        setAllLists([...temp]);
+      }
+    });
   };
 
   const [newPageMenu, setNewPageMenu] = useState(false);
@@ -267,6 +263,8 @@ export default function Workspace({ darkMode, allData, setAllData }) {
   useEffect(() => {
     setAllData(allLists);
   }, [allLists]);
+
+  console.log(allLists);
 
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
@@ -344,6 +342,7 @@ export default function Workspace({ darkMode, allData, setAllData }) {
               {allLists[currentListIndex].type === "notes" ? (
                 <WorkspaceNotes
                   key={currentListIndex}
+                  allData={allData}
                   currentItem={allLists[currentListIndex]}
                   updateTagHandler={updateTagHandler}
                   editorRef={editorRef}

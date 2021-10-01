@@ -73,7 +73,7 @@ export default function SideTask({
         className={`mx-2 w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-primary-300 dark:bg-primary-800 dark:text-white dark:hover:bg-primary-600 text-black text-2xl ${
           taskPinned ? "!bg-primary-400 dark:!bg-primary-500 text-white" : ""
         }`}
-        aria-label="delete task"
+        aria-label="pin task"
         onClick={togglePinned}
       >
         <BiPin />

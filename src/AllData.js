@@ -111,7 +111,7 @@ export const workspaceData = [
     today: true,
     important: true,
     starred: true,
-    pinned: false,
+    pinned: true,
   },
   {
     type: "notes",
@@ -125,7 +125,7 @@ export const workspaceData = [
     today: false,
     important: false,
     starred: false,
-    pinned: false,
+    pinned: true,
   },
   {
     type: "notes",

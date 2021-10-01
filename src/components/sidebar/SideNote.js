@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   BiCalendarExclamation,
-  BiCheck,
   BiDetail,
   BiPin,
   BiStar,
@@ -11,7 +10,6 @@ import {
 export default function SideNote({
   id,
   title,
-  completed,
   pinned,
   description,
   today,
@@ -22,8 +20,6 @@ export default function SideNote({
   color,
 }) {
   const [taskPinned, setTaskPinned] = useState(pinned);
-
-  const togglePinned = () => [setTaskPinned(!taskPinned)];
 
   useEffect(() => {
     updateComponent(id, taskPinned);
@@ -46,8 +42,10 @@ export default function SideNote({
         className={`mx-2 w-8 h-8 flex items-center justify-center rounded-md bg-primary-100 hover:bg-primary-300 dark:bg-primary-800 dark:text-white dark:hover:bg-primary-600 text-black text-2xl ${
           taskPinned ? "!bg-primary-400 dark:!bg-primary-500 text-white" : ""
         }`}
-        aria-label="delete task"
-        onClick={togglePinned}
+        aria-label="pin task"
+        onClick={() => {
+          setTaskPinned(!taskPinned);
+        }}
       >
         <BiPin />
       </button>

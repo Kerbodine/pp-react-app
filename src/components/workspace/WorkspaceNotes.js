@@ -12,6 +12,7 @@ import TagList from "./TagList";
 import settingsContext from "../settings/SettingsContext";
 
 export default function WorkspaceNotes({
+  allData,
   currentItem,
   updateTagHandler,
   editorRef,
@@ -45,6 +46,10 @@ export default function WorkspaceNotes({
       pinned: pinned,
     });
   }, [today, important, starred, pinned]);
+
+  useEffect(() => {
+    setPinned(currentItem.pinned);
+  }, [allData]);
 
   return (
     <div className="w-full h-full px-8">
@@ -121,7 +126,7 @@ export default function WorkspaceNotes({
           className={`ml-2 flex-none w-8 h-8 flex items-center justify-center rounded-md bg-primary-200 hover:bg-primary-300 dark:bg-primary-700 dark:text-white dark:hover:bg-primary-600 text-black text-2xl ${
             pinned ? "!bg-primary-400 dark:!bg-primary-500 text-white" : ""
           }`}
-          aria-label="delete task"
+          aria-label="pin task"
           onClick={() => {
             setPinned(!pinned);
           }}

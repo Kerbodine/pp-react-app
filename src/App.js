@@ -86,6 +86,8 @@ function App() {
 
   const [allData, setAllData] = useState(workspaceData);
 
+  console.log(allData);
+
   return (
     <div className="App">
       <UserProvider value={{ userData: userData, setData: setUserData }}>
@@ -144,8 +146,8 @@ function App() {
                           credits={credits}
                           setCredits={setCredits}
                           setTimerComplete={setTimerComplete}
-                          reminderData={allData}
-                          setReminderData={setAllData}
+                          allData={allData}
+                          setAllData={setAllData}
                         />
                       </div>
                     </Router>

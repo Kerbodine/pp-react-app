@@ -14,12 +14,13 @@ import SideTaskList from "./SideTaskList";
 import settingsContext from "../settings/SettingsContext";
 
 import { useLocation } from "react-router-dom";
+import SideNote from "./SideNote";
 
 export default function SidePanel({
   onClick,
   setTimerComplete,
-  reminderData,
-  setReminderData,
+  allData,
+  setAllData,
 }) {
   const location = useLocation();
 
@@ -30,34 +31,45 @@ export default function SidePanel({
 
   const { data } = useContext(settingsContext);
 
-  const [allReminders, setAllReminders] = useState([...reminderData]);
   const [taskList, setTaskList] = useState([]);
 
   const updateTaskHandler = (id, pinned) => {
-    allReminders
-      .filter((item) => item.type === "reminders")
-      .forEach((list, i) =>
+    allData.forEach((list, i) => {
+      if (list.type === "reminders") {
         list.tasks.forEach((task, j) => {
           if (task.id === id) {
-            let temp = allReminders;
+            let temp = allData;
             temp[i].tasks[j].pinned = pinned;
-            setAllReminders([...temp]);
+            setAllData([...temp]);
           }
-        })
-      );
+        });
+      }
+    });
+  };
+
+  const updateNoteHandler = (id, pinned) => {
+    allData.forEach((note, i) => {
+      if (note.type === "notes") {
+        if (note.id === id) {
+          let temp = allData;
+          temp[i].pinned = pinned;
+          setAllData([...temp]);
+        }
+      }
+    });
   };
 
   const completeTaskHandler = (id) => {
-    allReminders
+    allData
       .filter((item) => item.type === "reminders")
       .map((list, i) =>
         list.tasks.forEach((task, j) => {
           if (task.id === id) {
-            let temp = allReminders;
+            let temp = allData;
             let tempTask = task;
             temp[i].tasks.splice(j, 1);
-            temp[i].completed = [...allReminders[i].completed, tempTask];
-            setAllReminders([...temp]);
+            temp[i].completed = [...allData[i].completed, tempTask];
+            setAllData([...temp]);
           }
         })
       );
@@ -95,7 +107,7 @@ export default function SidePanel({
 
   useEffect(() => {
     setTaskList(
-      allReminders
+      allData
         .map((item, index) => {
           switch (item.type) {
             case "reminders":
@@ -114,25 +126,37 @@ export default function SidePanel({
                       important={task.important}
                       starred={task.starred}
                       dueIn={dueInCalculator(task.dueDate)}
-                      color={allReminders[index].color}
+                      color={allData[index].color}
                       updateComponent={updateTaskHandler}
                       completeTaskHandler={completeTaskHandler}
                     />
                   );
                 });
             case "notes":
-              return [];
+              if (item.pinned === true) {
+                return (
+                  <SideNote
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    pinned={item.pinned}
+                    today={item.today}
+                    important={item.important}
+                    starred={item.starred}
+                    color={allData[index].color}
+                    updateComponent={updateNoteHandler}
+                  />
+                );
+              } else {
+                return [];
+              }
             default:
               return [];
           }
         })
         .filter((item) => item.length !== 0)
     );
-  }, [allReminders, reminderData]);
-
-  useEffect(() => {
-    setReminderData(allReminders);
-  }, [allReminders]);
+  }, [allData]);
 
   return (
     <div className={`${active ? "visible" : "hidden"}`}>
