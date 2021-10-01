@@ -144,7 +144,7 @@ export default function WorkspaceNotes({
           Pin note
         </ReactTooltip>
       </div>
-      <div className="w-full mt-4 h-[calc(100%-206px)] rounded-2xl overflow-hidden">
+      <div className="w-full mt-4 h-[calc(100%-206px)] rounded-md overflow-hidden">
         {editorLoading ? (
           <div className="w-full h-full flex items-center justify-center">
             <BiLoaderAlt className="text-4xl text-black dark:text-white animate-spin" />

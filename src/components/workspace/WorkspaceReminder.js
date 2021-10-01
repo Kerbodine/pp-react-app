@@ -39,7 +39,9 @@ export default function WorkspaceReminder({
               updateComponent={updateTaskHandler}
               deleteTask={deleteTaskHandler}
               completeTaskHandler={completeTaskHandler}
-              selected={index === currentItemIndex && !sidebarNavigation}
+              selected={
+                index === currentItemIndex && !sidebarNavigation.current
+              }
             />
           </div>
         );
@@ -71,19 +73,19 @@ export default function WorkspaceReminder({
         );
       })
     );
-  }, [allData, currentItemIndex, sidebarNavigation]);
+  }, [allData, currentItemIndex]);
 
   useEffect(() => {
     const handleNavigation = (event) => {
-      // increment navigation index [arrow-down] [j]
-      if (event.keyCode === 40 || event.keyCode === 74) {
+      // increment navigation index [arrow-down]
+      if (event.keyCode === 40) {
         if (!sidebarNavigation.current) {
           setCurrentItemIndex((prevIndex) => {
             return (prevIndex + 1) % currentItem.tasks.length;
           });
         }
         // decrement navigation index [arrow-up] [k]
-      } else if (event.keyCode === 38 || event.keyCode === 75) {
+      } else if (event.keyCode === 38) {
         if (!sidebarNavigation.current) {
           setCurrentItemIndex((prevIndex) => {
             return prevIndex > 0 ? prevIndex - 1 : currentItem.tasks.length - 1;
@@ -96,8 +98,6 @@ export default function WorkspaceReminder({
       window.removeEventListener("keydown", handleNavigation);
     };
   }, []);
-
-  console.log(currentItemIndex);
 
   return (
     <>

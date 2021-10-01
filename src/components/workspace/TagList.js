@@ -63,7 +63,7 @@ export default function TagList({ tags, updateTagHandler }) {
         : ""}
 
       <div
-        className={`h-auto w-auto flex rounded-full overflow-hidden text-2xl bg-primary-200 dark:bg-primary-700 hover:bg-accent-400 dark:hover:bg-accent-400 text-black hover:text-white dark:text-white`}
+        className={`h-auto w-auto flex rounded-md overflow-hidden text-2xl bg-primary-200 dark:bg-primary-700 hover:bg-accent-400 dark:hover:bg-accent-400 text-black hover:text-white dark:text-white`}
       >
         <input
           ref={tagRef}

@@ -269,36 +269,46 @@ export default function Workspace({ darkMode, allData, setAllData }) {
 
   useEffect(() => {
     const handleNavigation = (event) => {
-      // increment navigation index [arrow-down] [j]
-      if (event.keyCode === 40 || event.keyCode === 74) {
-        if (sidebarNavigation.current) {
-          setCurrentListIndex((prevIndex) => {
-            return (prevIndex + 1) % allLists.length;
+      switch (event.keyCode) {
+        case 40: // move down navigation [down-arrow]
+          if (sidebarNavigation.current) {
+            setCurrentListIndex((prevIndex) => {
+              return (prevIndex + 1) % allLists.length;
+            });
+          } else {
+            setCurrentItemIndex((prevIndex) => {
+              return (prevIndex + 1) % allLists.length;
+            });
+          }
+          break;
+        case 38: // move up navigation [up-arrow]
+          if (sidebarNavigation.current) {
+            setCurrentListIndex((prevIndex) => {
+              return prevIndex > 0 ? prevIndex - 1 : allLists.length - 1;
+            });
+          } else {
+            setCurrentItemIndex((prevIndex) => {
+              return prevIndex > 0 ? prevIndex - 1 : allLists.length - 1;
+            });
+          }
+          break;
+        case 79: // toggle settings panel [o]
+          setSettingsDropdown((prevSetting) => {
+            return !prevSetting;
           });
-        } else {
-          setCurrentItemIndex((prevIndex) => {
-            return (prevIndex + 1) % allLists.length;
-          });
-        }
-        // decrement navigation index [arrow-up] [k]
-      } else if (event.keyCode === 38 || event.keyCode === 75) {
-        if (sidebarNavigation.current) {
-          setCurrentListIndex((prevIndex) => {
-            return prevIndex > 0 ? prevIndex - 1 : allLists.length - 1;
-          });
-        } else {
-          setCurrentItemIndex((prevIndex) => {
-            return prevIndex > 0 ? prevIndex - 1 : allLists.length - 1;
-          });
-        }
-        // toggle options menu [o]
-      } else if (event.keyCode === 79) {
-        setSettingsDropdown((prevSetting) => {
-          return !prevSetting;
-        });
-        // switch navigation modes [i]
-      } else if (event.keyCode === 73) {
-        sidebarNavigation.current = !sidebarNavigation.current;
+          break;
+        case 9:
+          event.preventDefault();
+          sidebarNavigation.current = !sidebarNavigation.current;
+          break;
+        case 39: // activate sidebar navigation
+          sidebarNavigation.current = false;
+          break;
+        case 37: // activate task navigation
+          sidebarNavigation.current = true;
+          break;
+        default:
+          break;
       }
     };
     window.addEventListener("keydown", handleNavigation);
@@ -378,7 +388,7 @@ export default function Workspace({ darkMode, allData, setAllData }) {
                   deleteCompletedTaskHandler={deleteCompletedTaskHandler}
                   completeTaskHandler={completeTaskHandler}
                   unCompleteTaskHandler={unCompleteTaskHandler}
-                  sidebarNavigation={sidebarNavigation.current}
+                  sidebarNavigation={sidebarNavigation}
                 />
               ) : null}
               {allLists[currentListIndex].type === "notes" ? (

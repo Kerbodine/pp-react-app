@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   BiSun,
   BiStar,
@@ -44,8 +44,9 @@ export default function WorkspaceReminderItem({
   const [taskStarred, setTaskStarred] = useState(starred);
   const [taskDropDown, setTaskDropdown] = useState(expanded);
   const [taskPinned, setTaskPinned] = useState(pinned);
-
   const [hover, setHover] = useState(false);
+  const titleInput = useRef(null);
+  const descriptionInput = useRef(null);
 
   const titleChangeHandler = (e) => {
     setTaskTitle(e.target.value);
@@ -63,11 +64,31 @@ export default function WorkspaceReminderItem({
     setTaskPinned(pinned);
   }, [pinned]);
 
-  const toggleTodayHandler = () => [setTaskToday(!taskToday)];
-  const toggleImportantHandler = () => [setTaskImportant(!taskImportant)];
-  const toggleStarredHandler = () => [setTaskStarred(!taskStarred)];
-  const toggleDetailsDropdown = () => [setTaskDropdown(!taskDropDown)];
-  const togglePinned = () => [setTaskPinned(!taskPinned)];
+  const toggleTodayHandler = () => {
+    setTaskToday((prev) => {
+      return !prev;
+    });
+  };
+  const toggleImportantHandler = () => {
+    setTaskImportant((prev) => {
+      return !prev;
+    });
+  };
+  const toggleStarredHandler = () => {
+    setTaskStarred((prev) => {
+      return !prev;
+    });
+  };
+  const toggleDetailsDropdown = () => {
+    setTaskDropdown((prev) => {
+      return !prev;
+    });
+  };
+  const togglePinned = () => {
+    setTaskPinned((prev) => {
+      return !prev;
+    });
+  };
 
   useEffect(() => {
     updateComponent({
@@ -109,15 +130,38 @@ export default function WorkspaceReminderItem({
 
   useEffect(() => {
     const handleNavigation = (event) => {
-      // increment navigation index [return]
-      if (event.keyCode === 13) {
-        if (selected) {
-          setDisplayComplete(!displayComplete);
+      if (
+        selected &&
+        document.activeElement !== titleInput.current &&
+        document.activeElement !== descriptionInput.current
+      ) {
+        switch (event.keyCode) {
+          case 13: // mark task as complete [return]
+            setDisplayComplete(!displayComplete);
+            break;
+          case 80: // pin task [p]
+            togglePinned();
+            break;
+          case 46: // delete task [del]
+            deleteTask(id);
+            break;
+          case 49: // toggle my day button [1]
+            toggleTodayHandler();
+            break;
+          case 50: // toggle important button [2]
+            toggleImportantHandler();
+            break;
+          case 51: // toggle starred button [3]
+            toggleStarredHandler();
+            break;
+          default:
+            break;
         }
       }
     };
     window.addEventListener("keydown", handleNavigation);
     return () => {
+      // un-focus all elements when selected task is changed
       window.removeEventListener("keydown", handleNavigation);
     };
   }, [selected]);
@@ -164,6 +208,7 @@ export default function WorkspaceReminderItem({
       <div className="text-black dark:text-white flex-auto flex flex-col">
         <div className="flex items-center h-8 gap-2">
           <input
+            ref={titleInput}
             placeholder="Untitled task"
             type="text"
             value={taskTitle}
@@ -209,6 +254,7 @@ export default function WorkspaceReminderItem({
           } w-full h-auto mt-2 flex gap-2`}
         >
           <textarea
+            ref={descriptionInput}
             placeholder="Add a description..."
             value={taskDescription}
             onChange={descriptionChangeHandler}
