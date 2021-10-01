@@ -29,7 +29,15 @@ export default function SideNote({
     <div className="w-full h-16 bg-primary-200 dark:bg-primary-700 rounded-md flex items-center text-black dark:text-white overflow-hidden">
       <div className={`bg-${color}-400 w-2 h-full`}></div>
       <div className="ml-4 my-4 flex flex-col">
-        <h3 className="text-lg w-32 truncate -mb-1">{title}</h3>
+        <h3 className="text-lg w-32 truncate -mb-1">
+          {title ? (
+            title
+          ) : (
+            <span className="text-primary-400 dark:text-primary-500">
+              Untitled
+            </span>
+          )}
+        </h3>
         <div className="flex text-primary-500 dark:text-primary-400 items-center">
           {description ? <BiDetail /> : null}
           {today ? <BiSun /> : null}

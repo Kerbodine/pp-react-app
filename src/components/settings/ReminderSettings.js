@@ -11,7 +11,7 @@ export default function ReminderSettings() {
             <h1 className="text-4xl font-bold mb-4">Reminders</h1>
             <h2 className="font-semibold text-xl mb-1">Categories</h2>
             <SettingsLine
-              caption="Show today category"
+              caption="Show my day category"
               onClick={() => {
                 settings.setData({
                   ...settings.data,

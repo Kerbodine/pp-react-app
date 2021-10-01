@@ -3,6 +3,17 @@ import { UserConsumer } from "../../UserContext";
 import { SettingsConsumer } from "../settings/SettingsContext";
 
 export default function SideGreeting() {
+  let message;
+  var today = new Date();
+  let time = today.getHours();
+  if (time < 12) {
+    message = "Good morning,";
+  } else if (time < 18) {
+    message = "Good afternoon,";
+  } else {
+    message = "Good evening,";
+  }
+
   return (
     <UserConsumer>
       {(user) => {
@@ -16,7 +27,9 @@ export default function SideGreeting() {
                   }`}
                 >
                   <div className="my-4">
-                    <p className="mx-4 text-xl">Hello,</p>
+                    <p className="mx-4 text-lg text-primary-500 dark:text-primary-400">
+                      {message}
+                    </p>
                     <p className="mx-4 text-3xl font-bold">
                       {user.userData.username}
                     </p>

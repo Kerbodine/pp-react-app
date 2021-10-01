@@ -46,7 +46,7 @@ export default function WorkspaceSidebar({
           <WorkspaceCategory
             path="/today"
             icon={<BiSun />}
-            title="Today"
+            title="My day"
             color="blue"
           />
         </Link>

@@ -215,7 +215,7 @@ export default function WorkspaceReminderItem({
               place="bottom"
               backgroundColor="#4b5563"
             >
-              Add to today
+              Add to my day
             </ReactTooltip>
             <button
               className={`w-8 h-8 flex items-center justify-center bg-primary-100 dark:bg-primary-800 dark:text-white text-black text-2xl ${

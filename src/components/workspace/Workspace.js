@@ -264,6 +264,25 @@ export default function Workspace({ darkMode, allData, setAllData }) {
     setAllData(allLists);
   }, [allLists]);
 
+  useEffect(() => {
+    const handleNavigation = (event) => {
+      if (event.keyCode === 75) {
+        console.log(currentListIndex);
+        setCurrentListIndex((prevIndex) => {
+          return (prevIndex + 1) % allLists.length;
+        });
+      } else if (event.keyCode === 74) {
+        setCurrentListIndex((prevIndex) => {
+          return prevIndex > 0 ? prevIndex - 1 : allLists.length - 1;
+        });
+      }
+    };
+    window.addEventListener("keydown", handleNavigation);
+    return () => {
+      window.removeEventListener("keydown", handleNavigation);
+    };
+  }, []);
+
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
       <div className="my-4 w-full">
