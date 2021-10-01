@@ -1,7 +1,7 @@
 import { BiFile, BiListUl } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
 
-export const allData = [
+export const workspaceData = [
   {
     id: uuidv4(),
     type: "reminders",

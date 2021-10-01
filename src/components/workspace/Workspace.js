@@ -10,8 +10,8 @@ import WorkspaceReminder from "./WorkspaceReminder";
 import WorkspaceNotes from "./WorkspaceNotes";
 import NewPageModal from "../ui/NewPageModal";
 
-export default function Workspace({ darkMode, allData }) {
-  const [allLists, setAllLists] = useState(allData);
+export default function Workspace({ darkMode, allData, setAllData }) {
+  const [allLists, setAllLists] = useState([...allData]);
   const [currentListIndex, setCurrentListIndex] = useState(0);
   const [settingsDropdown, setSettingsDropdown] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -264,6 +264,10 @@ export default function Workspace({ darkMode, allData }) {
     setCurrentListIndex(allLists.length);
   };
 
+  useEffect(() => {
+    setAllData(allLists);
+  }, [allLists]);
+
   return (
     <div className="h-screen flex bg-primary dark:bg-primary-900">
       <div className="my-4 w-full">
@@ -326,7 +330,7 @@ export default function Workspace({ darkMode, allData }) {
               {allLists[currentListIndex].type === "reminders" ? (
                 <WorkspaceReminder
                   key={currentListIndex}
-                  allLists={allLists}
+                  allData={allData}
                   currentItem={allLists[currentListIndex]}
                   toggleShowCompleted={toggleShowCompleted}
                   newTaskHandler={newTaskHandler}

@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   BiCalendarExclamation,
   BiLoaderAlt,
+  BiPin,
   BiStar,
   BiSun,
 } from "react-icons/bi";
@@ -116,6 +117,27 @@ export default function WorkspaceNotes({
             Add to starred
           </ReactTooltip>
         </div>
+        <button
+          className={`ml-2 flex-none w-8 h-8 flex items-center justify-center rounded-md bg-primary-200 hover:bg-primary-300 dark:bg-primary-700 dark:text-white dark:hover:bg-primary-600 text-black text-2xl ${
+            pinned ? "!bg-primary-400 dark:!bg-primary-500 text-white" : ""
+          }`}
+          aria-label="delete task"
+          onClick={() => {
+            setPinned(!pinned);
+          }}
+          data-tip
+          data-for="pinTask"
+        >
+          <BiPin />
+        </button>
+        <ReactTooltip
+          id="pinTask"
+          effect="solid"
+          place="bottom"
+          backgroundColor="#4b5563"
+        >
+          Pin note
+        </ReactTooltip>
       </div>
       <div className="w-full mt-4 h-[calc(100%-206px)] rounded-2xl overflow-hidden">
         {editorLoading ? (

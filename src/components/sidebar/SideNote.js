@@ -8,7 +8,7 @@ import {
   BiSun,
 } from "react-icons/bi";
 
-export default function SideTask({
+export default function SideNote({
   id,
   title,
   completed,
@@ -18,25 +18,12 @@ export default function SideTask({
   important,
   starred,
   dueIn,
-  completeTaskHandler,
   updateComponent,
   color,
 }) {
-  const [displayComplete, setDisplayComplete] = useState(completed);
   const [taskPinned, setTaskPinned] = useState(pinned);
 
   const togglePinned = () => [setTaskPinned(!taskPinned)];
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (!completed && displayComplete) {
-        completeTaskHandler(id);
-      }
-    }, 500);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [displayComplete, completed]);
 
   useEffect(() => {
     updateComponent(id, taskPinned);
@@ -45,20 +32,6 @@ export default function SideTask({
   return (
     <div className="w-full h-16 bg-primary-200 dark:bg-primary-700 rounded-md flex items-center text-black dark:text-white overflow-hidden">
       <div className={`bg-${color}-400 w-2 h-full`}></div>
-      <div className="mx-2 relative">
-        <div
-          className="w-6 h-6 my-1 rounded-md border-2 border-primary-400 dark:border-primary-500 flex items-center justify-center"
-          onClick={() => setDisplayComplete(!displayComplete)}
-        >
-          <div
-            className={`${
-              displayComplete ? "visible" : "hidden"
-            } text-2xl text-white bg-accent-400 rounded-md`}
-          >
-            <BiCheck />
-          </div>
-        </div>
-      </div>
       <div className="flex flex-col">
         <h3 className="text-lg w-32 truncate -mb-1">{title}</h3>
         <div className="flex text-primary-500 dark:text-primary-400 items-center">

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { userDataTemplate } from "./UserData";
 import { userSettingsTemplate } from "./UserSettings";
-import { allData } from "./AllData";
+import { workspaceData } from "./AllData";
 import Navbar from "./components/navbar/Navbar";
 import Extras from "./components/Extras";
 import SettingsPage from "./components/settings/SettingsPage";
@@ -84,6 +84,8 @@ function App() {
   //   console.log("Supports desktop notifications");
   // }
 
+  const [allData, setAllData] = useState(workspaceData);
+
   return (
     <div className="App">
       <UserProvider value={{ userData: userData, setData: setUserData }}>
@@ -130,6 +132,7 @@ function App() {
                                   remindersListIndex={remindersListIndex}
                                   setReminderListIndex={setReminderListIndex}
                                   allData={allData}
+                                  setAllData={setAllData}
                                 />
                               )}
                             />
@@ -141,8 +144,8 @@ function App() {
                           credits={credits}
                           setCredits={setCredits}
                           setTimerComplete={setTimerComplete}
-                          reminderData={[]}
-                          setReminderData={() => {}}
+                          reminderData={allData}
+                          setReminderData={setAllData}
                         />
                       </div>
                     </Router>

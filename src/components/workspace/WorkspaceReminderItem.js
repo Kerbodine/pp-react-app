@@ -184,7 +184,7 @@ export default function WorkspaceReminderItem({
             place="bottom"
             backgroundColor="#4b5563"
           >
-            Pin task to sidebar
+            Pin task
           </ReactTooltip>
         </div>
         <div

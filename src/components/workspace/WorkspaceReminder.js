@@ -4,7 +4,7 @@ import ReactTooltip from "react-tooltip";
 import WorkspaceReminderItem from "./WorkspaceReminderItem";
 
 export default function WorkspaceReminder({
-  allLists,
+  allData,
   currentItem,
   toggleShowCompleted,
   newTaskHandler,
@@ -67,7 +67,7 @@ export default function WorkspaceReminder({
         );
       })
     );
-  }, [allLists]);
+  }, [allData]);
 
   return (
     <>
